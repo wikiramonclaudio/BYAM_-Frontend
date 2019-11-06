@@ -1,0 +1,41 @@
+<!-- <div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h1>BYAM APuestas</h1>
+      </div>
+    </div>
+  </div>
+</div> -->
+<div class="row">
+  <div class="col-lg-6 col-xs-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title text-center">Estás activo en las siguientes mesas:</h4>
+        <ul style="list-style:none;" class="list-icons d-flex justify-content-center pl-0">
+          <!-- <li><a [routerLink]="['/doctors']" ><i class="fa fa-check text-info"></i> Ganar dinero</a></li>        -->
+          <li *ngFor="let table of tables" class="home-match d-flex flex-column mr-2 ml-2 p-2" [routerLink]="['/table', table._id]" routerLinkActive="router-link-active" >            
+            <span><b>Tipo:</b>{{table.type}}</span>            
+            <span><b>Apuesta:</b>{{table.betamount}}</span>            
+            <span><b>Total:</b>{{table.totalamount}}</span>            
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-xs-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title text-center">Además..</h4>
+        <ul style="list-style:none;" class="list-icons">
+          <li><a><i class="fa fa-check text-info"></i> Chatear con otros jugadores</a></li>
+          <li><a><i class="fa fa-check text-info"></i> Comerte mis cagaos</a>
+          </li>
+          <li><a><i class="fa fa-check text-info"></i> Consultar estadísticas de tu interés
+            </a></li>
+          <!-- <li><a href="javascript:void(0)"><i class="fa fa-check text-info"></i> Gestionar usuarios </a></li> -->
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

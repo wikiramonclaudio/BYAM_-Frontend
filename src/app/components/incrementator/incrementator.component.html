@@ -1,0 +1,34 @@
+<h3>{{legend}}</h3>
+
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <button
+      (click)="changeValue(-5)"
+      class="btn btn-outline-primary"
+      type="button"
+      id="button-addon2"
+    >
+      <i class="mdi mdi-minus"></i>
+    </button>
+  </div>
+  <input
+    type="number"
+    min="1"
+    max="200"    
+    class="form-control"
+    name="progress"
+    #txtProgress
+    [(ngModel)]="progress"
+    (ngModelChange)="onChange($event)"
+  />
+  <div class="input-group-append">
+    <button
+      (click)="changeValue(+5)"
+      class="btn btn-outline-primary"
+      type="button"
+      id="button-addon2"
+    >
+      <i class="mdi mdi-plus"></i>
+    </button>
+  </div>
+</div>

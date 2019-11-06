@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-4">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Usuarios</h4>
+        <table class="table table-hover">
+          <tbody>
+            <tr *ngFor="let user of users" [routerLink]="['/users']" class="pointer" .pit>
+              <td style="width:70px;">
+                <img class="img-fluid img-circle rounded" [src]="user.img | image : 'users'" alt="">
+              </td>
+              <td>{{user.name}}</td>              
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="users.length == 0" class="alert alert-info">No hay resultados</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Hospitales</h4>
+        <table class="table table-hover">
+          <tbody>
+            <tr *ngFor="let hospital of hospitals" [routerLink]="['/hospitals']" clsss="pointer">
+              <td style="width:70px;">
+                <img class="img-fluid img-circle rounded" [src]="hospital.img | image : 'hospitals'" alt="">
+              </td>
+              <td>{{hospital.name}}</td>           
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="hospitals.length == 0" class="alert alert-info">No hay resultados</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Médicos</h4>
+        <table class="table table-hover">
+          <tbody>
+            <tr *ngFor="let doctor of doctors" [routerLink]="['/doctor', doctor._id]" clsss="pointer">
+              <td style="width:70px;">
+                <img class="img-fluid img-circle rounded" [src]="doctor.img | image : 'doctors'" alt="">
+              </td>
+              <td>{{doctor.name}}</td>             
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="doctors.length == 0" class="alert alert-info">No hay resultados</div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="row animated fadeIn">
+  <div class="col-lg-7">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Perfil de usuario</h4>
+        <h6 class="card-subtitle">{{user.name}}</h6>
+        <form ngNativeValidate #f="ngForm" (ngSubmit)="save( f.value )" class="form p-t-20">
+          <div class="form-group">
+            <label for="exampleInputuname">Nombre de usuario</label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="ti-user"></i></div>              
+              <input type="text" [ngModel]="user.name" name="name" class="form-control" required placeholder="Nombre de usuario">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email de usuario</label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="ti-email"></i></div>
+              <input type="email" [ngModel]="user.email" [disabled]="user.google" name="email" required class="form-control" placeholder="Email">              
+            </div>
+          </div>
+          <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">
+            <i class="fa fa-save"></i>
+            Guardar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-5">
+    <div class="card">
+      <div class="card-body" align="center">
+        <h4 class="card-title">Fotografía de usuario</h4>
+        <h6 class="card-subtitle">{{user.name}}</h6>
+        <img [src]="user.image | image" *ngIf="!provisionalImg" style="width: 150px;">        
+        <img [src]="provisionalImg" *ngIf="provisionalImg" style="width: 150px;">        
+
+        <input type="file" name="file" (change)="selectImage($event.target.files[0])" id="">
+        <br><br>
+        <button (click)="updateImage()" [disabled]="!fileToUpload" type="submit" class="btn btn-block btn-success waves-effect waves-light m-r-10">
+          <i class="fa fa-save"></i>
+          Actualizar imagen de perfil</button>
+      </div>
+    </div>
+  </div>
+</div>

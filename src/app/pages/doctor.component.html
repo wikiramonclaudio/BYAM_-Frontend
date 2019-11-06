@@ -1,0 +1,43 @@
+<div class="row animated fadeIn">
+  <div class="col-md-6">
+    <div class="card card-body">
+      <h3 class="box-title m-b-0">Médico: {{doctor.name}}</h3>
+      <!-- <p class="text-muted m-b-30 font-13"> Bootstrap Elements </p> -->
+      <div class="row">
+        <div class="col-sm-12 col-xs-12">
+          <form #f="ngForm" ngNativeValidate (ngSubmit)="saveDoctor(f)">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Nombre</label>
+              <input [ngModel]="doctor.name" name="name" type="text" required class="form-control" placeholder="Nombre del médico">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Hospital</label>
+              <select [(ngModel)]="doctor.hospital" name="hospital" required class="form-control" (change)="changeHospital(doctor.hospital)">
+                <option value="">Seleccione un hospital</option>
+                <option *ngFor="let hospital of hospitals" value="{{hospital._id}}" >{{hospital.name}}</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">
+              <i class="fa fa-save"></i>
+              Guardar
+            </button>
+            <button [routerLink]="['/doctors']" class="btn btn-inverse waves-effect waves-light">Volver</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card card-body">
+      <h4 class="card-title">{{selectedHosp.name}}</h4>
+      <img [src]="selectedHosp.img | image : 'hospitals'" class="rounded img-fluid">
+    </div>
+  </div>
+  <div class="col-md-3" *ngIf="doctor._id">
+    <div class="card card-body">
+      <h4 class="card-title">Imagen</h4>
+      <img [src]="doctor.img | image : 'doctors'" class="rounded img-circle" class="rounded img-fluid pointer" (click)="changePicture()">
+    </div>
+  </div>
+</div>
