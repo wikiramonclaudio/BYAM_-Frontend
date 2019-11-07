@@ -1,5 +1,5 @@
+
 import { RouterModule, Routes } from "@angular/router";
-import { PagesComponent } from "./pages.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { Graficas1Component } from "./graficas1/graficas1.component";
 import { ProgressComponent } from './progress/progress.component';
@@ -9,9 +9,6 @@ import { RxjsComponent } from "./rxjs/rxjs.component";
 import { LoginGuardGuard, AdminGuard, ChecktokenGuard } from "../services/service.index";
 import { ProfileComponent } from "./profile/profile.component";
 import { UsersComponent } from "./users/users.component";
-import { HospitalsComponent } from "./hospitals/hospitals.component";
-import { DoctorsComponent } from "./doctors/doctors.component";
-import { DoctorComponent } from "./doctor.component";
 import { SearchComponent } from "./search/search.component";
 import { TableComponent } from './table/table/table.component';
 import { CreateTableComponent } from './create-table/create-table.component';
@@ -32,12 +29,10 @@ const pagesRoutes : Routes = [
             { path : 'profile/:id', canActivate: [LoginGuardGuard, ChecktokenGuard], component : ProfileComponent, data: { title:'Perfil de usuario'}},
             { path : 'search/:term', canActivate: [LoginGuardGuard, ChecktokenGuard], component : SearchComponent, data: { title:'Buscador'}},
             { path : 'settings', canActivate: [LoginGuardGuard, ChecktokenGuard], component : AccountSettingsComponent, data: { title:'Ajustes'}},
-            { path : 'add-table', canActivate: [LoginGuardGuard, ChecktokenGuard], component : CreateTableComponent, data: { title:'Crear mesa de juego'}},
+            { path : 'add-table', canActivate: [LoginGuardGuard, ChecktokenGuard], component : CreateTableComponent, data: { title:'Crear mesa de juego'}},            
             
             //MANTENIMIENTOS
             { canActivate: [AdminGuard], path : 'users', component : UsersComponent, data: { title:'Mantenimiento de usuarios'}},
-            // { path : 'hospitals', component : HospitalsComponent, data: { title:'Mantenimiento de Hospitales'}},
-            // { path : 'doctors', component : DoctorsComponent, data: { title:'Mantenimiento de Médicos'}},
              { path : 'table/:id', component : TableComponent, data: { title:'Mesa de juego'}},
             // { path : 'chat', component : ChatComponent, data: { title:'Chat'}},
             { path : '', redirectTo : '/dashboard', pathMatch : 'full', data: { title:'Dashboard'}},  

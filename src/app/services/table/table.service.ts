@@ -34,7 +34,7 @@ export class TableService {
     return this._http.delete(url);
   }
 
-  createTable(table: any, token: string) {
+  createTable(table: any) {
     let params = JSON.stringify(table);
     let url = URL_SERVICES + '/table'+ '?token=' + localStorage.getItem('token');    
     let headers = new HttpHeaders().set('Content-Type', 'application/json');

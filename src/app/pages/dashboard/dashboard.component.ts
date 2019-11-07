@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/services/service.index';
 import { Component, OnInit } from '@angular/core';
 import { TableService } from 'src/app/services/table/table.service';
 import { Table } from 'src/app/models/table.model';
@@ -10,7 +11,8 @@ import { Table } from 'src/app/models/table.model';
 export class DashboardComponent implements OnInit {
   tables: Table[];
   constructor(
-    private tableService: TableService
+    private tableService: TableService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {

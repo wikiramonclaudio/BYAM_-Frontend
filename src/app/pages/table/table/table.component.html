@@ -1,32 +1,93 @@
 <!-- <p>table works!</p> -->
 <div class="row">
-    <div class="col-lg-6 col-xs-12">
-        <div class="card">
-            <div class="card-body table-body">
-                <div class="d-flex flex-column">
-                    <div class="d-flex align-items-center">
-                        <a href="javascript:void(0);" [routerLink]="['/profile', owner._id]" routerLinkActive="router-link-active" >
-                            <img [src]="owner.image | image" width="50" class="mr-2 rounded-circle" alt="">
-                            <span>{{owner.name}}</span>
-                        </a>
-                        <span class="badge badge-pill badge-primary ml-5 pt-2 pb-2" style="font-size:100%;">{{table.betamount}}€</span>
-                        <span class="fa fa-soccer-ball-o ml-3 fa-2x"></span>
-                    </div>
-                </div>
-                <hr>
-                <div class="d-flex align-items-center">
-                    <ul class="table-users-list d-flex flex-column">
-                        <li>Joseluis</li>
-                        <li>Rodrigales</li>
-                        <li>Tornices</li>
-                    </ul>                    
-                    <h3 class="total-prize badge-pill badge-success ml-5 px-5" style="line-height: 75px;font-weight: bold;">{{table.totalamount}}€</h3>                                      
-                </div>
-                <button class="btn btn-secondary">
-                    <i class="fa fa-plus mr-1"></i>
-                    <span>Unirme a la mesa</span>
-                </button>
-            </div>
+  <div class="col-lg-6 col-xs-12">
+    <div class="card">
+      <div class="card-body table-body">
+        <div class="d-flex flex-column">
+          <div class="d-flex align-items-center">
+            <a href="javascript:void(0);" [routerLink]="['/profile', owner._id]" routerLinkActive="router-link-active">
+              <img [src]="owner.image | image" width="50" class="mr-2 rounded-circle" alt="">
+              <span>{{owner.name}}</span>
+            </a>
+            <span class="badge badge-pill badge-primary ml-5 pt-2 pb-2"
+              style="font-size:100%;">{{table.betamount}}€</span>
+            <span class="fa fa-soccer-ball-o ml-3 fa-2x" *ngIf="table.type == 'Futbol'"></span>
+            <i class="fa fa-basketball-ball ml-3 fa-2x" [hidden]="table.type != 'Baloncesto'" *ngIf="table.type == 'Baloncesto'"></i>                    
+          </div>
         </div>
+        <hr>
+        <div class="d-flex align-items-center">
+          <ul class="table-users-list d-flex flex-column" style="list-style:none;">
+            <li *ngFor="let subscription of tableSubscriptions" class="mt-2">
+              <img [src]="subscription.player.image | image" alt="" width="30" class="mr-2 rounded-circle">
+              <span>{{subscription.player.name}}</span>
+            </li>
+          </ul>
+          <h3 class="total-prize badge-pill badge-success ml-5 px-5" style="line-height: 75px;font-weight: bold;">
+            {{totalAmount}}€</h3>
+        </div>
+        <button class="btn btn-secondary" *ngIf="!checkSubscription()">
+          <i class="fa fa-plus mr-1"></i>
+          <span (click)="subscribeToTable()">Unirme a la mesa</span>
+        </button>
+      </div>
     </div>
+  </div>
+  <div class="col-lg-6 col-xs-12">
+    <h4>Partidos de la mesa</h4>
+    <hr>
+    <ul class="list-group">        
+      <li class="list-group-item" *ngFor="let matchByTable of matchesByTable">
+        <a href="javascript:void(0)" style="color: inherit;">
+          <span>{{matchByTable.match.localteam}}</span>
+          <span class="ml-2">VS</span>
+          <span class="ml-2">{{matchByTable.match.awayteam}}</span>
+          <span class="ml-2" style="font-size: 13px; color: #ccc2c2;">{{matchByTable.match.when | date: 'short'}}</span>
+        </a>
+      </li>
+    </ul>
+    <button class="btn btn-info mt-3" data-toggle="modal" data-target="#addMatchModal" (click)="getMatches()" *ngIf="userService.user._id == owner._id">
+      <i class="fa fa-plus mr-2"></i>
+      <span>Añadir partidos</span>
+    </button>
+  </div>
+</div>
+
+
+<!-- AÑADIR PARTIDOS -->
+<div class="modal" id="addMatchModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Añadir partidos</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="card">
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let match of matches" [ngClass]="{'active': match.selected}"
+              (click)="toggleSelected(match)">
+              <a href="javascript:void(0)" style="color: inherit;">
+                <span>{{match.localteam}}</span>
+                <span class="ml-2">VS</span>
+                <span class="ml-2">{{match.awayteam}}</span>
+                <span class="ml-2" style="font-size: 13px; color: #ccc2c2;">{{match.when | date: 'short'}}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="saveMatches()">Añadir
+          partidos</button>
+      </div>
+    </div>
+  </div>
 </div>

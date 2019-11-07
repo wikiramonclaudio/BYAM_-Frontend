@@ -8,6 +8,7 @@ export class Table {
         //no mandatory fields
         public chat?: boolean,
         public totalamount?: string,
+        public name?: string,
         public type?: string,
         public winner?: string,
         public _id?: string

@@ -1,25 +1,45 @@
-<!-- <div class="row">
-  <div class="col-12">
-    <div class="card">
-      <div class="card-body">
-        <h1>BYAM APuestas</h1>
-      </div>
-    </div>
-  </div>
-</div> -->
+
 <div class="row">
   <div class="col-lg-6 col-xs-12">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title text-center">Estás activo en las siguientes mesas:</h4>
-        <ul style="list-style:none;" class="list-icons d-flex justify-content-center pl-0">
-          <!-- <li><a [routerLink]="['/doctors']" ><i class="fa fa-check text-info"></i> Ganar dinero</a></li>        -->
-          <li *ngFor="let table of tables" class="home-match d-flex flex-column mr-2 ml-2 p-2" [routerLink]="['/table', table._id]" routerLinkActive="router-link-active" >            
-            <span><b>Tipo:</b>{{table.type}}</span>            
-            <span><b>Apuesta:</b>{{table.betamount}}</span>            
-            <span><b>Total:</b>{{table.totalamount}}</span>            
-          </li>
-        </ul>
+        <div class="panel-group">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title card-title text-center">
+                <a data-toggle="collapse" href="#activeTables">
+                  Ver mesas activas
+                </a>
+              </h4>
+            </div>
+            <div id="activeTables" class="panel-collapse collapse">
+              <ul class="list-group">
+                <li *ngFor="let table of tables" class="home-match mr-2 ml-2 p-2 list-group-item mt-3"
+                  [routerLink]="['/table', table._id]" routerLinkActive="router-link-active">
+                  <span>{{table.name}}</span>      
+                  <i class="fa fa-basketball-ball" [hidden]="table.type != 'Baloncesto'" *ngIf="table.type == 'Baloncesto'"></i>  
+                  <i class="fa fa-soccer-ball-o ml-3"  [hidden]="table.type != 'Futbol'" *ngIf="table.type == 'Futbol'"></i>  
+                            
+                  <!-- <span><b>Apuesta:</b>{{table.betamount}}</span>             -->
+                  <!-- <span><b>Total:</b>{{table.totalamount}}</span>     -->
+
+                  <!-- <span class="badge badge-info badge-pill ml-3">
+                    <i class="fa fa-user mr-2"></i>
+                    {{table.betamount}}€
+                  </span> -->
+                  <span class="badge badge-primary badge-pill float-right">{{table.betamount}}€</span>
+                  <a href="javascript:void(0)" *ngIf="userService.user._id == table.owner" class="float-left mr-4">
+                      <i class="fa fa-trash"></i>                    
+                    </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <a class="btn btn-success mt-3" [routerLink]="[ '/add-table']">
+          <i class="fa fa-plus mr-2"></i>
+          <span>Crear nueva mesa</span>
+        </a>
       </div>
     </div>
   </div>

@@ -8,7 +8,6 @@ import { PAGES_ROUTES } from './pages.routes';
 //ng2 charts
 import { ChartsModule } from 'ng2-charts';
 
-
 // import { PagesComponent } from "./pages.component";
 import { Graficas1Component } from "./graficas1/graficas1.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
@@ -24,13 +23,12 @@ import { ProfileComponent } from './profile/profile.component';
 import { CommonModule } from "@angular/common";
 import { UsersComponent } from './users/users.component';
 // import { UploadWindowComponent } from '../components/upload-window/upload-window.component';
-import { HospitalsComponent } from './hospitals/hospitals.component';
-import { DoctorsComponent } from './doctors/doctors.component';
-import { DoctorComponent } from './doctor.component';
 import { SearchComponent } from './search/search.component';
 import { ChatComponent } from '../components/chat/chat.component';
 import { TableComponent } from './table/table/table.component';
 import { CreateTableComponent } from './create-table/create-table.component';
+import { CreateMatchComponent } from './table/create-match/create-match.component';
+import { EditTableComponent } from './edit-table/edit-table/edit-table.component';
 
 
 @NgModule({
@@ -39,7 +37,7 @@ import { CreateTableComponent } from './create-table/create-table.component';
         Graficas1Component,
         // PagesComponent,
         ProgressComponent,  
-        IncrementatorComponent, GraficoDonaComponent, AccountSettingsComponent, PromesasComponent, RxjsComponent, ProfileComponent, UsersComponent, HospitalsComponent, DoctorsComponent, DoctorComponent, SearchComponent, ChatComponent, TableComponent, CreateTableComponent
+        IncrementatorComponent, GraficoDonaComponent, AccountSettingsComponent, PromesasComponent, RxjsComponent, ProfileComponent, UsersComponent, SearchComponent, ChatComponent, TableComponent, CreateTableComponent, CreateMatchComponent, EditTableComponent
     ],
     exports: [
         // PagesComponent,
