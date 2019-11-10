@@ -1,0 +1,88 @@
+<div class="row">
+  <div class="col-lg-6 col-xs-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title text-center">Nuevo tipo de apuesta</h4>
+        <hr>
+        <form (ngSubmit)="createBetType()" class="form-horizontal form-material">
+          <div class="form-group">
+            <div class="col-xs-12">
+              <input class="form-control" type="text" required placeholder="Nombre" [(ngModel)]="betType.name"
+                name="name">
+            </div>
+          </div>
+          <!-- <div class="form-group">
+            <div class="col-xs-12">
+              <input class="form-control" type="text" required placeholder="Opcion 1" [(ngModel)]="betTypeOption.name"
+                name="name">
+            </div>
+          </div> -->
+          <a href="javascript:void(0)" class="btn btn-info" data-toggle="modal" data-target="#addOptionsModal" (click)="getOptions()">
+            <i class="fa fa-plus mr-2"></i>
+            <span>Añadir Opciones</span>
+          </a>
+          <br>
+          <button class="btn btn-success mt-4" type="submit">Guardar tipo de apuesta</button>          
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-6 col-xs-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title text-center">Nueva opcion para tipo de apuesta</h4>
+        <hr>
+        <form (ngSubmit)="createBetTypeOption()" class="form-horizontal form-material">
+          <div class="form-group">
+            <div class="col-xs-12">
+              <input class="form-control" type="text" required placeholder="Equipo local"
+                [(ngModel)]="betTypeOption.name" name="name">
+            </div>
+          </div>
+          <button class="btn btn-success">Guardar opción</button>
+          <!-- {{tableForm.errors | json}} -->
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" id="addOptionsModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Añadir opciones</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="card">
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let option of betTypeOptions" [ngClass]="{'active': option.selected}"
+              (click)="toggleSelected(option)">
+              <a href="javascript:void(0)" style="color: inherit;">
+                <span>{{option.name}}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="saveOptions()">Añadir
+          opciones</button>
+      </div>
+    </div>
+  </div>
+</div>

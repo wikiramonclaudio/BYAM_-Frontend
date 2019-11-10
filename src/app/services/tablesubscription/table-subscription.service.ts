@@ -39,8 +39,7 @@ export class SubscriptionTableService {
     let url = URL_SERVICES + '/table-subscription'+ '?token=' + localStorage.getItem('token');    
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.post(url, params, { headers: headers })
-    .map((res: any)=>{
-      swal("SubscriptionTable registrado", " " + tablesubscription.name, "success");
+    .map((res: any)=>{      
       return res.tablesubscription;
     });
   }
@@ -48,8 +47,7 @@ export class SubscriptionTableService {
   searchSubscriptionTable(term: string){
     let url = URL_SERVICES + '/search/collection/tablesubscription/' + term;
     return this._http.get(url).map(
-      (response: any)=>{        
-        console.log(response);
+      (response: any)=>{                
         return response.tablesubscription;
       }
     )

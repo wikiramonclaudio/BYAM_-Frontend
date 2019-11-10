@@ -4,29 +4,29 @@
       <div class="card-body">
         <h4 class="card-title text-center">CREAR MESA</h4>
         <hr>
-        <form class="form-horizontal form-material" id="loginform">
+        <form class="form-horizontal form-material">
           <div class="form-group ">
             <div class="col-xs-12">
-              <input class="form-control" type="text" required placeholder="Nombre de la mesa"
-                [(ngModel)]="table.name" name="name">
+              <input class="form-control" type="text" required placeholder="Nombre de la mesa" [(ngModel)]="table.name"
+                name="name" #name="ngModel">
             </div>
           </div>
           <div class="form-group ">
             <div class="col-xs-12">
               <input class="form-control" type="text" required placeholder="Limite usuarios"
-                [(ngModel)]="table.userslimit" name="userslimit">
+                [(ngModel)]="table.userslimit" name="userslimit" #userslimit="ngModel">
             </div>
           </div>
           <div class="form-group ">
             <div class="col-xs-12">
               <input class="form-control" type="text" required placeholder="Apuesta" [(ngModel)]="table.betamount"
-                name="betamount">
+                name="betamount" #betamount="ngModel">
             </div>
           </div>
           <div class="form-group ">
             <div class="col-xs-12">
               <div class="checkbox checkbox-primary p-t-0">
-                <input id="checkbox-signup" type="checkbox" [(ngModel)]="table.chat" name="chat">
+                <input id="checkbox-signup" type="checkbox" [(ngModel)]="table.chat" name="chat" #chat="ngModel">
                 <label for="checkbox-signup">Activar chat</label>
               </div>
             </div>
@@ -34,104 +34,87 @@
           <div class="form-group ">
             <div class="col-xs-12">
               <input class="form-control" type="text" required placeholder="Deporte" [(ngModel)]="table.type"
-                name="type">
+                name="type" #type="ngModel">
             </div>
           </div>
-          <!-- {{tableForm.errors | json}} -->
-
+          <div class="for-group">
+            <div class="col-xs-12">
+              <h5><span class="badge badge-info">Para crear la mesa debes añadir al menos dos partidos </span></h5>
+            </div>
+          </div>
+          <div class="for-group mt-3">
+            <div class="col-xs-12">
+              <span class="">Partidos añadidos </span>  
+              <span class="badge badge-success">{{getSelectedMatches().length}}</span>
+            </div>
+          </div>
         </form>
 
-        <button class="btn btn-info" data-toggle="modal" data-target="#addMatchModal" (click)="getMatches()">
+        <div class="matches mb-2" *ngIf="selectedMatches.length>0">
+          <div *ngFor="let match of selectedMatches">
+            <span>
+              {{match.localteam}}
+            </span>
+            <span class="ml-2">VS</span>
+            <span class="ml-2">{{match.awayteam}}</span>
+          </div>
+        </div>
+        <button class="btn btn-success mt-4" data-toggle="modal" (click)="getBetTypes()">
           <i class="fa fa-plus mr-2"></i>
           <span>Añadir partidos</span>
         </button>
       </div>
     </div>
   </div>
+  <div class="col-lg-6 col-xs-12" *ngIf="betTypesLoaded">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title text-center">Partidos disponibles</h4>
+        <hr>
+        <div class="panel-group">
+          <div class="panel panel-default" *ngFor="let match of matches; let i=index">
+            <div class="panel-heading">
+              <h4 class="panel-title card-title text-center">
+                <a data-toggle="collapse" [href]="'#'+match._id">
+                  <span>{{match.localteam}}</span>
+                  <span class="ml-2">VS</span>
+                  <span class="ml-2">{{match.awayteam}}</span>
+                  <span class="ml-2" style="font-size: 13px; color: #ccc2c2;">{{match.when | date: 'short'}}</span>
+                </a>
+              </h4>
+            </div>
+            <div [id]="match._id" class="panel-collapse collapse">
+              <form class="form-horizontal form-material">
+                <div class="form-group ">
+                  <div class="col-xs-12">
+                    <select id="inputState" class="form-control" name="betType" name="betType{{i}}"
+                      [(ngModel)]="betTypeValues[i]">
+                      <option>Selecciona el tipo de apuesta</option>
+                      <option *ngFor="let betType of betTypes; let in=index;" [ngValue]="betType">
+                        {{betType.name}}
+                      </option>
+                    </select>
+                    <button class="btn btn-success mt-3 mb-3 float-right"
+                      (click)="saveMatch(match, betTypeValues[i])">Añadir partido</button>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
 <!-- <app-create-match></app-create-match> -->
 <div class="row">
   <div class="col-lg-6 col-xs-12">
     <div class="card">
       <div class="card-body">
         <button class="btn btn-success" (click)="createTable()" type="submit">Crear mesa</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-<!-- <div class="form-group row">
-                <div class="col-md-12">
-                    <div class="checkbox checkbox-primary p-t-0">
-                    <input id="checkbox-signup" type="checkbox" [(ngModel)]="conditions" name="conditions">
-                    <label for="checkbox-signup"> Acepto los <a href="#">Términos y condiciones</a></label>
-                    </div>
-                </div>
-                </div> -->
-
-<!-- <div class="form-group m-t-20">
-                    <div class="col-xs-12">
-                        <input class="form-control" type="text" required placeholder="Competición" [(ngModel)]="tournament" name="tournament">
-                    </div>
-                </div>
-                <div class="form-group ">
-                    <div class="col-xs-12">
-                        <input class="form-control" type="text" required placeholder="Equipo local" [(ngModel)]="localteam" name="localteam">
-                    </div>
-                </div>
-                <div class="form-group ">
-                    <div class="col-xs-12">
-                        <input class="form-control" type="text" required placeholder="Equipo visitante" [(ngModel)]="awayteam" name="awayteam">
-                    </div>
-                </div>
-                <div class="form-group ">
-                    <div class="col-xs-12">
-                        <input class="form-control" type="date" required placeholder="Fecha" [(ngModel)]="date" name="date">
-                    </div>
-                </div>
-                <div class="form-group ">
-                    <div class="col-xs-12">
-                        <input class="form-control" type="text" required placeholder="Lugar" [(ngModel)]="where" name="where">
-                    </div>
-                </div> -->
-
-
-
-<div class="modal" id="addMatchModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Añadir partidos</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-        <div class="card">
-          <ul class="list-group">
-            <li class="list-group-item" *ngFor="let match of matches" [ngClass]="{'active': match.selected}"
-              (click)="toggleSelected(match)">
-              <a href="javascript:void(0)" style="color: inherit;">
-                <span>{{match.localteam}}</span>
-                <span class="ml-2">VS</span>
-                <span class="ml-2">{{match.awayteam}}</span>
-                <span class="ml-2" style="font-size: 13px; color: #ccc2c2;">{{match.when | date: 'short'}}</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="saveMatches()">Añadir
-          partidos</button>
       </div>
     </div>
   </div>

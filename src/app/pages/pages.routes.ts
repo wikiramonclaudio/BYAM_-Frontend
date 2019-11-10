@@ -1,4 +1,5 @@
-
+import { CreateBetTypeComponent } from './create-bettype/create-bet-type/create-bet-type.component';
+import { CreateMatchComponent } from './table/create-match/create-match.component';
 import { RouterModule, Routes } from "@angular/router";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { Graficas1Component } from "./graficas1/graficas1.component";
@@ -30,12 +31,14 @@ const pagesRoutes : Routes = [
             { path : 'search/:term', canActivate: [LoginGuardGuard, ChecktokenGuard], component : SearchComponent, data: { title:'Buscador'}},
             { path : 'settings', canActivate: [LoginGuardGuard, ChecktokenGuard], component : AccountSettingsComponent, data: { title:'Ajustes'}},
             { path : 'add-table', canActivate: [LoginGuardGuard, ChecktokenGuard], component : CreateTableComponent, data: { title:'Crear mesa de juego'}},            
+            { path : 'add-match', canActivate: [LoginGuardGuard, ChecktokenGuard], component : CreateMatchComponent, data: { title:'Crear nuevo partido'}},            
+            { path : 'add-bet-type', canActivate: [LoginGuardGuard, ChecktokenGuard], component : CreateBetTypeComponent, data: { title:'Crear tipo de apuesta'}},            
             
             //MANTENIMIENTOS
             { canActivate: [AdminGuard], path : 'users', component : UsersComponent, data: { title:'Mantenimiento de usuarios'}},
              { path : 'table/:id', component : TableComponent, data: { title:'Mesa de juego'}},
-            // { path : 'chat', component : ChatComponent, data: { title:'Chat'}},
-            { path : '', redirectTo : '/dashboard', pathMatch : 'full', data: { title:'Dashboard'}},  
+             { path : '', redirectTo : '/dashboard', pathMatch : 'full', data: { title:'Dashboard'}} 
+             // { path : 'chat', component : ChatComponent, data: { title:'Chat'}},
     //     ]
 
     // }

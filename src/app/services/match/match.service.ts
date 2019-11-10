@@ -80,4 +80,9 @@ export class MatchService {
     let url = URL_SERVICES + '/matchesbytable/' + tableId;    
     return this._http.get(url);
   }
+
+  getSpanishMatches(){
+    let url = URL_SERVICES + '/matches';    
+    return this._http.get(url);
+  }
 }

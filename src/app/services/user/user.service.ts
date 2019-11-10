@@ -135,6 +135,11 @@ export class UserService {
     return this._http.get(url);
   }
 
+  getUser(userId: string): Observable<any>{
+    let url = URL_SERVICES + '/user/' + userId + '?token=' + this.token;       
+    return this._http.get(url);
+  }
+
   searchUser(term: string){
     let url = URL_SERVICES + '/search/collection/user/' + term;
     return this._http.get(url).map(

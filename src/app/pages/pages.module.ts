@@ -29,6 +29,7 @@ import { TableComponent } from './table/table/table.component';
 import { CreateTableComponent } from './create-table/create-table.component';
 import { CreateMatchComponent } from './table/create-match/create-match.component';
 import { EditTableComponent } from './edit-table/edit-table/edit-table.component';
+import { CreateBetTypeComponent } from './create-bettype/create-bet-type/create-bet-type.component';
 
 
 @NgModule({
@@ -37,7 +38,7 @@ import { EditTableComponent } from './edit-table/edit-table/edit-table.component
         Graficas1Component,
         // PagesComponent,
         ProgressComponent,  
-        IncrementatorComponent, GraficoDonaComponent, AccountSettingsComponent, PromesasComponent, RxjsComponent, ProfileComponent, UsersComponent, SearchComponent, ChatComponent, TableComponent, CreateTableComponent, CreateMatchComponent, EditTableComponent
+        IncrementatorComponent, GraficoDonaComponent, AccountSettingsComponent, PromesasComponent, RxjsComponent, ProfileComponent, UsersComponent, SearchComponent, ChatComponent, TableComponent, CreateTableComponent, CreateMatchComponent, EditTableComponent, CreateBetTypeComponent
     ],
     exports: [
         // PagesComponent,

@@ -1,5 +1,3 @@
-
-
 export class Match {
     constructor(
         //mandatory fields
