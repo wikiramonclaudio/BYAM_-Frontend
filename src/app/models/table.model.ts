@@ -11,6 +11,7 @@ export class Table {
         public name?: string,
         public type?: string,
         public winner?: string,
+        public published?: boolean,
         public _id?: string
     ) {
     }

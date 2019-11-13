@@ -32,7 +32,7 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-6 col-xs-12" *ngIf="!this.checkSubscription()">
+  <div class="col-lg-6 col-xs-12" *ngIf="!checkSubscription()">
     <div class="card">
       <div class="card-body table-body">
         <h4>Apuestas de la mesa</h4>
@@ -75,16 +75,20 @@
             <hr>
           </div>
         </div>
-        <button class="btn btn-info mt-3" data-toggle="modal" data-target="#addMatchModal" (click)="getMatches()"
+        <button class="btn btn-secondary" *ngIf="!checkSubscription()">
+          <i class="fa fa-plus mr-1"></i>
+          <span (click)="subscribeToTable()">Unirme a la mesa</span>
+        </button>
+        <!-- <button class="btn btn-info mt-3" data-toggle="modal" data-target="#addMatchModal" (click)="getMatches()"
           *ngIf="userService.user._id == owner._id">
           <i class="fa fa-plus mr-2"></i>
           <span>Añadir partidos</span>
-        </button>
+        </button> -->
       </div>
     </div>
   </div>
 
-  <div class="col-lg-6 col-xs-12" *ngIf="this.checkSubscription()">
+  <div class="col-lg-6 col-xs-12" *ngIf="checkSubscription()">
     <div class="card">
       <div class="card-body table-body">
         <h4 class="text-center" *ngIf="selectedUser._id == userService.user._id">Mis apuestas</h4>
@@ -101,7 +105,7 @@
                   <span class="ml-2"
                     style="font-size: 13px; color: #ccc2c2;">{{matchByTable.match.when | date: 'short'}}</span>
                 </a>
-              </h4>
+              </h4>              
             </div>
             <div [id]="matchByTable._id" class="panel-collapse collapse">
               <span>{{matchByTable.bettype.name}}</span>
@@ -135,12 +139,7 @@
         </button>
       </div>
     </div>
-  </div>
-
-  <button class="btn btn-secondary" *ngIf="!checkSubscription()">
-    <i class="fa fa-plus mr-1"></i>
-    <span (click)="subscribeToTable()">Unirme a la mesa</span>
-  </button>
+  </div>  
 </div>
 
 

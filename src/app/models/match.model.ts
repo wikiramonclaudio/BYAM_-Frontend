@@ -7,6 +7,7 @@ export class Match {
         public where: string,
         public tournament: string,
         public table: string,
+        public result?: string,
         public selected?: boolean
     ) {
     }

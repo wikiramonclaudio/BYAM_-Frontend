@@ -84,4 +84,15 @@ export class ForecastService {
     return this._http.get(url);
   }
 
+  checkForecastResult(choice: any, matchId: string){
+    console.log('SERVICIO FORECAST CHOICE', choice);
+    console.log('SERVICIO FORECAST MATCHID', matchId);
+    let params = JSON.stringify(choice);
+    let url = URL_SERVICES + '/forecast/checkresult/' + matchId;  
+    //revisar token
+    // url += '?token=' + localStorage.getItem('token'); 
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.put(url, params, { headers: headers });    
+  }
+
 }

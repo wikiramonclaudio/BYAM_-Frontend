@@ -1,20 +1,20 @@
-import { ForecastService } from './../../../services/forecast/forecast.service';
-import { Forecast } from './../../../models/forecast.model';
-import { MatchTypeRelationService } from './../../../services/matchTypeRelation/match-type-relation.service';
-import { MatchByTable } from 'src/app/models/matchbytable.model';
-import { MatchService } from './../../../services/match/match.service';
-import { TableSubscription } from './../../../models/tablesubscription.model';
 import { SubscriptionTableService } from './../../../services/tablesubscription/table-subscription.service';
+import { ForecastService } from './../../../services/forecast/forecast.service';
+import { MatchTypeRelationService } from './../../../services/matchTypeRelation/match-type-relation.service';
+import { MatchService } from './../../../services/match/match.service';
+import { UserService } from 'src/app/services/service.index';
+import { BetService } from 'src/app/services/bet/bet.service';
+import { Forecast } from './../../../models/forecast.model';
+import { MatchByTable } from 'src/app/models/matchbytable.model';
+import { TableSubscription } from './../../../models/tablesubscription.model';
 import { Component, OnInit } from '@angular/core';
 import { TableService } from 'src/app/services/table/table.service';
 import { ActivatedRoute } from '@angular/router';
 import { Table } from 'src/app/models/table.model';
 import { User } from 'src/app/models/user.model';
-import { UserService } from 'src/app/services/service.index';
 import { Match } from 'src/app/models/match.model';
 import { MatchTypeRelation } from 'src/app/models/matchtyperelation';
 import { Bet } from 'src/app/models/bet.model';
-import { BetService } from 'src/app/services/bet/bet.service';
 import swal from 'sweetalert';
 
 @Component({
@@ -97,8 +97,8 @@ export class TableComponent implements OnInit {
     this.subscribeToTableService.getSubscriptionsByTable(this.table._id).subscribe(
       res => {
         this.tableSubscriptions = res.tableSubscriptions;
-        var subsc: TableSubscription = new TableSubscription(this.table.owner, this.table._id);
-        this.tableSubscriptions.unshift(subsc);
+        // var subsc: TableSubscription = new TableSubscription(this.table.owner, this.table._id);
+        // this.tableSubscriptions.unshift(subsc);
         this.totalAmount = Number(this.table.betamount) * this.tableSubscriptions.length;
         if (this.checkSubscription()) {
           this.getBetsByTable(this.userService.user,this.userService.user._id);

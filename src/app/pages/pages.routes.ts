@@ -1,3 +1,5 @@
+import { LivescoresComponent } from './livescores/livescores/livescores.component';
+import { CheckMatchesComponent } from './checkMatches/check-matches/check-matches.component';
 import { CreateBetTypeComponent } from './create-bettype/create-bet-type/create-bet-type.component';
 import { CreateMatchComponent } from './table/create-match/create-match.component';
 import { RouterModule, Routes } from "@angular/router";
@@ -33,6 +35,8 @@ const pagesRoutes : Routes = [
             { path : 'add-table', canActivate: [LoginGuardGuard, ChecktokenGuard], component : CreateTableComponent, data: { title:'Crear mesa de juego'}},            
             { path : 'add-match', canActivate: [LoginGuardGuard, ChecktokenGuard], component : CreateMatchComponent, data: { title:'Crear nuevo partido'}},            
             { path : 'add-bet-type', canActivate: [LoginGuardGuard, ChecktokenGuard], component : CreateBetTypeComponent, data: { title:'Crear tipo de apuesta'}},            
+            { path : 'livescores', component : LivescoresComponent, data: { title:'Resultados en directo'}},            
+            { path : 'set-winner-choices', canActivate: [LoginGuardGuard, ChecktokenGuard], component : CheckMatchesComponent, data: { title:'Revisión de apuestas'}},            
             
             //MANTENIMIENTOS
             { canActivate: [AdminGuard], path : 'users', component : UsersComponent, data: { title:'Mantenimiento de usuarios'}},

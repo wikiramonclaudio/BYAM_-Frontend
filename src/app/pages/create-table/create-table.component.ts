@@ -107,7 +107,8 @@ export class CreateTableComponent implements OnInit {
     });
     this.matchTypeRelService.createManyMatchTypeRelations(this.matchesWithBetType).subscribe(
       res => {
-        console.log('RESPUESTA DEFINITIVA', res);
+        console.log('Mesa creada correctamente', res);
+        this.router.navigate(['/table', this.table._id]);
       }
     )
   }
@@ -129,16 +130,16 @@ export class CreateTableComponent implements OnInit {
     }
   }
 
-  saveMatchesByTable(tableId: string) {
-    this.matchesByTable.forEach((el) => {
-      el.table = tableId;
-    });
-    this.matchService.createManyMatches(this.matchesByTable).subscribe(
-      res => {
-        console.log('EN TEORIA SE GUARDAN PARTIDOS DE ESTA TABLA', res);
-        this.router.navigate(['/table', this.table._id]);
-      }
-    )
-  }
+  // saveMatchesByTable(tableId: string) {
+  //   this.matchesByTable.forEach((el) => {
+  //     el.table = tableId;
+  //   });
+  //   this.matchService.createManyMatches(this.matchesByTable).subscribe(
+  //     res => {
+  //       console.log('EN TEORIA SE GUARDAN PARTIDOS DE ESTA TABLA', res);
+  //       this.router.navigate(['/table', this.table._id]);
+  //     }
+  //   )
+  // }
 
 }
