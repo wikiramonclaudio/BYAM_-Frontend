@@ -6,7 +6,8 @@ export class Forecast {
         public choice: string,
         public bet: string,
         // no mandatory fielda
-        public winnerchoice?: string
+        public winnerchoice?: string,
+        finished?: boolean
     ) {
     }
 }  

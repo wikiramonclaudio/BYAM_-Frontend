@@ -7,6 +7,7 @@ export class User {
         public password: string,
         //no mandatory fields
         public image?: string,
+        public money?: number,
         public role?: string,
         public google?: boolean,
         public _id?: string

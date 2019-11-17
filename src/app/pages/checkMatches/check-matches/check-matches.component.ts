@@ -61,7 +61,7 @@ export class CheckMatchesComponent implements OnInit {
 
   }
 
-  checkForecastResult(matchByTable: any, matchId: string) {
+  setForecastResult(matchByTable: any, matchId: string) {
     let selectedChoice: any ={};
     if (matchByTable.bettype.option2.selected)
       selectedChoice = matchByTable.bettype.option2;

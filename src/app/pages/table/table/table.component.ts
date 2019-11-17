@@ -23,20 +23,21 @@ import swal from 'sweetalert';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
-  table: Table = new Table('', '', '', false, false);
+  table: any = new Table('', '', '', false, false);
   owner: User = new User('', '', '');
   tableSubscriptions: any[] = [];
   totalAmount: number;
-  subscription: TableSubscription = new TableSubscription('', '');
+  subscription: any = new TableSubscription('', '');
   matchesByTable: MatchByTable[] = [];
   matches: Match[] = [];
   selectedMatches: Match[];
   matchTypeRelations: MatchTypeRelation[] = [];
   forecasts: Forecast[] = [];
   bet: Bet = new Bet('', '');
-  myForecasts: any [] = [];
-  forecastByUser: any [] = [];
-  selectedUser: User = new User('','','','');
+  myForecasts: any[] = [];
+  forecastByUser: any[] = [];
+  selectedUser: User = new User('', '', '', '');
+  deadlineDate: any = '';
   constructor(
     private tableService: TableService,
     private route: ActivatedRoute,
@@ -54,8 +55,8 @@ export class TableComponent implements OnInit {
       res => {
         this.table = res.table;
         this.owner = res.table.owner;
-        this.subscription.table = res.table._id;
-        this.subscription.player = this.userService.user._id;
+        this.subscription.table = res.table;
+        this.subscription.player = this.userService.user;
         this.getSubscriptors();
       }
     );
@@ -72,7 +73,7 @@ export class TableComponent implements OnInit {
 
   subscribeToTable() {
     if (this.getSelectedForecastCount() == this.matchTypeRelations.length) {
-      this.subscribeToTableService.createSubscriptionTable(this.subscription).subscribe(
+      this.subscribeToTableService.createSubscriptionTable(this.subscription, this.table.betamount).subscribe(
         res => {
           let newBet = new Bet(this.table._id, this.userService.user._id)
           this.betService.createBet(newBet).subscribe(
@@ -85,6 +86,7 @@ export class TableComponent implements OnInit {
           )
         },
         err => {
+          swal('No tienes saldo suficiente!', 'Necesitas ' + (this.table.betamount - this.userService.user.money) + ' euros para jugar' , 'error');
           console.log(err);
         }
       )
@@ -97,26 +99,27 @@ export class TableComponent implements OnInit {
     this.subscribeToTableService.getSubscriptionsByTable(this.table._id).subscribe(
       res => {
         this.tableSubscriptions = res.tableSubscriptions;
-        // var subsc: TableSubscription = new TableSubscription(this.table.owner, this.table._id);
-        // this.tableSubscriptions.unshift(subsc);
         this.totalAmount = Number(this.table.betamount) * this.tableSubscriptions.length;
         if (this.checkSubscription()) {
-          this.getBetsByTable(this.userService.user,this.userService.user._id);
+          this.getBetsByTable(this.userService.user, this.userService.user._id);
         } else {
-          this.getFullMatchesByTable(this.table._id);
+          if (!this.table.closed)
+            this.getFullMatchesByTable(this.table._id);
+          else
+            this.getBetsByTable(this.tableSubscriptions[0].player, this.tableSubscriptions[0].player._id);
         }
       }
     )
   }
 
-  getBetsByTable(user: User, userId: string){
+  getBetsByTable(user: User, userId: string) {
     this.selectedUser = user;
     this.betService.getBetsByTable(this.table._id).subscribe(
       res => {
         let myBet = res.bet.find((el) => {
           return el.owner == userId
-        }); 
-        if(myBet)
+        });
+        if (myBet)
           this.getMyBetData(myBet._id);
       }
     )
@@ -124,8 +127,9 @@ export class TableComponent implements OnInit {
 
   getMyBetData(betId: string) {
     this.forecastService.getBetForecasts(betId).subscribe(
-      res => {                 
+      res => {
         this.myForecasts = res.forecast;
+        this.countDown(this.myForecasts);
       }
     )
   }
@@ -143,7 +147,11 @@ export class TableComponent implements OnInit {
   getFullMatchesByTable(tableId: string) {
     this.matchTypeRelationService.getMatchTypeRelationsByTable(tableId).subscribe(
       (res: any) => {
-        this.matchTypeRelations = res.matchTypeRelation;        
+        this.matchTypeRelations = res.matchTypeRelation;
+        var finished = res.matchTypeRelation.filter((match) => {
+          return match.winnerchoice != null && match.winnerchoice != undefined;
+        });
+        this.countDown();
       }
     )
   }
@@ -211,4 +219,55 @@ export class TableComponent implements OnInit {
     return this.forecasts.length;
   }
 
+  countDown(array?: any) {
+
+    var arrayFechas: any[] = [];
+    if (array) {
+      array.forEach((element: any) => {
+        arrayFechas.push(element.match.when)
+      });
+    }
+
+    this.matchTypeRelations.forEach((element: any) => {
+      arrayFechas.push(element.match.when)
+    });
+
+    var earliest = arrayFechas.reduce(function (pre, cur) {
+      return Date.parse(pre) > Date.parse(cur) ? cur : pre;
+    });
+
+    // var deadline = new Date("Jan 5, 2018 15:37:25").getTime();    
+    if (this.table.closed == false) {
+      var x = setInterval(() => {
+        var deadline: any = new Date(earliest).getTime();
+        var now = new Date().getTime();
+        var t = deadline - now;
+        var days: any = Math.floor(t / (1000 * 60 * 60 * 24));
+        var hours: any = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes: any = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds: any = Math.floor((t % (1000 * 60)) / 1000);
+        // document.getElementById("demo").innerHTML = days + "d "
+        //   + hours + "h " + minutes + "m " + seconds + "s ";
+        if (!document.getElementById("day")) {
+          clearInterval(x);
+          return;
+        }
+        document.getElementById("day").innerHTML = days;
+        document.getElementById("hour").innerHTML = hours;
+        document.getElementById("minute").innerHTML = minutes;
+        document.getElementById("second").innerHTML = seconds;
+        this.deadlineDate = 'La mesa cerrará en ' + days + ' días, ' + hours + 'hours, ' + minutes + ' minutos';
+        if (t < 0) {
+          clearInterval(x);
+          this.table.closed = true;
+          this.deadlineDate = 'Mesa cerrada';
+          this.tableService.updateTable(this.table).subscribe(
+            res => {
+              this.ngOnInit();
+            }
+          )
+        }
+      }, 1000);
+    }
+  }
 }

@@ -11,24 +11,27 @@ export class WebsocketService {
 public socketStatus = false;
 public user: any = {};
   constructor(
-    private socket: Socket,
+    public socket: Socket,
     private router: Router,
     private userservice: UserService
   ) {
     this.loadStorage();
     this.checkStatus();
+    this.socket.on('user-conected', (user:any)=>{
+      console.log('ISIARIO CONECTADO', user);
+      console.log(typeof user);
+    });
    }
    
-  checkStatus(){
-    console.log('checkStatus');
-    this.socket.on('connect', ()=>{
-      console.log('conectado al servidor socket');
+  checkStatus(){    
+    this.socket.on('connect', ()=>{           
       this.socketStatus = true;
       this.loadStorage();     
     });
 
     this.socket.on('disconnect', ()=>{
       console.log('desconectado del servidor socket');
+      // this.emit('user-disconnect', {user: this.userservice.user});
       this.socketStatus = false;
     });
   }
@@ -44,9 +47,9 @@ public user: any = {};
   }
 
   // login
-  loginWs(nombre:string){
+  loginWs(user:any){      
     return new Promise( (resolve, reject) => {
-      this.emit('configurar-usuario', {nombre: nombre}, (res, err)=>{                 
+      this.emit('configurar-usuario', {user}, (res, err)=>{                 
           this.user = this.userservice.user;
           this.saveStorage();
           resolve();
@@ -56,13 +59,13 @@ public user: any = {};
   }
 
   saveStorage(){
-    localStorage.setItem('user', JSON.stringify(this.user));
+    localStorage.setItem('user', JSON.stringify(this.user));     
   }
 
   loadStorage(){
     if(localStorage.getItem('user')){
       this.user = JSON.parse(localStorage.getItem('user'));        
-      this.loginWs(this.user.name);
+      this.loginWs(this.user);
     }
   }
 
@@ -76,7 +79,7 @@ public user: any = {};
     const payload = {
       nombre: 'sin-nombre'
     };
-    this.emit('configurar-usuario', payload);
+    // this.emit('configurar-usuario', payload);
     this.router.navigateByUrl('');
   }
 }

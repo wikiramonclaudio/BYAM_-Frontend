@@ -5,20 +5,43 @@
         <div class="d-flex flex-column">
           <div class="d-flex align-items-center">
             <a href="javascript:void(0);" [routerLink]="['/profile', owner._id]" routerLinkActive="router-link-active">
-              <img [src]="owner.image | image" width="50" class="mr-2 rounded-circle" alt="">
-              <span>{{table.name}}</span>
+              <img [src]="owner.image | image" width="30" class="mr-2 rounded-circle" alt="">
+              <span class="ml-2">{{table.name}}</span>                            
+              <i class="fa fa-1x ml-2 text-success" [ngClass]="{'text-danger': table.closed == true, 'fa-unlock-alt' : !table.closed}"></i>              
             </a>
-            <span class="badge badge-pill badge-primary ml-5 pt-2 pb-2"
-              style="font-size:100%;">{{table.betamount}}€</span>
-            <span class="fa fa-soccer-ball-o ml-3 fa-2x" *ngIf="table.type == 'Futbol'"></span>
-            <img class="ml-3" src="./assets/images/basketball.png" *ngIf="table.type == 'Baloncesto'" width="38">
+            <div style="flex:2;"></div>
+            <span class="badge badge-pill badge-primary ml-5 pt-2 pb-2">{{table.betamount}}€</span>
+            <span class="fa fa-soccer-ball-o ml-3" *ngIf="table.type == 'Futbol'"></span>
+            <img class="ml-3" src="./assets/images/basketball.png" *ngIf="table.type == 'Baloncesto'" width="38">                       
           </div>
         </div>
         <hr>
-        <div class="d-flex align-items-center">
-          <ul class="table-users-list d-flex flex-column" style="list-style:none;">
+        <div class="d-flex mb-2" *ngIf="(table.closed == false || !table.closed)">
+          <div class="badge badge-info d-flex mb-2 p-2" >
+            <span class="ml-2 days" id="day"></span>
+            <div class="ml-2 smalltext">Días</div>
+            <span class="ml-2 hours" id="hour"></span>
+            <div class="ml-2 smalltext">Horas</div>
+            <span class="ml-2 minutes" id="minute"></span>
+            <div class="ml-2 smalltext">Minutos</div>
+            <span class="ml-2 seconds" id="second"></span>
+            <div class="ml-2 smalltext">Segundos</div>
+          </div>
+
+          <div class="fa-stack fa-1x hourglass-spin ml-2">
+            <i class="fa fa-stack-1x fa-hourglass-start"></i>
+            <i class="fa fa-stack-1x fa-hourglass-half"></i>
+            <i class="fa fa-stack-1x fa-hourglass-end"></i>
+            <i class="fa fa-stack-1x fa-hourglass-end spin"></i>
+          </div>
+        </div>
+        <div class="badge badge-danger d-flex mb-2 p-2" *ngIf="table.closed == true">
+          Mesa cerrada - Partidos ya en juego
+          <i class="fa fa-lock ml-2"></i>
+        </div>
+        <div class="d-flex align-items-center justify-content-center">
+          <ul class="table-users-list d-flex flex-column pl-0" style="list-style:none;">
             <li *ngFor="let subscription of tableSubscriptions" class="mt-2">
-              <!-- [routerLink]="[ '/profile', subscription.player._id ]" -->
               <a href="javascript:void(0)" (click)="getBetsByTable(subscription.player,subscription.player._id)">
                 <img [src]="subscription.player.image | image" alt="" width="30" class="mr-2 rounded-circle">
                 <span
@@ -32,14 +55,14 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-6 col-xs-12" *ngIf="!checkSubscription()">
+  <div class="col-lg-6 col-xs-12" *ngIf="!checkSubscription() && table.closed == false">
     <div class="card">
       <div class="card-body table-body">
         <h4>Apuestas de la mesa</h4>
         <hr>
         <div class="panel-group">
           <div class="panel panel-default" *ngFor="let matchByTable of matchTypeRelations; let i=index">
-            <div class="panel-heading">
+            <div class="panel-heading" *ngIf="!matchByTable.winnerchoice">            
               <h4 class="panel-title card-title text-center">
                 <a data-toggle="collapse" [href]="'#'+matchByTable._id">
                   <span>{{matchByTable.match.localteam}}</span>
@@ -75,7 +98,7 @@
             <hr>
           </div>
         </div>
-        <button class="btn btn-secondary" *ngIf="!checkSubscription()">
+        <button class="btn btn-secondary" *ngIf="!checkSubscription() && table.closed == false">
           <i class="fa fa-plus mr-1"></i>
           <span (click)="subscribeToTable()">Unirme a la mesa</span>
         </button>
@@ -88,11 +111,11 @@
     </div>
   </div>
 
-  <div class="col-lg-6 col-xs-12" *ngIf="checkSubscription()">
+  <div class="col-lg-6 col-xs-12" *ngIf="checkSubscription() || table.closed == true">
     <div class="card">
       <div class="card-body table-body">
         <h4 class="text-center" *ngIf="selectedUser._id == userService.user._id">Mis apuestas</h4>
-        <h4 class="text-center" *ngIf="selectedUser._id != userService.user._id">Apuestas de {{selectedUser.name}}</h4>
+        <h4 class="text-center" *ngIf="selectedUser && selectedUser._id != userService.user._id">Apuestas de {{selectedUser.name}}</h4>
         <hr>
         <div class="panel-group">
           <div class="panel panel-default" *ngFor="let matchByTable of myForecasts; let i=index">
@@ -103,9 +126,13 @@
                   <span class="ml-2">VS</span>
                   <span class="ml-2">{{matchByTable.match.awayteam}}</span>
                   <span class="ml-2"
-                    style="font-size: 13px; color: #ccc2c2;">{{matchByTable.match.when | date: 'short'}}</span>
+                    style="font-size: 13px; color: #ccc2c2;">{{matchByTable.match.when | date: 'short'}}
+                  </span>
+                  <span class="badge badge-danger p-2 ml-2" *ngIf="matchByTable.winnerchoice">
+                    <i class="fa fa-hourglass-end"></i>
+                  </span>
                 </a>
-              </h4>              
+              </h4>
             </div>
             <div [id]="matchByTable._id" class="panel-collapse collapse">
               <span>{{matchByTable.bettype.name}}</span>
@@ -114,18 +141,22 @@
                 <a href="javascript:void(0)" class="list-group-item list-group-item-action"
                   [ngClass]="{'list-group-item-success': matchByTable.bettype.option1._id == matchByTable.choice._id}"
                   (click)="toggleOption(matchByTable, 1, matchByTable.bettype.option1._id)">
-                  {{matchByTable.bettype.option1.name}}
+                  <span>{{matchByTable.bettype.option1.name}}</span>
+                  <i class="fa fa-check ml-2" *ngIf="matchByTable.bettype.option1._id == matchByTable.winnerchoice"></i>
                 </a>
                 <a href="javascript:void(0)" class="list-group-item list-group-item-action"
                   [ngClass]="{'list-group-item-success': matchByTable.bettype.option2._id == matchByTable.choice._id}"
                   (click)="toggleOption(matchByTable, 2, matchByTable.bettype.option2._id)">
                   {{matchByTable.bettype.option2.name}}
+                  <i class="fa fa-check ml-2" *ngIf="matchByTable.bettype.option2._id == matchByTable.winnerchoice"></i>
                 </a>
                 <a href="javascript:void(0)" class="list-group-item list-group-item-action"
                   *ngIf="matchByTable.bettype.option3"
                   [ngClass]="{'list-group-item-success' : matchByTable.bettype.option3._id == matchByTable.choice._id}"
                   (click)="toggleOption(matchByTable, 3, matchByTable.bettype.option3._id)">
                   {{matchByTable.bettype.option3.name}}
+                  <i class="fa fa-check ml-2"
+                    *ngIf="matchByTable.bettype.option3 && matchByTable.bettype.option3._id == matchByTable.winnerchoice"></i>
                 </a>
               </div>
             </div>
@@ -139,7 +170,7 @@
         </button>
       </div>
     </div>
-  </div>  
+  </div>
 </div>
 
 
@@ -175,33 +206,3 @@
   </div>
 </div>
 
-<!-- DETALLE APUESTAS JUGADOR -->
-<!-- <div class="modal" id="forecastsDetail">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Apuestas del jugador</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-          <div class="card">
-            <ul class="list-group">
-              <li class="list-group-item" *ngFor="let forecast of myForecasts" [ngClass]="{'active': forecast.selected}">
-                <a href="javascript:void(0)" style="color: inherit;">
-                  <span>{{forecast.match.localteam}}</span>
-                  <span class="ml-2">VS</span>
-                  <span class="ml-2">{{forecast.match.awayteam}}</span>
-                  <span class="ml-2" style="font-size: 13px; color: #ccc2c2;">{{forecast.match.when | date: 'short'}}</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>      
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-   -->

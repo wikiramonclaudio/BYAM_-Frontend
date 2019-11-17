@@ -18,7 +18,7 @@ export class TableService {
     public uploadService: UploadFileService
   ) { }
 
-  getTables(): Observable<any>{
+  getTables(filters: any): Observable<any>{
     let url = URL_SERVICES + '/table';    
     return this._http.get(url);
   }

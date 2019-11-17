@@ -1,3 +1,4 @@
+import { TablesComponent } from './tables/tables/tables.component';
 import { LivescoresComponent } from './livescores/livescores/livescores.component';
 import { CheckMatchesComponent } from './checkMatches/check-matches/check-matches.component';
 import { CreateBetTypeComponent } from './create-bettype/create-bet-type/create-bet-type.component';
@@ -36,6 +37,7 @@ const pagesRoutes : Routes = [
             { path : 'add-match', canActivate: [LoginGuardGuard, ChecktokenGuard], component : CreateMatchComponent, data: { title:'Crear nuevo partido'}},            
             { path : 'add-bet-type', canActivate: [LoginGuardGuard, ChecktokenGuard], component : CreateBetTypeComponent, data: { title:'Crear tipo de apuesta'}},            
             { path : 'livescores', component : LivescoresComponent, data: { title:'Resultados en directo'}},            
+            { path : 'tables', component : TablesComponent, data: { title:'Partidas en juego'}},            
             { path : 'set-winner-choices', canActivate: [LoginGuardGuard, ChecktokenGuard], component : CheckMatchesComponent, data: { title:'Revisión de apuestas'}},            
             
             //MANTENIMIENTOS

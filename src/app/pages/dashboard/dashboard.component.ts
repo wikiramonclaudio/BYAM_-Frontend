@@ -1,4 +1,5 @@
-import { UserService } from 'src/app/services/service.index';
+import { UserService } from './../../services/user/user.service';
+import { WebsocketService } from 'src/app/services/websocket.service';
 import { Component, OnInit } from '@angular/core';
 import { TableService } from 'src/app/services/table/table.service';
 import { Table } from 'src/app/models/table.model';
@@ -11,19 +12,20 @@ import { Table } from 'src/app/models/table.model';
 export class DashboardComponent implements OnInit {
   tables: Table[];
   constructor(
-    private tableService: TableService,
-    private userService: UserService
+    private tableService: TableService,    
+    private userService: UserService,
+    private wsService: WebsocketService
   ) { }
 
   ngOnInit() {
-    this.getTables();
+    this.getTables();       
   }
 
   getTables(){
-    this.tableService.getTables().subscribe(res=>{
-      console.log(res);
-      this.tables = res.tables;
+    this.tableService.getTables({}).subscribe(res=>{      
+      this.tables = res.tables;     
     });
+    
   }
 
 }

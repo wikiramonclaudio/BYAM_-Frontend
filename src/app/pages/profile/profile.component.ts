@@ -10,7 +10,7 @@ import swal from 'sweetalert';
 })
 export class ProfileComponent implements OnInit {
 
-  user: User = new User('', '', '', '', '');
+  user: User = new User('', '', '', '', 0);
   fileToUpload: File;
   provisionalImg: any;
   constructor(
