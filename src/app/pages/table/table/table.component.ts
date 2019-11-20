@@ -273,18 +273,17 @@ export class TableComponent implements OnInit {
   }
 
   editTableName(){
-    console.log('owner', this.table.owner);
-    console.log('userservice', this.userService.user._id);
     if(this.table.owner._id == this.userService.user._id){
-      // swal("Importante", "Debes aceptar las condiciones!", "warning");
-      var el: any = {content: "input"};
-      swal("Cambiar nombre de la mesa:", el ).then((value) => {      
-        this.table.name = value;  
-        this.tableService.updateTable(this.table).subscribe(
-          res=>{
-            // this.ngOnInit();
-          }
-        )
+      var el: any = {content: "input", inputValue: this.table.name};
+      swal("Cambiar nombre de la mesa:", el ).then((value) => {  
+        if(value.length>2)    {
+          this.table.name = value;  
+          this.tableService.updateTable(this.table).subscribe(
+            res=>{
+              // this.ngOnInit();
+            }
+          )
+        }
       });;
     }
   }

@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, Validators.required),
       password2: new FormControl( null, Validators.required ),
-      conditions: new FormControl(false),
+      conditions: new FormControl(true),
     },
     { validators: this.comparePassword('password', 'password2') }   
     );

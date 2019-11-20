@@ -1,24 +1,40 @@
+<div class="row row mb-3 mt-0">
+  <div class="col-lg-6 col-xs-12">
+    <h4 class="card-title text-center mb-0">
+      <a href="javascript:void(0);">
+        <img [src]="owner.image | image" width="30" class="mr-2 rounded-circle" alt="">
+        <span class="ml-2 match-title" (click)="editTableName()">{{table.name}}</span>
+        <!-- <span class="fa fa-edit ml-2"></span>  -->
+        <!-- <i class="fa fa-1x ml-2 text-success"
+          [ngClass]="{'text-danger': table.closed == true, 'fa-unlock-alt' : !table.closed}"></i> -->
+      </a>
+    </h4>
+  </div>
+</div>
 <div class="row">
   <div class="col-lg-6 col-xs-12">
     <div class="card">
       <div class="card-body table-body">
         <div class="d-flex flex-column">
           <div class="d-flex align-items-center">
-            <a href="javascript:void(0);" routerLinkActive="router-link-active" (click)="editTableName()">
-              <img [src]="owner.image | image" width="30" class="mr-2 rounded-circle" alt="">
-              <span class="ml-2 match-title">{{table.name}}</span>     
-              <!-- <span class="fa fa-edit ml-2"></span>                        -->
-              <i class="fa fa-1x ml-2 text-success" [ngClass]="{'text-danger': table.closed == true, 'fa-unlock-alt' : !table.closed}"></i>              
-            </a>
-            <div style="flex:2;"></div>            
-            <span class="badge badge-pill badge-primary ml-5 pt-2 pb-2">{{table.betamount}}€</span>
-            <span class="fa fa-soccer-ball-o ml-3" *ngIf="table.type == 'Futbol'"></span>
-            <img class="ml-3" src="./assets/images/basketball.png" *ngIf="table.type == 'Baloncesto'" width="38">                       
+            <!-- <span class="badge badge-pill badge-primary pt-2 pb-2">{{table.betamount}}€</span> -->
+            <span class="badge badge-primary ml-2" style="font-size: 13px;"> {{table.betamount}}€ </span>
+            <span class="badge badge-info fa fa-user ml-2" style="font-size: 13px;"> {{table.activeusers}} </span>
+            <span class="badge badge-light fa fa-trophy ml-2 " style="font-size: 13px;">
+              {{table.activeusers * table.betamount}}€ </span>
+            <span *ngIf="table.closed == true" style="font-size:13px;" class="badge badge-danger ml-2 fa fa-lock">
+              <i class="fa fa-xczc"></i>
+            </span>
+            <span *ngIf="table.closed == false" style="font-size:13px;" class="badge badge-success ml-2 fa fa-unlock-alt">
+                <i class="fa fa-xczc"></i>
+              </span>
+            <!-- <span class="fa fa-soccer-ball-o ml-3" *ngIf="table.type == 'Futbol'"></span> -->
+            <!-- <img class="ml-3" src="./assets/images/basketball.png" *ngIf="table.type == 'Baloncesto'" width="38"> -->
           </div>
         </div>
         <hr>
         <div class="d-flex mb-2" *ngIf="(table.closed == false || !table.closed)">
-          <div class="badge badge-info d-flex mb-2 p-2" >
+          <div class="badge badge-info d-flex mb-2 p-2">
             <span class="ml-2 days" id="day"></span>
             <div class="ml-2 smalltext">Días</div>
             <span class="ml-2 hours" id="hour"></span>
@@ -50,7 +66,7 @@
               </a>
             </li>
           </ul>
-          <h3 class="total-prize badge-pill badge-success ml-5 px-5" style="line-height: 75px;font-weight: bold;">
+          <h3 class="total-prize badge-pill badge-success ml-3 px-5" style="line-height: 75px;font-weight: bold;">
             {{totalAmount}}€</h3>
         </div>
       </div>
@@ -63,7 +79,7 @@
         <hr>
         <div class="panel-group">
           <div class="panel panel-default" *ngFor="let matchByTable of matchTypeRelations; let i=index">
-            <div class="panel-heading" *ngIf="!matchByTable.winnerchoice">            
+            <div class="panel-heading" *ngIf="!matchByTable.winnerchoice">
               <h4 class="panel-title card-title text-center match-title">
                 <a data-toggle="collapse" [href]="'#'+matchByTable._id">
                   <span>{{matchByTable.match.localteam}}</span>
@@ -117,7 +133,8 @@
     <div class="card">
       <div class="card-body table-body">
         <h4 class="text-center" *ngIf="selectedUser._id == userService.user._id">Mis apuestas</h4>
-        <h4 class="text-center" *ngIf="selectedUser && selectedUser._id != userService.user._id">Apuestas de {{selectedUser.name}}</h4>
+        <h4 class="text-center" *ngIf="selectedUser && selectedUser._id != userService.user._id">Apuestas de
+          {{selectedUser.name}}</h4>
         <hr>
         <div class="panel-group">
           <div class="panel panel-default" *ngFor="let matchByTable of myForecasts; let i=index">
@@ -208,4 +225,3 @@
     </div>
   </div>
 </div>
-
