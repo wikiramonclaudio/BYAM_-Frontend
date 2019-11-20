@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateMatchComponent implements OnInit {
 
-  private match: Match = new Match('','','','','', '');  
+  match: Match = new Match('','','','','', '');  
   matches: Match [];
   constructor(
     private matchService: MatchService
@@ -21,7 +21,7 @@ export class CreateMatchComponent implements OnInit {
   createMatch(){        
     this.matchService.createMatch(this.match).subscribe(
       res=>{
-        console.log('Creado nuevo partido', res);        
+        // console.log('Creado nuevo partido', res);        
       }
     )
   }

@@ -4,7 +4,6 @@ import { CheckMatchesComponent } from './checkMatches/check-matches/check-matche
 import { CreateBetTypeComponent } from './create-bettype/create-bet-type/create-bet-type.component';
 import { CreateMatchComponent } from './table/create-match/create-match.component';
 import { RouterModule, Routes } from "@angular/router";
-import { DashboardComponent } from "./dashboard/dashboard.component";
 import { Graficas1Component } from "./graficas1/graficas1.component";
 import { ProgressComponent } from './progress/progress.component';
 import { AccountSettingsComponent } from "./account-settings/account-settings.component";
@@ -16,7 +15,6 @@ import { UsersComponent } from "./users/users.component";
 import { SearchComponent } from "./search/search.component";
 import { TableComponent } from './table/table/table.component';
 import { CreateTableComponent } from './create-table/create-table.component';
-// import { ChatComponent } from '../components/chat/chat.component';
 
 const pagesRoutes : Routes = [
     // { 
@@ -24,7 +22,7 @@ const pagesRoutes : Routes = [
     //     component : PagesComponent,
     //     canActivate: [LoginGuardGuard],
     //     children : [
-            { path : 'dashboard', canActivate: [LoginGuardGuard, ChecktokenGuard], component : DashboardComponent, data: { title:'Home'}},            
+            { path : 'dashboard', canActivate: [LoginGuardGuard, ChecktokenGuard], component : TablesComponent, data: { title:'Home'}},            
             { path : 'progress', canActivate: [LoginGuardGuard, ChecktokenGuard], component : ProgressComponent, data: { title:'Progress'}},
             { path : 'graphs1', canActivate: [LoginGuardGuard, ChecktokenGuard], component : Graficas1Component, data: { title:'Gráficos'}},
             { path : 'promesas', canActivate: [LoginGuardGuard, ChecktokenGuard], component : PromesasComponent, data: { title:'Promess'}},

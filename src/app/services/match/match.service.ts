@@ -23,6 +23,11 @@ export class MatchService {
     return this._http.get(url);
   }
 
+  getFinishedMatches(): Observable<any>{
+    let url = URL_SERVICES + '/match/finished';    
+    return this._http.get(url);
+  }
+
   getMatch(id: string): Observable<any>{
     let url = URL_SERVICES + '/match/' + id;    
     return this._http.get(url);

@@ -5832,7 +5832,7 @@ File: scss
   .login-sidebar {
     padding: 10% 0; }
     .login-sidebar .login-box {
-      position: relative; }
+      position: relative!important; }
   /*This is for chat page*/
   .chat-main-box .chat-left-aside {
     left: -250px;

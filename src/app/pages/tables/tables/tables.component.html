@@ -2,27 +2,16 @@
   <div class="col-sm-12">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title text-center">Partidas en juego</h4>
+        <!-- <h4 class="card-title text-center">Partidas en juego</h4> -->
         <a href="javascript:void(0)" [routerLink]="['/add-table']" class="btn btn-success">
           <i class="fa fa-plus"></i>
         </a>
         <a href="javascript:void(0)" class="ml-2 btn btn-info" (click)="getMyTables()">
           Mis partidas
         </a>
-
-
-        <!-- //put the filters to table here -->
-        <!-- <div class="table-filters d-flex">
-          <a href="javascript:void(0)" class="d-flex flex-column align-items-center">
-            <i class="fa fa-history"></i>            
+        <a href="javascript:void(0)" class="ml-2 btn btn-info" (click)="getTables()">
+            Todas
           </a>
-          <a href="javascript:void(0)" class="d-flex flex-column align-items-center ml-2">
-            <i class="fa fa-history"></i>            
-          </a>
-          <a href="javascript:void(0)" class="d-flex flex-column align-items-center ml-2">
-            <i class="fa fa-history"></i>            
-          </a>
-        </div> -->
       </div>
     </div>
   </div>
@@ -34,13 +23,16 @@
               height: 22px;
               border-radius: 100%;
               margin-right: 10px;" [src]="table.owner.image | image" width="25px" alt="">
-          <h5 class="card-title">{{table.name}}</h5>
+          <h5 class="card-title match-title">{{table.name}}</h5>         
         </a>
         <p class="card-text"></p>
         <span class="badge badge-info"> {{table.betamount}}€ </span>
         <span class="badge badge-success fa fa-user ml-2" style="font-size: 13px;"> {{table.activeusers}} </span>
         <span class="badge badge-light fa fa-trophy ml-2 " style="font-size: 13px;">
           {{table.activeusers * table.betamount}}€ </span>
+          <span *ngIf="table.closed == true" style="font-size:13px;" class="badge badge-danger ml-2 fa fa-lock">
+            <i class="fa fa-xczc"></i>            
+          </span>
         <br>
         <a href="javascript:void(0)" [routerLink]="['/table', table._id]" class="btn btn-primary float-right">
           <i class="fa fa-sign-in"></i>

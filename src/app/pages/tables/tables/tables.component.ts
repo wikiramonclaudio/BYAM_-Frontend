@@ -17,16 +17,20 @@ export class TablesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.tableService.getTables({ _id : this.userService.user._id}).subscribe(
-      res=>{
+    this.getTables();
+  }
+
+  getTables() {
+    this.tableService.getTables({ _id: this.userService.user._id }).subscribe(
+      res => {
         this.tables = res.tables;
       }
     );
   }
 
-  getMyTables(){
+  getMyTables() {
     this.tableSubscriptionService.getSubscriptionsByUser(this.userService.user._id).subscribe(
-      res=>{                
+      res => {
         this.tables = [];
         res.tableSubscriptions.forEach(element => {
           this.tables.push(element.table);

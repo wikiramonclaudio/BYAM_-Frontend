@@ -6,11 +6,12 @@
       <div class="panel-group">
         <div class="panel panel-default" *ngFor="let matchByTable of matchTypeRelations; let i=index">
           <div class="panel-heading">
-            <h4 class="panel-title card-title text-center">
+            <h4 class="panel-title card-title text-center match-title">
               <a data-toggle="collapse" [href]="'#'+matchByTable._id">
                 <span>{{matchByTable.match.localteam}}</span>
                 <span class="ml-2">VS</span>
                 <span class="ml-2">{{matchByTable.match.awayteam}}</span>
+                <br>
                 <span class="ml-2"
                   style="font-size: 13px; color: #ccc2c2;">{{matchByTable.match.when | date: 'short'}}</span>
               </a>

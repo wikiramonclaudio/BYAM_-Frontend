@@ -27,8 +27,6 @@ export class CheckMatchesComponent implements OnInit {
   getMatches() {
     this.matchTypeRelationService.getMatchTypeRelations().subscribe(
       (res: any) => {        
-        // this.matchTypeRelations = res.matchTypeRelation;
-
         const uniqueArray = res.matchTypeRelation.filter((match, index) => {
           const _match = match.match._id;;
           return index === res.matchTypeRelation.findIndex(obj => {
@@ -36,7 +34,6 @@ export class CheckMatchesComponent implements OnInit {
           });
         }); 
         this.matchTypeRelations = uniqueArray;
-        console.log('uniqueArray',uniqueArray);
       });
   }
 

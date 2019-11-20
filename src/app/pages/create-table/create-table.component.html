@@ -4,23 +4,26 @@
       <div class="card-body">
         <h4 class="card-title text-center">Crear partida</h4>
         <hr>
-        <form class="form-horizontal form-material">
+        <form ngNativeValidate class="form-horizontal form-material" id="create-table-form">
           <div class="form-group ">
             <div class="col-xs-12">
               <input class="form-control" type="text" required placeholder="Nombre de la mesa" [(ngModel)]="table.name"
                 name="name" #name="ngModel">
+                <span class="text-danger" style="font-size:13px;" *ngIf="name.errors?.required">Campo obligatorio</span>
             </div>
           </div>
           <div class="form-group ">
             <div class="col-xs-12">
               <input class="form-control" type="text" required placeholder="Limite usuarios"
                 [(ngModel)]="table.userslimit" name="userslimit" #userslimit="ngModel">
+                <span class="text-danger" style="font-size:13px;" *ngIf="userslimit.errors?.required">Campo obligatorio</span>
             </div>
           </div>
           <div class="form-group ">
             <div class="col-xs-12">
               <input class="form-control" type="text" required placeholder="Apuesta" [(ngModel)]="table.betamount"
                 name="betamount" #betamount="ngModel">
+                <span class="text-danger" style="font-size:13px;" *ngIf="betamount.errors?.required">Campo obligatorio</span>
             </div>
           </div>
           <div class="form-group ">
@@ -35,11 +38,12 @@
             <div class="col-xs-12">
               <input class="form-control" type="text" required placeholder="Deporte" [(ngModel)]="table.type"
                 name="type" #type="ngModel">
+                <span class="text-danger" style="font-size:13px;" *ngIf="type.errors?.required">Campo obligatorio</span>
             </div>
           </div>
           <div class="for-group">
             <div class="col-xs-12">
-              <h5><span class="badge badge-info">Para crear la mesa debes añadir al menos dos partidos </span></h5>
+              <h5><span class="badge badge-info pl-2 pr-2"><i class="fa fa-info mr-1"></i>Debes añadir al menos tres partidos </span></h5>
             </div>
           </div>
           <div class="for-group mt-3">
@@ -63,6 +67,9 @@
           <i class="fa fa-plus mr-2"></i>
           <span>Añadir partidos</span>
         </button>
+        <button class="btn btn-success ml-2 mt-4" (click)="createTable()" [disabled]="getSelectedMatches().length<3" type="submit" >
+          Crear mesa
+        </button>
       </div>
     </div>
   </div>
@@ -74,11 +81,12 @@
         <div class="panel-group">
           <div class="panel panel-default" *ngFor="let match of matches; let i=index">
             <div class="panel-heading">
-              <h4 class="panel-title card-title text-center">
+              <h4 class="panel-title card-title text-center match-title">
                 <a data-toggle="collapse" [href]="'#'+match._id">
                   <span>{{match.localteam}}</span>
                   <span class="ml-2">VS</span>
                   <span class="ml-2">{{match.awayteam}}</span>
+                  <br>
                   <span class="ml-2" style="font-size: 13px; color: #ccc2c2;">{{match.when | date: 'short'}}</span>
                 </a>
               </h4>
@@ -110,7 +118,7 @@
 </div>
 
 <!-- <app-create-match></app-create-match> -->
-<div class="row">
+<!-- <div class="row">
   <div class="col-lg-6 col-xs-12">
     <div class="card">
       <div class="card-body">
@@ -118,4 +126,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

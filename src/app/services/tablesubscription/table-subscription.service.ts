@@ -7,7 +7,6 @@ import 'rxjs/add/operator/map';
 import swal from 'sweetalert';
 import { UploadFileService } from '../upload-file.service';
 import { Observable } from 'rxjs/Observable';
-import { catchError } from 'rxjs/internal/operators/catchError';
 
 @Injectable({
   providedIn: 'root'

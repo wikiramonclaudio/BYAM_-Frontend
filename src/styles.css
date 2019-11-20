@@ -30,9 +30,16 @@
     .mobile-hidden{
         display:none;
     }
+    .match-title{
+        font-size: 15px!important;
+    }
   }
-
-
+.btn.disabled,
+.btn:disabled {
+  opacity: .65;
+  background: gray !important;
+  cursor: not-allowed!important;
+}
 
   /* FLAGS */
   /*!

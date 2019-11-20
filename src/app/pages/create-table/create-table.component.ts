@@ -2,7 +2,7 @@ import { BetType } from './../../models/bettype.model';
 import { MatchTypeRelationService } from './../../services/matchTypeRelation/match-type-relation.service';
 import { BetTypeService } from './../../services/bettype/bet-type.service';
 import { Router } from '@angular/router';
-import { SubscriptionTableService } from './../../services/tableSubscription/table-subscription.service';
+
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Table } from 'src/app/models/table.model';
@@ -12,11 +12,12 @@ import { TableService } from './../../services/table/table.service';
 import { Match } from 'src/app/models/match.model';
 import { MatchByTable } from 'src/app/models/matchbytable.model';
 import { MatchTypeRelation } from 'src/app/models/matchtyperelation';
+import { SubscriptionTableService } from 'src/app/services/tablesubscription/table-subscription.service';
 
 @Component({
   selector: 'app-create-table',
   templateUrl: './create-table.component.html',
-  styleUrls: ['./create-table.component.css']
+  styleUrls: ['./create-table.component.css'] 
 })
 export class CreateTableComponent implements OnInit {
   public tableForm: FormGroup;
@@ -29,6 +30,7 @@ export class CreateTableComponent implements OnInit {
   betTypeValues = [];
   matchesWithBetType: any [] = [];
   disableCreateButton: boolean = true;
+  submitted: boolean = false;
   constructor(
     private router: Router,
     private tableService: TableService,
@@ -57,6 +59,9 @@ export class CreateTableComponent implements OnInit {
   }
 
   createTable() {    
+    var form = <HTMLInputElement>document.getElementById('create-table-form');
+    var isValidForm = form.checkValidity();
+    console.log('FORM VALIDO ???', isValidForm);
     if (this.getSelectedMatches().length > 1) {
       this.table.owner = this.userService.user._id;
       this.table.totalamount = this.table.betamount;

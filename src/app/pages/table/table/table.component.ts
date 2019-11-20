@@ -58,6 +58,7 @@ export class TableComponent implements OnInit {
         this.subscription.table = res.table;
         this.subscription.player = this.userService.user;
         this.getSubscriptors();
+        this.selectedUser = this.userService.user;
       }
     );
   }
@@ -268,6 +269,23 @@ export class TableComponent implements OnInit {
           )
         }
       }, 1000);
+    }
+  }
+
+  editTableName(){
+    console.log('owner', this.table.owner);
+    console.log('userservice', this.userService.user._id);
+    if(this.table.owner._id == this.userService.user._id){
+      // swal("Importante", "Debes aceptar las condiciones!", "warning");
+      var el: any = {content: "input"};
+      swal("Cambiar nombre de la mesa:", el ).then((value) => {      
+        this.table.name = value;  
+        this.tableService.updateTable(this.table).subscribe(
+          res=>{
+            // this.ngOnInit();
+          }
+        )
+      });;
     }
   }
 }

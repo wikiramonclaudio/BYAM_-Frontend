@@ -1,5 +1,4 @@
 import { UserService } from './../../services/user/user.service';
-import { WebsocketService } from 'src/app/services/websocket.service';
 import { Component, OnInit } from '@angular/core';
 import { TableService } from 'src/app/services/table/table.service';
 import { Table } from 'src/app/models/table.model';
@@ -13,8 +12,7 @@ export class DashboardComponent implements OnInit {
   tables: Table[];
   constructor(
     private tableService: TableService,    
-    private userService: UserService,
-    private wsService: WebsocketService
+    private userService: UserService    
   ) { }
 
   ngOnInit() {

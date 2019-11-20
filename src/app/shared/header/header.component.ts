@@ -1,4 +1,3 @@
-import { WebsocketService } from 'src/app/services/websocket.service';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/service.index';
 import { User } from 'src/app/models/user.model';
@@ -11,20 +10,19 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  user:User;
+  user: User;
   constructor(
     public userService: UserService,
-    public wsService: WebsocketService,
     public router: Router
   ) { }
 
   ngOnInit() {
-    this.user = this.userService.user;     
+    this.user = this.userService.user;
   }
 
-  buscar(termino: string){
+  buscar(termino: string) {
     this.router.navigate(['/search', termino]);
   }
-  
+
 
 }
