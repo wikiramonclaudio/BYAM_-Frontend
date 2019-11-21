@@ -1,12 +1,9 @@
 <div class="row row mb-3 mt-0">
   <div class="col-lg-6 col-xs-12">
-    <h4 class="card-title text-center mb-0">
+    <h4 class="card-title mb-0">
       <a href="javascript:void(0);">
         <img [src]="owner.image | image" width="30" class="mr-2 rounded-circle" alt="">
         <span class="ml-2 match-title" (click)="editTableName()">{{table.name}}</span>
-        <!-- <span class="fa fa-edit ml-2"></span>  -->
-        <!-- <i class="fa fa-1x ml-2 text-success"
-          [ngClass]="{'text-danger': table.closed == true, 'fa-unlock-alt' : !table.closed}"></i> -->
       </a>
     </h4>
   </div>
@@ -66,8 +63,9 @@
               </a>
             </li>
           </ul>
-          <h3 class="total-prize badge-pill badge-success ml-3 px-5" style="line-height: 75px;font-weight: bold;">
-            {{totalAmount}}€</h3>
+          <h3 class="total-prize badge-pill badge-success ml-3 px-4 fa fa-trophy" style="line-height: 46px;font-weight: bold;">            
+            {{totalAmount}}€
+          </h3>
         </div>
       </div>
     </div>

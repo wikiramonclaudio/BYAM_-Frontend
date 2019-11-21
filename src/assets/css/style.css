@@ -956,8 +956,11 @@ When click on sidebar toggler and also for tablet
   .mini-sidebar.show-sidebar .left-sidebar,
   .mini-sidebar.show-sidebar .sidebar-footer {
     left: 0px; } 
-    .page-titles{
+    .page-titles .col-md-7{
       display:none;
+    }
+    .page-titles .text-themecolor{
+      text-align: center;
     }
   }
     

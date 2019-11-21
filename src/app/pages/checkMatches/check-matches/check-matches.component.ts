@@ -31,7 +31,7 @@ export class CheckMatchesComponent implements OnInit {
           const _match = match.match._id;;
           return index === res.matchTypeRelation.findIndex(obj => {
             return obj.match._id === _match;
-          });
+          }) && match.finished != true;
         }); 
         this.matchTypeRelations = uniqueArray;
       });
