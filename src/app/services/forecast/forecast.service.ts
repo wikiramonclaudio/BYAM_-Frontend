@@ -80,7 +80,7 @@ export class ForecastService {
   }
 
   getForecastsByTable(tableId: string){    
-    let url = URL_SERVICES + '/forecast/' + tableId;    
+    let url = URL_SERVICES + '/forecast/tableforecast/' + tableId;    
     return this._http.get(url);
   }
 

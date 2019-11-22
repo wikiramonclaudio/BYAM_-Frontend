@@ -40,14 +40,7 @@
             <div class="ml-2 smalltext">Minutos</div>
             <span class="ml-2 seconds" id="second"></span>
             <div class="ml-2 smalltext">Segundos</div>
-          </div>
-
-          <!-- <div class="fa-stack fa-1x hourglass-spin ml-2">
-            <i class="fa fa-stack-1x fa-hourglass-start"></i>
-            <i class="fa fa-stack-1x fa-hourglass-half"></i>
-            <i class="fa fa-stack-1x fa-hourglass-end"></i>
-            <i class="fa fa-stack-1x fa-hourglass-end spin"></i>
-          </div> -->
+          </div>        
         </div>
         <div class="badge badge-danger d-flex mb-2 p-2" *ngIf="table.closed == true">
           Mesa cerrada - Partidos ya en juego
@@ -67,6 +60,13 @@
             {{totalAmount}}€
           </h3>
         </div>
+        <div class="badge badge-success d-flex mb-2 p-2" *ngIf="table.closed == true && table.winner!=null">
+            {{table.winner.name}} Ha ganado {{table.activeusers * table.betamount}}€
+            <i class="fa fa-trophy ml-2"></i>
+        </div>
+        <!-- <button class="btn secondary" (click)="checkWinner()">
+            Revisar ganador
+        </button> -->
       </div>
     </div>
   </div>

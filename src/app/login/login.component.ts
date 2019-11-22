@@ -1,3 +1,4 @@
+import { WebsocketService } from './../services/websocket.service';
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -25,7 +26,8 @@ export class LoginComponent implements OnInit {
   auth2: any;
   constructor(
     public router: Router,
-    public userService: UserService    
+    public userService: UserService,
+    private wsService: WebsocketService
   ) { }
 
   ngOnInit() {
@@ -74,7 +76,13 @@ export class LoginComponent implements OnInit {
     );    
     this.userService.login(user, form.value.recuerdame).subscribe(
       (response: any)=>{             
-        // swal('Bienvenido!, ' + user.email, 'success');                      
+        // swal('Bienvenido!, ' + user.email, 'success');      
+        this.wsService.connect().subscribe(
+          res=>{
+            console.log('CONECTED TO SOCKET!!', res);
+            // this.wsService.connectUser(this.userService.user);
+          }
+        )
         this.router.navigate(['/tables']);
       },
       error=>{

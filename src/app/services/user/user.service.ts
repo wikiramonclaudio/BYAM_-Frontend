@@ -1,3 +1,4 @@
+import { WebsocketService } from './../websocket.service';
 import { Injectable } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { URL_SERVICES } from 'src/app/config/config';
@@ -19,7 +20,7 @@ export class UserService {
   constructor(
     public _http: HttpClient,
     public router: Router,
-    public uploadService: UploadFileService
+    public uploadService: UploadFileService    
   ) {
     this.loadStorage();
    }
@@ -73,7 +74,7 @@ export class UserService {
     this.user = user;    
     return this._http.post(url, params, { headers: headers })
     .map((res: any)=>{          
-      this.saveStorage(res.id, res.token, res.user, res.menu);
+      this.saveStorage(res.id, res.token, res.user, res.menu);      
       return true;
     });
   }

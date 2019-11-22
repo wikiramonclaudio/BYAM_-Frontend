@@ -38,6 +38,7 @@ export class TableComponent implements OnInit {
   forecastByUser: any[] = [];
   selectedUser: User = new User('', '', '', '');
   deadlineDate: any = '';
+  allMatchesFInished: boolean;
   constructor(
     private tableService: TableService,
     private route: ActivatedRoute,
@@ -81,13 +82,14 @@ export class TableComponent implements OnInit {
             res => {
               this.forecasts.forEach(element => {
                 element.bet = res._id;
+                element.table = this.table._id;
               });
               this.addForecastTobet();
             }
           )
         },
         err => {
-          swal('No tienes saldo suficiente!', 'Necesitas ' + (this.table.betamount - this.userService.user.money) + ' euros para jugar' , 'error');
+          swal('No tienes saldo suficiente!', 'Necesitas ' + (this.table.betamount - this.userService.user.money) + ' euros para jugar', 'error');
           console.log(err);
         }
       )
@@ -237,7 +239,8 @@ export class TableComponent implements OnInit {
       return Date.parse(pre) > Date.parse(cur) ? cur : pre;
     });
 
-    // var deadline = new Date("Jan 5, 2018 15:37:25").getTime();    
+    // var latest = arrayFechas.reduce((m,v,i) => (v.ModDate > m.ModDate) && i ? v : m).ModDate;    
+
     if (this.table.closed == false) {
       var x = setInterval(() => {
         var deadline: any = new Date(earliest).getTime();
@@ -247,8 +250,6 @@ export class TableComponent implements OnInit {
         var hours: any = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         var minutes: any = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
         var seconds: any = Math.floor((t % (1000 * 60)) / 1000);
-        // document.getElementById("demo").innerHTML = days + "d "
-        //   + hours + "h " + minutes + "m " + seconds + "s ";
         if (!document.getElementById("day")) {
           clearInterval(x);
           return;
@@ -272,19 +273,59 @@ export class TableComponent implements OnInit {
     }
   }
 
-  editTableName(){
-    if(this.table.owner._id == this.userService.user._id){
-      var el: any = {content: "input", inputValue: this.table.name};
-      swal("Cambiar nombre de la mesa:", el ).then((value) => {  
-        if(value.length>2)    {
-          this.table.name = value;  
+  editTableName() {
+    if (this.table.owner._id == this.userService.user._id) {
+      var el: any = { content: "input", inputValue: this.table.name };
+      swal("Cambiar nombre de la mesa:", el).then((value) => {
+        if (value.length > 2) {
+          this.table.name = value;
           this.tableService.updateTable(this.table).subscribe(
-            res=>{
+            res => {
               // this.ngOnInit();
             }
           )
         }
       });;
     }
+  }
+
+  checkWinner() {
+    this.forecastService.getForecastsByTable(this.table._id).subscribe(
+      (res: any) => {
+        console.log('FORECAST DE LA MESA ', res);
+        let winnerchoice = res.forecast[0].winnerchoice;
+        let users: any[] = [];
+        res.forecast.forEach(element => {
+          if (!users.includes(element.bet.owner)) {
+            users.push({ userId: element.bet.owner, successes: 0 })
+          }
+        });
+        users.forEach((user: any) => {
+          res.forecast.forEach(element => {
+            if (element.bet.owner == user.userId && element.winnerchoice == element.choice._id) {
+              user.successes = user.successes + 1;
+              // users.push({ userId: element.bet.owner, successes: 0 })
+            }
+          });
+        });
+        // let unique = [...new Set(users)];
+        // console.log('USUARIOS DE LA MESA', unique);    
+        var valorMasGrande = -1;
+        let winnerPlayer:any = {};
+        users.forEach(element => {
+          if(element.successes > valorMasGrande){
+            valorMasGrande = element.successes;
+            winnerPlayer = element;
+          }
+        });
+        this.table.winner = winnerPlayer.userId;
+        console.log(winnerPlayer);
+        this.tableService.updateTable(this.table).subscribe(
+          res=>{
+            this.ngOnInit();
+          }
+        )
+      }
+    )
   }
 }
