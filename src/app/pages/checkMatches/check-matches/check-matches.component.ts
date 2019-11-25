@@ -28,10 +28,10 @@ export class CheckMatchesComponent implements OnInit {
     this.matchTypeRelationService.getMatchTypeRelations().subscribe(
       (res: any) => {        
         const uniqueArray = res.matchTypeRelation.filter((match, index) => {
-          const _match = match.match._id;;
-          return index === res.matchTypeRelation.findIndex(obj => {
+          const _match = match.match._id;;          
+          return  (match.finished != true && index === res.matchTypeRelation.findIndex(obj => {
             return obj.match._id === _match;
-          }) && match.finished != true;
+          }));
         }); 
         this.matchTypeRelations = uniqueArray;
       });

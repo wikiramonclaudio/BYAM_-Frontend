@@ -60,13 +60,13 @@
             {{totalAmount}}€
           </h3>
         </div>
-        <div class="badge badge-success d-flex mb-2 p-2" *ngIf="table.closed == true && table.winner!=null">
+        <!-- <div class="badge badge-success d-flex mb-2 p-2" *ngIf="table.closed == true && table.winner!=null">
             {{table.winner.name}} Ha ganado {{table.activeusers * table.betamount}}€
             <i class="fa fa-trophy ml-2"></i>
-        </div>
-        <!-- <button class="btn secondary" (click)="checkWinner()">
+        </div> -->
+        <button class="btn secondary" (click)="checkWinner()" *ngIf="allMatchesFinished == true && !table.winner">
             Revisar ganador
-        </button> -->
+        </button>
       </div>
     </div>
   </div>
@@ -90,7 +90,7 @@
               </h4>
             </div>
             <div [id]="matchByTable._id" class="panel-collapse collapse">
-              <span>{{matchByTable.bettype.name}}</span>
+              <span class="text-center">{{matchByTable.bettype.name}}</span>
               <br>
               <div class="list-group">
                 <a href="javascript:void(0)" class="list-group-item list-group-item-action"
@@ -146,15 +146,18 @@
                   <span class="ml-2"
                     style="font-size: 13px; color: #ccc2c2;">{{matchByTable.match.when | date: 'short'}}
                   </span>
-                  <span class="badge badge-danger p-2 ml-2" *ngIf="matchByTable.winnerchoice">
+                  <span class="badge badge-success fa fa-check ml-2" style="font-size: 13px;" *ngIf="matchByTable.winnerchoice != null && matchByTable.choice._id == matchByTable.winnerchoice"><span></span></span>
+                  <span class="badge badge-danger fa fa-times ml-2" style="font-size: 13px;" *ngIf="matchByTable.winnerchoice != null && matchByTable.choice._id != matchByTable.winnerchoice"><span></span></span>
+                  <!-- <span class="badge badge-danger p-2 ml-2" *ngIf="matchByTable.winnerchoice">
                     <i class="fa fa-hourglass-end"></i>
-                  </span>
+                  </span> -->
                 </a>
               </h4>
             </div>
             <div [id]="matchByTable._id" class="panel-collapse collapse">
-              <span>{{matchByTable.bettype.name}}</span>
+              <span class="text-center">{{matchByTable.bettype.name}}</span>
               <br>
+              <!-- {{matchByTable | json}} -->
               <div class="list-group">
                 <a href="javascript:void(0)" class="list-group-item list-group-item-action"
                   [ngClass]="{'list-group-item-success': matchByTable.bettype.option1._id == matchByTable.choice._id}"

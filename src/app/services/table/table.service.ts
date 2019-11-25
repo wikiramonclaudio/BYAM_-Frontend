@@ -63,4 +63,14 @@ export class TableService {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.put(url, table, { headers: headers });    
   }
+
+  setTableWinner(table: any){
+    let params = JSON.stringify(table);
+    let url = URL_SERVICES + '/table/set-winner/' + table._id;  
+    //revisar token
+    url += '?token=' + localStorage.getItem('token'); 
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.put(url, table, { headers: headers });    
+  }
+
 }

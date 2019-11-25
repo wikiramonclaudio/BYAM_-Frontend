@@ -38,7 +38,7 @@ export class TableComponent implements OnInit {
   forecastByUser: any[] = [];
   selectedUser: User = new User('', '', '', '');
   deadlineDate: any = '';
-  allMatchesFInished: boolean;
+  allMatchesFinished: boolean;
   constructor(
     private tableService: TableService,
     private route: ActivatedRoute,
@@ -68,7 +68,7 @@ export class TableComponent implements OnInit {
     this.forecastService.createManyForecasts(this.forecasts).subscribe(
       res => {
         swal("Te has registrado en la mesa", " ", "success");
-        this.getSubscriptors();
+        this.ngOnInit();
       }
     )
   }
@@ -131,8 +131,9 @@ export class TableComponent implements OnInit {
   getMyBetData(betId: string) {
     this.forecastService.getBetForecasts(betId).subscribe(
       res => {
-        this.myForecasts = res.forecast;
+        this.myForecasts = res.forecast;        
         this.countDown(this.myForecasts);
+        this.checkAllFinished(this.myForecasts)
       }
     )
   }
@@ -154,6 +155,7 @@ export class TableComponent implements OnInit {
         var finished = res.matchTypeRelation.filter((match) => {
           return match.winnerchoice != null && match.winnerchoice != undefined;
         });
+        this.checkAllFinished(this.matchTypeRelations);
         this.countDown();
       }
     )
@@ -291,8 +293,7 @@ export class TableComponent implements OnInit {
 
   checkWinner() {
     this.forecastService.getForecastsByTable(this.table._id).subscribe(
-      (res: any) => {
-        console.log('FORECAST DE LA MESA ', res);
+      (res: any) => {        
         let winnerchoice = res.forecast[0].winnerchoice;
         let users: any[] = [];
         res.forecast.forEach(element => {
@@ -318,14 +319,22 @@ export class TableComponent implements OnInit {
             winnerPlayer = element;
           }
         });
-        this.table.winner = winnerPlayer.userId;
-        console.log(winnerPlayer);
-        this.tableService.updateTable(this.table).subscribe(
-          res=>{
+        this.table.winner = winnerPlayer.userId;        
+        this.tableService.setTableWinner(this.table).subscribe(
+          (res: any)=>{
+            this.userService.user.money = res.user.money;
             this.ngOnInit();
           }
         )
       }
     )
+  }
+
+  checkAllFinished(list: any){    
+    this.allMatchesFinished = true;
+    list.forEach(element => {
+      if(element.match.finished != true)
+        this.allMatchesFinished = false;
+    });
   }
 }
