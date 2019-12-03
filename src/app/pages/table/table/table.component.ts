@@ -191,7 +191,7 @@ export class TableComponent implements OnInit {
     });
     this.matchService.createManyMatches(this.matchesByTable).subscribe(
       res => {
-        console.log('Se GUARDAN PARTIDOS DE ESTA TABLA', res);
+        
       }
     )
   }
@@ -309,7 +309,7 @@ export class TableComponent implements OnInit {
             return el.userId == element.bet.owner;
           });
           if (!contains || contains == null) {
-            if (element.bet.tiebreakmatch == element.match._id) {                    
+            if (element.bet.tiebreakmatch == element.match._id) {
               users.push({ userId: element.bet.owner, successes: 0, goals: element.bet.goals, goalsResult: element.match.goals });
             }
           }
@@ -328,52 +328,65 @@ export class TableComponent implements OnInit {
         var valorMasGrande = Math.max.apply(null, numAciertos);
         let winnerPlayer: any = {};
         let winners: any = [];
-        users.forEach(element => {          
+        let numbers: any = [];
+        users.forEach(element => {
           if (element.successes >= valorMasGrande) {
             valorMasGrande = element.successes;
             winnerPlayer = element;
-            element.average = element.goalsResult / element.goals;  
-            console.log('AVERAGE', element.average);
+            element.average = element.goalsResult / element.goals;
             winners.push(element);
           }
         });
-        if (winners.length == 1) {
+        if (winners.length == 1 && (!this.table.winner || this.table.winner == undefined)) {
           winnerPlayer = winners[0];
+          this.table.winner = winnerPlayer.userId;
+          this.table.owner = this.table.owner._id;
+          this.tableService.setTableWinner(this.table).subscribe(
+            (res: any) => {
+              if (winnerPlayer.userId == this.userService.user._id)
+                this.userService.user.money = res.user.money;
+              this.ngOnInit();
+            }
+          )
         } else {
-          let acierto = 1;
+          let diferencia = 50;
           var finalWinners = [];
           var finalWinner: any = {};
           let maxValue = 0;
+          var numero = winners[0].goalsResult;
           winners.forEach(player => {
-            let aver = player.goalsResult / player.goals;   
-            console.log('Average', aver);
-            if (aver == 1)
+            if (player.goalsResult == player.goals)
               finalWinners.push(player);
             else {
-              if ((player.goalsResult / player.goals) > maxValue) {
-                maxValue = player.goalsResult / player.goals;
+              if (Math.abs(player.goals - numero) < diferencia) {
                 finalWinner = player;
+                diferencia = Math.abs(player.goals - numero);
               }
             }
           });
-
-
           if (finalWinners.length > 0) {
-            if(finalWinners.length == 1){
+            if (finalWinners.length == 1 && (!this.table.winner || this.table.winner == undefined)) {
               finalWinner = finalWinners[0];
-              console.log('SE ASIGNA GANADOR');
+              this.table.winner = finalWinner.userId;
+              this.table.owner = this.table.owner._id;
+              this.tableService.setTableWinner(this.table).subscribe(
+                (res: any) => {
+                  if (winnerPlayer.userId == this.userService.user._id)
+                    this.userService.user.money = res.user.money;
+                  this.ngOnInit();
+                }
+              )
             }
             else
               console.log('Hay varios ganadores, hay que repartir...Los ganadores son', finalWinners);
           } else {
-            console.log('Ganador FINAL', finalWinner);
-            this.table.winner = finalWinner.userId;
-            this.table.owner = this.table.owner._id;
-            if(finalWinners.length<1){
+            if ((!this.table.winner || this.table.winner == undefined)) {
+              this.table.winner = finalWinner.userId;
+              this.table.owner = this.table.owner._id;
               this.tableService.setTableWinner(this.table).subscribe(
-                (res: any) => {               
-                  if(winnerPlayer.userId == this.userService.user._id)
-                      this.userService.user.money = res.user.money;
+                (res: any) => {
+                  if (winnerPlayer.userId == this.userService.user._id)
+                    this.userService.user.money = res.user.money;
                   this.ngOnInit();
                 }
               )
@@ -391,9 +404,8 @@ export class TableComponent implements OnInit {
       return el.match.finished == true;
     });
     this.allMatchesFinished = (variolo.length == list.length);
-    // list.forEach(element => {
-    //   if(element.match.finished != true)
-    //     this.allMatchesFinished = false;
-    // });
+    if (this.allMatchesFinished == true && (this.table.winner == undefined || !this.table.winner)) {
+      this.checkWinner();
+    }
   }
 }
