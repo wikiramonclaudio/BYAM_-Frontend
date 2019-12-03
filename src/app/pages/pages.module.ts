@@ -33,13 +33,14 @@ import { CreateBetTypeComponent } from './create-bettype/create-bet-type/create-
 import { CheckMatchesComponent } from './checkMatches/check-matches/check-matches.component';
 import { LivescoresComponent } from './livescores/livescores/livescores.component';
 import { TablesComponent } from './tables/tables/tables.component';
+import { NotificationsComponent } from './notifications/notifications/notifications.component';
 
 @NgModule({
     declarations : [        
         DashboardComponent,
         Graficas1Component,
         ProgressComponent,  
-        IncrementatorComponent, GraficoDonaComponent, AccountSettingsComponent, PromesasComponent, RxjsComponent, ProfileComponent, UsersComponent, SearchComponent, ChatComponent, TableComponent, CreateTableComponent, CreateMatchComponent, EditTableComponent, CreateBetTypeComponent, CheckMatchesComponent, LivescoresComponent, TablesComponent
+        IncrementatorComponent, GraficoDonaComponent, AccountSettingsComponent, PromesasComponent, RxjsComponent, ProfileComponent, UsersComponent, SearchComponent, ChatComponent, TableComponent, CreateTableComponent, CreateMatchComponent, EditTableComponent, CreateBetTypeComponent, CheckMatchesComponent, LivescoresComponent, TablesComponent, NotificationsComponent
     ],
     exports: [
         DashboardComponent,

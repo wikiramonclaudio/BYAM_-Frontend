@@ -29,10 +29,17 @@
         <!-- Profile -->
         <!-- ============================================================== -->
         <li class="nav-item dropdown">
+            <!-- <span class="badge badge-pill badge-warning" style="font-size: 16px; padding: 8px; line-height: 20px; position: relative;">
+                3
+                <i class="fa fa-bell"></i>
+              </span> -->
+    
           <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             <span class="badge badge-pill badge-primary">{{userService.user.money}}€</span>
-            <img [src]="userService.user.image | image" alt="user" alt="user" class="profile-pic" /></a>
+            <img [src]="userService.user.image | image" alt="user" alt="user" class="profile-pic" />
+          </a>
+          
           <div class="dropdown-menu dropdown-menu-right animated flipInY">
             <ul class="dropdown-user">
               <li>

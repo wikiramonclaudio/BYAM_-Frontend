@@ -47,6 +47,7 @@ export class MatchTypeRelationService {
 
 
   createManyMatchTypeRelations(matchTypeRelationes: any) {
+    console.log(matchTypeRelationes);
     let params = JSON.stringify(matchTypeRelationes);
     let url = URL_SERVICES + '/match-type-relation/several'+ '?token=' + localStorage.getItem('token');    
     let headers = new HttpHeaders().set('Content-Type', 'application/json');

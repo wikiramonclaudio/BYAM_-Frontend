@@ -14,7 +14,6 @@
       <div class="card-body table-body">
         <div class="d-flex flex-column">
           <div class="d-flex align-items-center">
-            <!-- <span class="badge badge-pill badge-primary pt-2 pb-2">{{table.betamount}}€</span> -->
             <span class="badge badge-primary ml-2" style="font-size: 13px;"> {{table.betamount}}€ </span>
             <span class="badge badge-info fa fa-user ml-2" style="font-size: 13px;"> {{table.activeusers}} </span>
             <span class="badge badge-light fa fa-trophy ml-2 " style="font-size: 13px;">
@@ -22,9 +21,10 @@
             <span *ngIf="table.closed == true" style="font-size:13px;" class="badge badge-danger ml-2 fa fa-lock">
               <i class="fa fa-xczc"></i>
             </span>
-            <span *ngIf="table.closed == false" style="font-size:13px;" class="badge badge-success ml-2 fa fa-unlock-alt">
-                <i class="fa fa-xczc"></i>
-              </span>
+            <span *ngIf="table.closed == false" style="font-size:13px;"
+              class="badge badge-success ml-2 fa fa-unlock-alt">
+              <i class="fa fa-xczc"></i>
+            </span>
             <!-- <span class="fa fa-soccer-ball-o ml-3" *ngIf="table.type == 'Futbol'"></span> -->
             <!-- <img class="ml-3" src="./assets/images/basketball.png" *ngIf="table.type == 'Baloncesto'" width="38"> -->
           </div>
@@ -40,11 +40,15 @@
             <div class="ml-2 smalltext">Minutos</div>
             <span class="ml-2 seconds" id="second"></span>
             <div class="ml-2 smalltext">Segundos</div>
-          </div>        
+          </div>
         </div>
         <div class="badge badge-danger d-flex mb-2 p-2" *ngIf="table.closed == true">
-          Mesa cerrada - Partidos ya en juego
+          Mesa cerrada
           <i class="fa fa-lock ml-2"></i>
+        </div>
+        <div class="badge badge-info d-flex mb-2 p-2" *ngIf="table.winner">
+          <i class="fa fa-trophy mr-2"></i>
+          <b>{{table.winner.name}}</b>&nbsp; ha ganado {{table.activeusers * table.betamount}}€
         </div>
         <div class="d-flex align-items-center justify-content-center">
           <ul class="table-users-list d-flex flex-column pl-0" style="list-style:none;">
@@ -56,16 +60,13 @@
               </a>
             </li>
           </ul>
-          <h3 class="total-prize badge-pill badge-success ml-3 px-4 fa fa-trophy" style="line-height: 46px;font-weight: bold;">            
+          <h3 class="total-prize badge-pill badge-success ml-3 px-4 fa fa-trophy"
+            style="line-height: 46px;font-weight: bold;">
             {{totalAmount}}€
           </h3>
         </div>
-        <!-- <div class="badge badge-success d-flex mb-2 p-2" *ngIf="table.closed == true && table.winner!=null">
-            {{table.winner.name}} Ha ganado {{table.activeusers * table.betamount}}€
-            <i class="fa fa-trophy ml-2"></i>
-        </div> -->
         <button class="btn secondary" (click)="checkWinner()" *ngIf="allMatchesFinished == true && !table.winner">
-            Revisar ganador
+          Revisar ganador
         </button>
       </div>
     </div>
@@ -110,9 +111,33 @@
                   {{matchByTable.bettype.option3.name}}
                 </a>
               </div>
+              <br>
+              <div *ngIf="matchByTable.tiebreak">
+                <form ngNativeValidate class="form-horizontal form-material">
+                  <h5><span class="badge badge-info pl-2 pr-2 mt-2" style="white-space: pre-wrap;">
+                      Pronóstico desempate (Num goles partido). Cuando haya más de un ganador se
+                      revisará este pronóstico para desempatar.
+                    </span></h5>
+                  <span style="font-size: 14px;">Num total goles partido (Desempates)</span>                  
+                  <div class="form-group d-flex">
+                    <input class="form-control text-center" type="number" required placeholder="0"
+                      [(ngModel)]="goalsTotal" name="subject">
+                    <!-- <input class="form-control" type="number" required
+                      [placeholder]="matchByTable.match.awayteam" [(ngModel)]="goalsAwayTeam" name="subject"> -->
+                  </div>
+                </form>
+              </div>
             </div>
             <hr>
           </div>
+          <!-- <form ngNativeValidate class="form-horizontal form-material">
+            <div class="form-group ">
+              <div class="col-xs-12">
+                <input class="form-control" type="number" required placeholder="Numero total de goles" [(ngModel)]="goalsTotal"
+                  name="subject">
+              </div>
+            </div>            
+          </form> -->
         </div>
         <button class="btn btn-secondary" *ngIf="!checkSubscription() && table.closed == false">
           <i class="fa fa-plus mr-1"></i>
@@ -140,17 +165,20 @@
               <h4 class="panel-title card-title text-center match-title">
                 <a data-toggle="collapse" [href]="'#'+matchByTable._id">
                   <span>{{matchByTable.match.localteam}}</span>
+                  <!-- <span class="text-success ml-1"
+                    *ngIf="matchByTable.bet.tiebreakmatch == matchByTable.match._id">{{matchByTable.bet.goalslocalteam}}</span> -->
                   <span class="ml-2">VS</span>
                   <span class="ml-2">{{matchByTable.match.awayteam}}</span>
+                  <span class="badge badge-info ml-1"
+                    *ngIf="matchByTable.bet.tiebreakmatch == matchByTable.match._id">{{matchByTable.bet.goals}}</span>
                   <br>
                   <span class="ml-2"
                     style="font-size: 13px; color: #ccc2c2;">{{matchByTable.match.when | date: 'short'}}
                   </span>
-                  <span class="badge badge-success fa fa-check ml-2" style="font-size: 13px;" *ngIf="matchByTable.winnerchoice != null && matchByTable.choice._id == matchByTable.winnerchoice"><span></span></span>
-                  <span class="badge badge-danger fa fa-times ml-2" style="font-size: 13px;" *ngIf="matchByTable.winnerchoice != null && matchByTable.choice._id != matchByTable.winnerchoice"><span></span></span>
-                  <!-- <span class="badge badge-danger p-2 ml-2" *ngIf="matchByTable.winnerchoice">
-                    <i class="fa fa-hourglass-end"></i>
-                  </span> -->
+                  <span class="badge badge-success fa fa-check ml-2" style="font-size: 13px;"
+                    *ngIf="matchByTable.winnerchoice != null && matchByTable.choice._id == matchByTable.winnerchoice"><span></span></span>
+                  <span class="badge badge-danger fa fa-times ml-2" style="font-size: 13px;"
+                    *ngIf="matchByTable.winnerchoice != null && matchByTable.choice._id != matchByTable.winnerchoice"><span></span></span>
                 </a>
               </h4>
             </div>

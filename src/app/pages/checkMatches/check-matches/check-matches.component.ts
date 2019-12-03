@@ -1,10 +1,7 @@
 import { ForecastService } from './../../../services/forecast/forecast.service';
-import { MatchTypeRelation } from 'src/app/models/matchtyperelation';
-import { MatchService } from './../../../services/match/match.service';
 import { Component, OnInit } from '@angular/core';
 import { Match } from 'src/app/models/match.model';
 import { MatchTypeRelationService } from 'src/app/services/matchTypeRelation/match-type-relation.service';
-import { BetTypeOption } from 'src/app/models/bettypeoption';
 
 @Component({
   selector: 'app-check-matches',
@@ -34,6 +31,7 @@ export class CheckMatchesComponent implements OnInit {
           }));
         }); 
         this.matchTypeRelations = uniqueArray;
+        console.log(this.matchTypeRelations);
       });
   }
 
@@ -58,7 +56,7 @@ export class CheckMatchesComponent implements OnInit {
 
   }
 
-  setForecastResult(matchByTable: any, matchId: string) {
+  setForecastResult(matchByTable: any, match: any) {
     let selectedChoice: any ={};
     if (matchByTable.bettype.option2.selected)
       selectedChoice = matchByTable.bettype.option2;
@@ -66,10 +64,13 @@ export class CheckMatchesComponent implements OnInit {
       selectedChoice = matchByTable.bettype.option1;
     if (matchByTable.bettype.option3 && matchByTable.bettype.option3.selected)
       selectedChoice = matchByTable.bettype.option3;
-      console.log('selectedChoice', selectedChoice);
-    this.forecastService.checkForecastResult(selectedChoice, matchId).subscribe(
+      selectedChoice.localteamgoals = match.localteamgoals;
+      selectedChoice.awayteamgoals = match.awayteamgoals;
+      selectedChoice.goals = match.localteamgoals + match.awayteamgoals;      
+
+    this.forecastService.checkForecastResult(selectedChoice, match._id).subscribe(
       res => {
-        console.log('PARTIDO MARCADO COMO FINALIZADO CORRECTAMENTE, TODO OK', res);
+        console.log('PARTIDO REVISADO CORRECTAMENTE, TODO OK', res);
       }
     )
   }

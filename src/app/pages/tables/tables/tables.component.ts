@@ -21,7 +21,7 @@ export class TablesComponent implements OnInit {
   }
 
   getTables() {
-    this.tableService.getTables({ _id: this.userService.user._id }).subscribe(
+    this.tableService.getTables({ published: false }).subscribe(
       res => {
         this.tables = res.tables;
       }

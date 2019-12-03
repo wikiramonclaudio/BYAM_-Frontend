@@ -11,8 +11,8 @@ import { MatchService } from 'src/app/services/match/match.service';
 import { TableService } from './../../services/table/table.service';
 import { Match } from 'src/app/models/match.model';
 import { MatchByTable } from 'src/app/models/matchbytable.model';
-import { MatchTypeRelation } from 'src/app/models/matchtyperelation';
 import { SubscriptionTableService } from 'src/app/services/tablesubscription/table-subscription.service';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-create-table',
@@ -21,8 +21,8 @@ import { SubscriptionTableService } from 'src/app/services/tablesubscription/tab
 })
 export class CreateTableComponent implements OnInit {
   public tableForm: FormGroup;
-  table: Table = new Table('10', '', '20', false, true, '','','Futbol');
-  matches: Match[] = [];
+  table: Table = new Table('10', '', '', false, true, '','','Futbol');
+  matches: any[] = [];
   matchesByTable: MatchByTable[] = [];
   selectedMatches: Match[] = [];
   betTypesLoaded: boolean = false;
@@ -31,6 +31,7 @@ export class CreateTableComponent implements OnInit {
   matchesWithBetType: any [] = [];
   disableCreateButton: boolean = true;
   submitted: boolean = false;
+  tiebreakMatch: any;
   constructor(
     private router: Router,
     private tableService: TableService,
@@ -59,12 +60,11 @@ export class CreateTableComponent implements OnInit {
   }
 
   createTable() {    
-    var form = <HTMLInputElement>document.getElementById('create-table-form');
-    var isValidForm = form.checkValidity();
-    console.log('FORM VALIDO ???', isValidForm);
-    if (this.getSelectedMatches().length > 1) {
+    if (this.getSelectedMatches().length > 2 && this.checkTieBreakSelection()) {
       this.table.owner = this.userService.user._id;
       this.table.totalamount = this.table.betamount;
+      this.table.userslimit = '10';
+      this.table.type = 'Fútbol';
       this.tableService.createTable(this.table).subscribe(
         res => {
           this.table = res;
@@ -72,7 +72,7 @@ export class CreateTableComponent implements OnInit {
         }
       )
     } else {
-      alert('Es obligatorio añadir al menos 2 partidos a la mesa. ')
+      swal('Rellena todos los campos', 'Es obligatorio añadir al menos 3 partidos a la mesa y seleccionar el partido de desempate', 'warning');
     }
   }
 
@@ -108,11 +108,12 @@ export class CreateTableComponent implements OnInit {
 
   saveMatchesTypeRelation(tableId: string) {    
     this.matchesWithBetType.forEach((item)=>{
-      item.table = tableId;
+      if(item.match == this.tiebreakMatch)
+        item.tiebreak = true;
+      item.table = tableId;      
     });
     this.matchTypeRelService.createManyMatchTypeRelations(this.matchesWithBetType).subscribe(
-      res => {
-        console.log('Mesa creada correctamente', res);
+      res => {        
         this.router.navigate(['/table', this.table._id]);
       }
     )
@@ -126,13 +127,28 @@ export class CreateTableComponent implements OnInit {
     });
     let newMatchTypeRelation = { 
       match: match._id, 
-      bettype: betType._id
+      bettype: betType._id      
     };
     if(!exists){
       this.matchesWithBetType.push(newMatchTypeRelation);
     }else{
       alert('Este partido ya está añadido');
     }
+  }
+
+  setTieBreak(match){
+    this.matches.forEach((ma)=>{
+      ma.tiebreak = false;
+    });
+    this.tiebreakMatch = match._id;
+    match.tiebreak = !match.tiebreak;
+  }
+
+  checkTieBreakSelection(){
+    let choices = this.matches.filter((el)=>{
+      return el.tiebreak == true;
+    });
+    return choices.length == 1;
   }
 
   // saveMatchesByTable(tableId: string) {

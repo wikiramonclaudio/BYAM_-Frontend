@@ -8,7 +8,10 @@ export class Match {
         public tournament: string,
         public table: string,
         public result?: string,
-        public selected?: boolean
+        public selected?: boolean,
+        public goals?: string,
+        public localteamgoals?: string,
+        public awayteamgoals?: string
     ) {
     }
 }  

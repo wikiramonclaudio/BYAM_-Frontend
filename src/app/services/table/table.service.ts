@@ -19,7 +19,14 @@ export class TableService {
   ) { }
 
   getTables(filters: any): Observable<any>{
+    let params = JSON.stringify(filters);
     let url = URL_SERVICES + '/table';    
+    return this._http.get(url);
+  }
+
+  getArchivedTables(filters: any): Observable<any>{
+    let params = JSON.stringify(filters);
+    let url = URL_SERVICES + '/table/archived';    
     return this._http.get(url);
   }
 

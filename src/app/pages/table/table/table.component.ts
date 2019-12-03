@@ -39,6 +39,10 @@ export class TableComponent implements OnInit {
   selectedUser: User = new User('', '', '', '');
   deadlineDate: any = '';
   allMatchesFinished: boolean;
+  goalsTotal: number;
+  goalsLocalTeam: number;
+  goalsAwayTeam: number;
+  tiebreakMatch: any;
   constructor(
     private tableService: TableService,
     private route: ActivatedRoute,
@@ -74,10 +78,11 @@ export class TableComponent implements OnInit {
   }
 
   subscribeToTable() {
-    if (this.getSelectedForecastCount() == this.matchTypeRelations.length) {
+    if ((this.getSelectedForecastCount() == this.matchTypeRelations.length) && this.goalsTotal >= 0) {
+      // let totalgoals = this.goalsLocalTeam + this.goalsAwayTeam;
       this.subscribeToTableService.createSubscriptionTable(this.subscription, this.table.betamount).subscribe(
         res => {
-          let newBet = new Bet(this.table._id, this.userService.user._id)
+          let newBet = new Bet(this.table._id, this.userService.user._id, null, null, this.goalsTotal, this.tiebreakMatch.match._id);
           this.betService.createBet(newBet).subscribe(
             res => {
               this.forecasts.forEach(element => {
@@ -94,7 +99,7 @@ export class TableComponent implements OnInit {
         }
       )
     } else {
-      alert('Es necesario rellenar todos los pronosticos de la mesa para unirte');
+      swal('Rellena todos los pronósticos', 'Rellena todos los pronósticos incliyendo el número total de goles para unirte', 'error');
     }
   }
 
@@ -131,7 +136,7 @@ export class TableComponent implements OnInit {
   getMyBetData(betId: string) {
     this.forecastService.getBetForecasts(betId).subscribe(
       res => {
-        this.myForecasts = res.forecast;        
+        this.myForecasts = res.forecast;
         this.countDown(this.myForecasts);
         this.checkAllFinished(this.myForecasts)
       }
@@ -152,6 +157,9 @@ export class TableComponent implements OnInit {
     this.matchTypeRelationService.getMatchTypeRelationsByTable(tableId).subscribe(
       (res: any) => {
         this.matchTypeRelations = res.matchTypeRelation;
+        this.tiebreakMatch = this.matchTypeRelations.find((el) => {
+          return el.tiebreak == true;
+        });
         var finished = res.matchTypeRelation.filter((match) => {
           return match.winnerchoice != null && match.winnerchoice != undefined;
         });
@@ -293,48 +301,99 @@ export class TableComponent implements OnInit {
 
   checkWinner() {
     this.forecastService.getForecastsByTable(this.table._id).subscribe(
-      (res: any) => {        
-        let winnerchoice = res.forecast[0].winnerchoice;
+      (res: any) => {
+        // let winnerchoice = res.forecast[0].winnerchoice;        
         let users: any[] = [];
         res.forecast.forEach(element => {
-          if (!users.includes(element.bet.owner)) {
-            users.push({ userId: element.bet.owner, successes: 0 })
+          let contains = users.find((el) => {
+            return el.userId == element.bet.owner;
+          });
+          if (!contains || contains == null) {
+            if (element.bet.tiebreakmatch == element.match._id) {                    
+              users.push({ userId: element.bet.owner, successes: 0, goals: element.bet.goals, goalsResult: element.match.goals });
+            }
           }
         });
+
+        let numAciertos: any = [];
         users.forEach((user: any) => {
           res.forecast.forEach(element => {
             if (element.bet.owner == user.userId && element.winnerchoice == element.choice._id) {
               user.successes = user.successes + 1;
-              // users.push({ userId: element.bet.owner, successes: 0 })
+              numAciertos.push(user.successes);
             }
           });
         });
-        // let unique = [...new Set(users)];
-        // console.log('USUARIOS DE LA MESA', unique);    
-        var valorMasGrande = -1;
-        let winnerPlayer:any = {};
-        users.forEach(element => {
-          if(element.successes > valorMasGrande){
+
+        var valorMasGrande = Math.max.apply(null, numAciertos);
+        let winnerPlayer: any = {};
+        let winners: any = [];
+        users.forEach(element => {          
+          if (element.successes >= valorMasGrande) {
             valorMasGrande = element.successes;
             winnerPlayer = element;
+            element.average = element.goalsResult / element.goals;  
+            console.log('AVERAGE', element.average);
+            winners.push(element);
           }
         });
-        this.table.winner = winnerPlayer.userId;        
-        this.tableService.setTableWinner(this.table).subscribe(
-          (res: any)=>{
-            this.userService.user.money = res.user.money;
-            this.ngOnInit();
+        if (winners.length == 1) {
+          winnerPlayer = winners[0];
+        } else {
+          let acierto = 1;
+          var finalWinners = [];
+          var finalWinner: any = {};
+          let maxValue = 0;
+          winners.forEach(player => {
+            let aver = player.goalsResult / player.goals;   
+            console.log('Average', aver);
+            if (aver == 1)
+              finalWinners.push(player);
+            else {
+              if ((player.goalsResult / player.goals) > maxValue) {
+                maxValue = player.goalsResult / player.goals;
+                finalWinner = player;
+              }
+            }
+          });
+
+
+          if (finalWinners.length > 0) {
+            if(finalWinners.length == 1){
+              finalWinner = finalWinners[0];
+              console.log('SE ASIGNA GANADOR');
+            }
+            else
+              console.log('Hay varios ganadores, hay que repartir...Los ganadores son', finalWinners);
+          } else {
+            console.log('Ganador FINAL', finalWinner);
+            this.table.winner = finalWinner.userId;
+            this.table.owner = this.table.owner._id;
+            if(finalWinners.length<1){
+              this.tableService.setTableWinner(this.table).subscribe(
+                (res: any) => {               
+                  if(winnerPlayer.userId == this.userService.user._id)
+                      this.userService.user.money = res.user.money;
+                  this.ngOnInit();
+                }
+              )
+            }
           }
-        )
+        }
+
       }
     )
   }
 
-  checkAllFinished(list: any){    
-    this.allMatchesFinished = true;
-    list.forEach(element => {
-      if(element.match.finished != true)
-        this.allMatchesFinished = false;
+  checkAllFinished(list: any) {
+    this.allMatchesFinished = false;
+    let variolo = list.filter((el) => {
+      return el.match.finished == true;
     });
+    this.allMatchesFinished = (variolo.length == list.length);
+    // list.forEach(element => {
+    //   if(element.match.finished != true)
+    //     this.allMatchesFinished = false;
+    // });
   }
 }

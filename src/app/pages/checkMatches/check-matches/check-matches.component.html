@@ -39,7 +39,21 @@
                   {{matchByTable.bettype.option3.name}}
                 </a>
               </div>
-              <button class="btn btn-warning mt-2" (click)="setForecastResult(matchByTable, matchByTable.match._id)">
+              <form ngNativeValidate class="form-horizontal form-material">
+                <label for="" class="mt-2">Resultado</label>
+                <div class="form-group display-flex">
+                  <div class="col-xs-6 d-flex flex-center">
+                    <input class="form-control" type="number" required placeholder="Local"
+                      [(ngModel)]="matchByTable.match.localteamgoals" name="subject">
+                      <input class="form-control ml-3" type="number" required placeholder="Visitante"
+                      [(ngModel)]="matchByTable.match.awayteamgoals" name="subject">
+                  </div>
+                  <!-- <div class="col-xs-6">
+                   
+                  </div> -->
+                </div>
+              </form>
+              <button class="btn btn-warning mt-2" (click)="setForecastResult(matchByTable, matchByTable.match)">
                 Guardar resultados
               </button>
             </div>

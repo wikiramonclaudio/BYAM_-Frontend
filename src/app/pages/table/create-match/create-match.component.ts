@@ -19,6 +19,7 @@ export class CreateMatchComponent implements OnInit {
   }
 
   createMatch(){        
+    this.match.where = 'SEGOVIA';
     this.matchService.createMatch(this.match).subscribe(
       res=>{
         // console.log('Creado nuevo partido', res);        

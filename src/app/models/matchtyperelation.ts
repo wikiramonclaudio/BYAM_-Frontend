@@ -3,7 +3,8 @@ export class MatchTypeRelation {
         //mandatory fields
         public match: string,
         public bettype: string,
-        public table: string
+        public table: string,
+        public tiebreak?: boolean
     ) {
     }
 }  

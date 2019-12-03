@@ -1,3 +1,4 @@
+// import { NotificationsComponent } from './notifications/notifications/notifications.component';
 import { TablesComponent } from './tables/tables/tables.component';
 import { LivescoresComponent } from './livescores/livescores/livescores.component';
 import { CheckMatchesComponent } from './checkMatches/check-matches/check-matches.component';
@@ -37,6 +38,7 @@ const pagesRoutes : Routes = [
             { path : 'livescores', component : LivescoresComponent, data: { title:'Resultados en directo'}},            
             { path : 'tables', component : TablesComponent, data: { title:'Partidas en juego'}},            
             { path : 'set-winner-choices', canActivate: [LoginGuardGuard, ChecktokenGuard], component : CheckMatchesComponent, data: { title:'Revisión de apuestas'}},            
+            // { path : 'notifications', canActivate: [LoginGuardGuard, ChecktokenGuard], component : NotificationsComponent, data: { title:'Notificaciones'}},            
             
             //MANTENIMIENTOS
             { canActivate: [AdminGuard], path : 'users', component : UsersComponent, data: { title:'Mantenimiento de usuarios'}},

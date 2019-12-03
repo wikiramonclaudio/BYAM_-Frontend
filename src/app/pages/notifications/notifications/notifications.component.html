@@ -1,0 +1,99 @@
+<div class="row mt-2">
+  <div class="col-sm-12 col-md-6 col-lg-4 mb-2">
+    <a href="javascript:void(0)" class="btn btn-info" data-toggle="modal" data-target="#addNotificationModal">
+      Crear notificación
+      <i class="fa fa-plus ml-2"></i>
+    </a>
+  </div>
+  <div class="col-sm-12 col-md-6 col-lg-4 mt-2" *ngFor="let notification of notifications">
+    <div class="card mb-3">
+      <div class="card-body">
+        <a href="javascript:void(0)" [routerLink]="['/notification', notification._id]" class="d-flex">
+          <img style="width: 22px;
+                    height: 22px;
+                    border-radius: 100%;
+                    margin-right: 10px;" [src]="notification.emiter.image | image" width="25px" alt="">
+          <h5 class="card-title match-title pt-1">{{notification.subject}}</h5>
+        </a>
+        <p class="card-text">
+          {{notification.content}}
+        </p>
+        <!-- <span class="badge badge-info"> {{notification.betamount}}€ </span>
+        <span class="badge badge-success fa fa-user ml-2" style="font-size: 13px;"> {{notification.activeusers}} </span>
+        <span class="badge badge-light fa fa-trophy ml-2 " style="font-size: 13px;">
+          {{notification.activeusers * notification.betamount}}€ </span> -->
+        <!-- <span *ngIf="notification.closed == true" style="font-size:13px;" class="badge badge-danger ml-2 fa fa-lock">
+          <i class="fa fa-xczc"></i>
+        </span> -->
+        <!-- <br>
+        <a href="javascript:void(0)" [routerLink]="['/notification', notification._id]"
+          class="btn btn-primary float-right">
+          <i class="fa fa-sign-in"></i>
+          Entrar
+        </a> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="addNotificationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Crear notificación</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form ngNativeValidate (ngSubmit)="createNotification()" class="form-horizontal form-material">
+          <div class="form-group ">
+            <div class="col-xs-12">
+              <input class="form-control" type="text" required placeholder="Titulo" [(ngModel)]="notification.subject"
+                name="subject">
+            </div>
+          </div>
+          <div class="form-group ">
+            <div class="col-xs-12">
+              <input class="form-control" type="text" required placeholder="Contenido"
+                [(ngModel)]="notification.content" name="content">
+            </div>
+          </div>
+          <!-- <div class="form-group ">
+            <div class="col-xs-12">
+              <select id="inputState" class="form-control" name="betType" required name="userValue{{i}}"
+                [(ngModel)]="notification.receiver">
+                <option>Selecciona Usuario</option>
+                <option *ngFor="let user of users; let in=index;" [ngValue]="user._id">
+                  {{user.name}}
+                </option>
+              </select>
+            </div>
+          </div> -->
+          
+          <!-- <div class="form-group ">
+            <div class="col-xs-12">
+              <input class="form-control" type="text" required placeholder="Equipo visitante"
+                [(ngModel)]="notification.awayteam" name="awayteam">
+            </div>
+          </div>
+          <div class="form-group ">
+            <div class="col-xs-12">
+              <input class="form-control" type="text" required placeholder="Where" [(ngModel)]="notification.where"
+                name="where">
+            </div>
+          </div> -->
+          <button class="btn btn-success">Enviar notificación</button>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
