@@ -8,19 +8,21 @@ import 'rxjs/add/operator/map';
 import swal from 'sweetalert';
 import { UploadFileService } from '../upload-file.service';
 import { Observable } from 'rxjs/Observable';
-
+import { Socket } from 'ngx-socket-io';
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   public token: string;
-  public user: User;  
+  public user: User;
   public menu:any = {};
 
   constructor(
     public _http: HttpClient,
     public router: Router,
-    public uploadService: UploadFileService    
+    public uploadService: UploadFileService,
+    public socket: Socket,
+    public websocketService: WebsocketService
   ) {
     this.loadStorage();
    }
@@ -74,7 +76,8 @@ export class UserService {
     this.user = user;    
     return this._http.post(url, params, { headers: headers })
     .map((res: any)=>{          
-      this.saveStorage(res.id, res.token, res.user, res.menu);      
+      this.saveStorage(res.id, res.token, res.user, res.menu);   
+      this.websocketService.emit('addDoc', {user: res.user});     
       return true;
     });
   }
@@ -106,6 +109,7 @@ export class UserService {
     localStorage.removeItem('user');
     localStorage.removeItem('menu');
     this.router.navigate(['/login']);
+    this.websocketService.emit('desconectar', {});
   }
 
   saveStorage(id: string, token: string, user: User, menu: any){

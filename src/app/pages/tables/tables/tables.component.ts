@@ -1,3 +1,4 @@
+import { Table } from './../../../models/table.model';
 import { UserService } from './../../../services/user/user.service';
 import { TableService } from 'src/app/services/table/table.service';
 import { SubscriptionTableService } from 'src/app/services/tablesubscription/table-subscription.service';
@@ -9,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tables.component.css']
 })
 export class TablesComponent implements OnInit {
-  tables: any[] = [];
+  tables: Table[] = [];
   constructor(
     private tableService: TableService,
     private userService: UserService,

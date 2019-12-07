@@ -34,13 +34,24 @@ import { CheckMatchesComponent } from './checkMatches/check-matches/check-matche
 import { LivescoresComponent } from './livescores/livescores/livescores.component';
 import { TablesComponent } from './tables/tables/tables.component';
 import { NotificationsComponent } from './notifications/notifications/notifications.component';
+import { RankingComponent } from './ranking/ranking/ranking.component';
+
+// dates format
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+
+// ...other imports
+// import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+// const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+
+registerLocaleData(localeEs);
 
 @NgModule({
     declarations : [        
         DashboardComponent,
         Graficas1Component,
         ProgressComponent,  
-        IncrementatorComponent, GraficoDonaComponent, AccountSettingsComponent, PromesasComponent, RxjsComponent, ProfileComponent, UsersComponent, SearchComponent, ChatComponent, TableComponent, CreateTableComponent, CreateMatchComponent, EditTableComponent, CreateBetTypeComponent, CheckMatchesComponent, LivescoresComponent, TablesComponent, NotificationsComponent
+        IncrementatorComponent, GraficoDonaComponent, AccountSettingsComponent, PromesasComponent, RxjsComponent, ProfileComponent, UsersComponent, SearchComponent, ChatComponent, TableComponent, CreateTableComponent, CreateMatchComponent, EditTableComponent, CreateBetTypeComponent, CheckMatchesComponent, LivescoresComponent, TablesComponent, NotificationsComponent, RankingComponent
     ],
     exports: [
         DashboardComponent,
@@ -53,7 +64,7 @@ import { NotificationsComponent } from './notifications/notifications/notificati
         FormsModule,
         ChartsModule,
         PipesModule,
-        CommonModule                
+        CommonModule        
     ]
 })
 

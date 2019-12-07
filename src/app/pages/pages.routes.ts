@@ -16,6 +16,7 @@ import { UsersComponent } from "./users/users.component";
 import { SearchComponent } from "./search/search.component";
 import { TableComponent } from './table/table/table.component';
 import { CreateTableComponent } from './create-table/create-table.component';
+import { RankingComponent } from './ranking/ranking/ranking.component';
 
 const pagesRoutes : Routes = [
     // { 
@@ -36,10 +37,11 @@ const pagesRoutes : Routes = [
             { path : 'add-match', canActivate: [LoginGuardGuard, ChecktokenGuard], component : CreateMatchComponent, data: { title:'Crear partido'}},            
             { path : 'add-bet-type', canActivate: [LoginGuardGuard, ChecktokenGuard], component : CreateBetTypeComponent, data: { title:'Crear tipo de apuesta'}},            
             { path : 'livescores', component : LivescoresComponent, data: { title:'Resultados en directo'}},            
-            { path : 'tables', component : TablesComponent, data: { title:'Partidas en juego'}},            
+            { path : 'tables', component : TablesComponent, data: { title:'Partidas en juego'}},
+            { path : 'ranking', component : RankingComponent, data: { title:'Ranking ganadores'}},
             { path : 'set-winner-choices', canActivate: [LoginGuardGuard, ChecktokenGuard], component : CheckMatchesComponent, data: { title:'Revisión de apuestas'}},            
             // { path : 'notifications', canActivate: [LoginGuardGuard, ChecktokenGuard], component : NotificationsComponent, data: { title:'Notificaciones'}},            
-            
+             
             //MANTENIMIENTOS
             { canActivate: [AdminGuard], path : 'users', component : UsersComponent, data: { title:'Mantenimiento de usuarios'}},
              { path : 'table/:id', component : TableComponent, data: { title:'Mesa de juego'}},

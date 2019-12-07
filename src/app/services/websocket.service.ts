@@ -1,12 +1,9 @@
 import { Observable } from 'rxjs/Observable';
-import { URL_SERVICES } from 'src/app/config/config';
 import { Injectable } from '@angular/core';
-import { Socket } from 'ngx-socket-io';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { UserService } from './user/user.service';
-import * as io from 'socket.io-client';
-import * as Rx from 'rxjs/Rx';
+import { Socket } from 'ngx-socket-io';
 
 
 @Injectable({
@@ -15,11 +12,9 @@ import * as Rx from 'rxjs/Rx';
 export class WebsocketService {
   public socketStatus = false;
   public user: any = {};
-  private socket; //SOcket to connect with socket server
   constructor(
-    // public socket: Socket,
-    private router: Router,
-    private userservice: UserService
+    public socket: Socket,
+    private router: Router    
   ) {
     // this.loadStorage();
     // this.checkStatus();
@@ -27,6 +22,14 @@ export class WebsocketService {
     //   console.log('ISIARIO CONECTADO', user);
     //   console.log(typeof user);
     // });
+  }
+
+  emit(eventName: string, params: Object ){
+    this.socket.emit(eventName, params);
+  }
+
+  listen(eventName: string, params: Object ){
+    return this.socket.fromEvent(eventName);
   }
 
   // checkStatus() {
@@ -90,38 +93,6 @@ export class WebsocketService {
   // }
 
   // socket.io-client test
-  connect(): Rx.Subject<MessageEvent> {
-    this.socket = io(URL_SERVICES);
 
-    let observable = new Observable(observer => {
-      // this.socket.on('message', (data) => {
-      //   console.log('received message from websocket server');
-      //   observer.next(data);
-      // });
-
-      this.socket.on('user-connected', (data) => {
-        console.log('User connected', data);
-        observer.next(data);
-      });
-      
-      // return () => {
-      //   this.socket.disconnect();
-      // }
-    });
-
-    let observer = {
-      next: (data: Object)=>{
-        // this.socket.emit('message', JSON.stringify(data));
-        console.log('USUARIO CONECTADO', data);
-      }
-    };
-
-    return Rx.Subject.create(observer, observable);
-  }
-
-  connectUser(user:any){
-    this.socket = io(URL_SERVICES, {transports: ['websocket']});
-    this.socket.emit('configure-user', JSON.stringify(user));    
-  }
 }
 

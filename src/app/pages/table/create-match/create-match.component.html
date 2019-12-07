@@ -2,7 +2,7 @@
   <div class="col-lg-6 col-xs-12">
     <div class="card">
       <div class="card-body">      
-        <form (ngSubmit)="createMatch()" class="form-horizontal form-material">
+        <form ngNativeValidate (ngSubmit)="createMatch()" class="form-horizontal form-material">
           <div class="form-group ">
             <div class="col-xs-12">
               <input class="form-control" type="datetime-local" required placeholder="Fecha" [(ngModel)]="match.when"

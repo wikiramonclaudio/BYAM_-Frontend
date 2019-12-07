@@ -20,15 +20,15 @@ export class CreateMatchComponent implements OnInit {
 
   createMatch(){        
     this.match.where = 'SEGOVIA';
+    console.log(this.match.when);
+    var cepillo = new Date(this.match.when).toISOString();
+    console.log('CEPILLO', cepillo);
+    this.match.when = cepillo;
     this.matchService.createMatch(this.match).subscribe(
       res=>{
         // console.log('Creado nuevo partido', res);        
       }
     )
-  }
-
-  getMatchesByTable(){
-
   }
 
 }

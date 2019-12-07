@@ -16,6 +16,7 @@ import { Match } from 'src/app/models/match.model';
 import { MatchTypeRelation } from 'src/app/models/matchtyperelation';
 import { Bet } from 'src/app/models/bet.model';
 import swal from 'sweetalert';
+import { WebsocketService } from 'src/app/services/websocket.service';
 
 @Component({
   selector: 'app-table',
@@ -51,7 +52,8 @@ export class TableComponent implements OnInit {
     private matchService: MatchService,
     private matchTypeRelationService: MatchTypeRelationService,
     private forecastService: ForecastService,
-    private betService: BetService
+    private betService: BetService,
+    public websocketService: WebsocketService
   ) { }
 
   ngOnInit() {
@@ -90,6 +92,8 @@ export class TableComponent implements OnInit {
                 element.table = this.table._id;
               });
               this.addForecastTobet();
+              this.subscribeToSocket();
+              swal("Te has registrado en la mesa", " ", "success");              
             }
           )
         },
@@ -103,12 +107,26 @@ export class TableComponent implements OnInit {
     }
   }
 
+  subscribeToSocket(){
+    this.websocketService.listen('newPlayerInTable', {}).subscribe(
+      (res:any)=>{
+        console.log('res', res);
+        // console.log('params', params);
+        swal(res.user.name + " se ha unido a la mesa " + res.table.name, {                    
+          timer: 2500,
+        });
+        this.ngOnInit();
+      }
+    );
+  }
+
   getSubscriptors() {
     this.subscribeToTableService.getSubscriptionsByTable(this.table._id).subscribe(
       res => {
         this.tableSubscriptions = res.tableSubscriptions;
         this.totalAmount = Number(this.table.betamount) * this.tableSubscriptions.length;
         if (this.checkSubscription()) {
+          this.subscribeToSocket();
           this.getBetsByTable(this.userService.user, this.userService.user._id);
         } else {
           if (!this.table.closed)
@@ -253,13 +271,16 @@ export class TableComponent implements OnInit {
 
     if (this.table.closed == false) {
       var x = setInterval(() => {
-        var deadline: any = new Date(earliest).getTime();
+        var deadline: any = new Date(earliest).getTime();        
         var now = new Date().getTime();
-        var t = deadline - now;
+        // console.log('now', now);
+        // console.log(now + new Date().getTimezoneOffset());
+        var t = deadline - (now + new Date().getTimezoneOffset()) ;
         var days: any = Math.floor(t / (1000 * 60 * 60 * 24));
         var hours: any = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        // hours -= 1;
         var minutes: any = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds: any = Math.floor((t % (1000 * 60)) / 1000);
+        var seconds: any = Math.floor((t % (1000 * 60)) / 1000);        
         if (!document.getElementById("day")) {
           clearInterval(x);
           return;
@@ -269,7 +290,7 @@ export class TableComponent implements OnInit {
         document.getElementById("minute").innerHTML = minutes;
         document.getElementById("second").innerHTML = seconds;
         this.deadlineDate = 'La mesa cerrará en ' + days + ' días, ' + hours + 'hours, ' + minutes + ' minutos';
-        if (t < 0) {
+        if (t < 0 || minutes < 0 ||  hours < 0) {
           clearInterval(x);
           this.table.closed = true;
           this.deadlineDate = 'Mesa cerrada';

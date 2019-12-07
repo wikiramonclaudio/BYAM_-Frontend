@@ -16,7 +16,7 @@
     </div>
   </div>
   <div class="col-sm-12 col-md-6 col-lg-4" *ngFor="let table of tables">
-    <div class="card">
+    <div class="card" *ngIf="table && table._id">
       <div class="card-body">
         <a href="javascript:void(0)" [routerLink]="['/table', table._id]" class="d-flex">
           <img style="width: 22px;

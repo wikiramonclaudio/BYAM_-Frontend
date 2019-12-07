@@ -86,7 +86,7 @@
                   <span class="ml-2">{{matchByTable.match.awayteam}}</span>
                   <br>
                   <span class="ml-2"
-                    style="font-size: 13px; color: #ccc2c2;">{{matchByTable.match.when | date: 'short'}}</span>
+                    style="font-size: 13px; color: #ccc2c2;">{{matchByTable.match.when | date: 'short' : 'UTC' : 'es'}}</span>
                 </a>
               </h4>
             </div>
@@ -173,7 +173,7 @@
                     *ngIf="matchByTable.bet.tiebreakmatch == matchByTable.match._id">{{matchByTable.bet.goals}}</span>
                   <br>
                   <span class="ml-2"
-                    style="font-size: 13px; color: #ccc2c2;">{{matchByTable.match.when | date: 'short'}}
+                    style="font-size: 13px; color: #ccc2c2;">{{matchByTable.match.when | date: 'short' : 'UTC' : 'es'}}
                   </span>
                   <span class="badge badge-success fa fa-check ml-2" style="font-size: 13px;"
                     *ngIf="matchByTable.winnerchoice != null && matchByTable.choice._id == matchByTable.winnerchoice"><span></span></span>
@@ -212,11 +212,11 @@
             <hr>
           </div>
         </div>
-        <button class="btn btn-info mt-3" data-toggle="modal" data-target="#addMatchModal" (click)="getMatches()"
+        <!-- <button class="btn btn-info mt-3" data-toggle="modal" data-target="#addMatchModal" (click)="getMatches()"
           *ngIf="userService.user._id == owner._id">
           <i class="fa fa-plus mr-2"></i>
           <span>Añadir partidos</span>
-        </button>
+        </button> -->
       </div>
     </div>
   </div>
@@ -240,7 +240,7 @@
                 <span>{{match.localteam}}</span>
                 <span class="ml-2">VS</span>
                 <span class="ml-2">{{match.awayteam}}</span>
-                <span class="ml-2" style="font-size: 13px; color: #ccc2c2;">{{match.when | date: 'short'}}</span>
+                <span class="ml-2" style="font-size: 13px; color: #ccc2c2;">{{match.when | date: 'short' : 'UTC' : 'es'}}</span>
               </a>
             </li>
           </ul>
