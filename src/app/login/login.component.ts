@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit {
       this.userService.googleLogin(token).subscribe(
         (response: any)=>{                    
           window.location.href = '#/dashboard';
+          // $('google-btn').popover('destroy');
         },
         error=>{
           console.log(error);

@@ -72,7 +72,7 @@ export class CreateTableComponent implements OnInit {
         }
       )
     } else {
-      swal('Rellena todos los campos', 'Es obligatorio añadir al menos 3 partidos a la mesa y seleccionar el partido de desempate', 'warning');
+      swal('Rellena todos los campos', 'Asegúrate que has añadido al menos 3 partidos y que has marcado el check del partido de desempate', 'warning');
     }
   }
 
@@ -84,10 +84,12 @@ export class CreateTableComponent implements OnInit {
     )
   }
 
+  //Visual toggle tiebreak matches 
   toggleSelected(match) {
     match.selected = !match.selected;
   }
 
+  //Save matches 
   saveMatches() {
     this.selectedMatches = this.matches.filter((el) => {
       return el.selected == true;
@@ -99,6 +101,7 @@ export class CreateTableComponent implements OnInit {
     });
   }
 
+  //get the selected matches 
   getSelectedMatches() {
     var pepino = this.matches.filter((el) => {
       return el.selected == true;
@@ -106,6 +109,7 @@ export class CreateTableComponent implements OnInit {
     return pepino;
   }
 
+  //Save matches by table
   saveMatchesTypeRelation(tableId: string) {    
     this.matchesWithBetType.forEach((item)=>{
       if(item.match == this.tiebreakMatch)
@@ -119,6 +123,7 @@ export class CreateTableComponent implements OnInit {
     )
   }
 
+  //Add match to selected matches (To save them on this table)
   saveMatch(match: any, betType: any, tableId: string) {    
     match.selected = true;
     
@@ -131,11 +136,12 @@ export class CreateTableComponent implements OnInit {
     };
     if(!exists){
       this.matchesWithBetType.push(newMatchTypeRelation);
-    }else{
-      alert('Este partido ya está añadido');
+    }else{      
+      swal('Partido añadido', 'Este partido ya está añadido', 'warning');
     }
   }
 
+  //check selected tiebrekmatch (Draws)
   setTieBreak(match){
     this.matches.forEach((ma)=>{
       ma.tiebreak = false;
@@ -144,11 +150,17 @@ export class CreateTableComponent implements OnInit {
     match.tiebreak = !match.tiebreak;
   }
 
+  //check selected tiebrekmatch
   checkTieBreakSelection(){
     let choices = this.matches.filter((el)=>{
       return el.tiebreak == true;
     });
     return choices.length == 1;
+  }
+
+  //Deselect selected match 
+  deselectMatch(match: any, matches: any []){
+    match.selected = false;    
   }
 
   // saveMatchesByTable(tableId: string) {

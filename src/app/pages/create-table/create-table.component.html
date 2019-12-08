@@ -1,15 +1,21 @@
 <div class="row">
-  <div style="position:fixed; right: 20px; z-index: 999;">
-    <span class="badge badge-info">{{getSelectedMatches().length}} partidos añadidos</span>
+  <div style="position:fixed; right: 5px; z-index: 999;" *ngIf="betTypesLoaded">
+    <span class="badge badge-warning">{{getSelectedMatches().length}} partidos añadidos</span>
     <div class="d-flex flex-column flex-center bg-white">
-      <div *ngFor="let selectedMatch of getSelectedMatches()" class="d-flex align-items-center" style="height: 32px;">
-        <span>
+      <div *ngFor="let selectedMatch of getSelectedMatches()" class="d-flex align-items-center badge"
+        [ngClass]="{'badge-success': selectedMatch.tiebreak, 'badge-primary': !selectedMatch.tiebreak}"
+        style="height: 32px;">
+        <span (click)="setTieBreak(selectedMatch)">
           {{selectedMatch.localteam}}
         </span>
-        <span class="ml-2">vs</span>
-        <span class="ml-2">{{selectedMatch.awayteam}}</span>
-        <span class="fa fa-trash ml-2 fa2x"></span>
+        <span class="ml-2" (click)="setTieBreak(selectedMatch)">vs</span>
+        <span class="ml-2" (click)="setTieBreak(selectedMatch)">{{selectedMatch.awayteam}}</span>
+        <span class="fa fa-trash ml-2 fa2x" (click)="deselectMatch(selectedMatch)"></span>
       </div>
+      <button class="btn btn-success ml-2 mt-4" (click)="createTable()" [disabled]="getSelectedMatches().length<3"
+        type="submit">
+        Crear mesa
+      </button>
     </div>
   </div>
   <div class="col-lg-6 col-xs-12">
@@ -33,8 +39,8 @@
           </div> -->
           <div class="form-group ">
             <div class="col-xs-12">
-              <input class="form-control" type="number" required placeholder="Importe apuesta" [(ngModel)]="table.betamount"
-                name="betamount" #betamount="ngModel">
+              <input class="form-control" type="number" required placeholder="Importe apuesta"
+                [(ngModel)]="table.betamount" name="betamount" #betamount="ngModel">
               <span class="text-danger" style="font-size:13px;" *ngIf="betamount.errors?.required">Campo
                 obligatorio</span>
             </div>
@@ -67,24 +73,15 @@
             </div>
           </div>
         </form>
-
-        <div class="matches mb-2" *ngIf="selectedMatches.length>0">
-          <div *ngFor="let match of selectedMatches">
-            <span>
-              {{match.localteam}}
-            </span>
-            <span class="ml-2">VS</span>
-            <span class="ml-2">{{match.awayteam}}</span>
-          </div>
-        </div>
-        <button class="btn btn-success mt-4" data-toggle="modal" (click)="getBetTypes()">
+      
+        <button class="btn btn-primary mt-4" data-toggle="modal" (click)="getBetTypes()" *ngIf="!betTypesLoaded">
           <i class="fa fa-plus mr-2"></i>
           <span>Añadir partidos</span>
         </button>
-        <button class="btn btn-success ml-2 mt-4" (click)="createTable()" [disabled]="getSelectedMatches().length<3"
+        <!-- <button class="btn btn-success ml-2 mt-4" (click)="createTable()" [disabled]="getSelectedMatches().length<3"
           type="submit">
           Crear mesa
-        </button>
+        </button> -->
       </div>
     </div>
   </div>
@@ -93,21 +90,31 @@
       <div class="card-body">
         <h4 class="card-title text-center">Partidos disponibles</h4>
         <hr>
-        <h5><span class="badge badge-info pl-2 pr-2 mt-2" style="white-space: pre-wrap;">
-          En cada mesa debe haber un desempate (Num goles partido). Cuando haya más de un ganador se
-          revisará este pronóstico para determinar el ganador.
-        </span></h5>
+        <h5 *ngIf="!checkTieBreakSelection()">
+          <span class="badge badge-info pl-2 pr-2 mt-2" style="white-space: pre-wrap;">
+            Debes seleccionar un partido de desempate <i class="fa fa-check-square ml-2 mr-2"></i>(Num goles partido seleccionado). Cuando haya más de un ganador se revisará este pronóstico para determinar el ganador.
+          </span>
+        </h5>
         <br>
         <div class="panel-group">
           <div class="panel panel-default" *ngFor="let match of matches; let i=index">
             <div class="panel-heading">
               <h4 class="panel-title card-title text-center match-title">
-                <a data-toggle="collapse" [href]="'#'+match._id">
+                <!-- <a data-toggle="collapse" [href]="'#'+match._id"> -->
+                <a>
                   <span>{{match.localteam}}</span>
                   <span class="ml-2">VS</span>
                   <span class="ml-2">{{match.awayteam}}</span>
                   <br>
-                  <span class="ml-2" style="font-size: 13px; color: #ccc2c2;">{{match.when | date: 'short'}}</span>
+                  <!-- {{match.when | date: 'short'}} -->
+                  <span class="ml-2" style="font-size: 13px; color: #ccc2c2;">{{match.when}}</span>
+                  <br>
+                  <!-- <span class="badge badge-success"> -->
+                  <i class="fa fa-plus ml-2 fa-2x text-center" (click)="saveMatch(match, betTypeValues[i])"
+                    [ngClass]="{'text-success': match.selected}">&nbsp;</i>
+                  <!-- </span> -->
+                  <i (click)="setTieBreak(match)" [ngClass]="{'text-success': match.tiebreak}"
+                    class="fa fa-check-square ml-2 fa-2x text-center"></i>
                 </a>
               </h4>
             </div>
@@ -134,7 +141,7 @@
                   <div class="col-xs-12 text-center">
                     <span>Marcar como partido de desempate </span>
                     <i (click)="setTieBreak(match)" [ngClass]="{'text-success': match.tiebreak}"
-                      class="fa fa-check-square ml-2 fa-2x text-center"></i>                    
+                      class="fa fa-check-square ml-2 fa-2x text-center"></i>
                   </div>
                 </div>
 
