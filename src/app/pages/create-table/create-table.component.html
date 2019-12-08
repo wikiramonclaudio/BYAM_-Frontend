@@ -60,7 +60,7 @@
               <span class="text-danger" style="font-size:13px;" *ngIf="type.errors?.required">Campo obligatorio</span>
             </div>
           </div> -->
-          <div class="for-group">
+          <!-- <div class="for-group">
             <div class="col-xs-12">
               <h5><span class="badge badge-info pl-2 pr-2"><i class="fa fa-info mr-1"></i>Debes añadir al menos tres
                   partidos </span></h5>
@@ -71,7 +71,7 @@
               <span class="">Partidos añadidos </span>
               <span class="badge badge-success">{{getSelectedMatches().length}}</span>
             </div>
-          </div>
+          </div> -->
         </form>
       
         <button class="btn btn-primary mt-4" data-toggle="modal" (click)="getBetTypes()" *ngIf="!betTypesLoaded">

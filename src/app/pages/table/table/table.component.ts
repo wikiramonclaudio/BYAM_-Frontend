@@ -397,9 +397,16 @@ export class TableComponent implements OnInit {
                   this.ngOnInit();
                 }
               )
-            }
-            else
+            }else{
               console.log('Hay varios ganadores, hay que repartir...Los ganadores son', finalWinners);
+              // this.tableService.setTableWinner(this.table).subscribe(
+              //   (res: any) => {
+              //     if (winnerPlayer.userId == this.userService.user._id)
+              //       this.userService.user.money = res.user.money;
+              //     this.ngOnInit();
+              //   }
+              // )
+            }
           } else {
             if ((!this.table.winner || this.table.winner == undefined)) {
               this.table.winner = finalWinner.userId;
