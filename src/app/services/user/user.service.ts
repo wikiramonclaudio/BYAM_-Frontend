@@ -109,7 +109,7 @@ export class UserService {
     localStorage.removeItem('user');
     localStorage.removeItem('menu');
     this.router.navigate(['/login']);
-    this.websocketService.emit('desconectar', {});
+    // this.websocketService.emit('desconectar', {});
   }
 
   saveStorage(id: string, token: string, user: User, menu: any){
@@ -172,6 +172,18 @@ export class UserService {
       this.router.navigate(['/login']);
       swal('No se pudo renovar el token, loggeate', err.error.message, 'success');
     });
+  }
+
+  getRanking(){
+    let url = URL_SERVICES + '/user/ranking/winners?token=' + this.token;    
+    return this._http.get(url);
+  }
+
+  inviteFriend(invitation: any){
+    let params = JSON.stringify(invitation);
+    let url = URL_SERVICES + '/user/invite';    
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.post(url, params, { headers: headers });
   }
   
 }

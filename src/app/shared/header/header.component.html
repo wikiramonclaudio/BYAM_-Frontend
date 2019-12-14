@@ -37,7 +37,7 @@
           <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             <span class="badge badge-pill badge-primary">{{userService.user.money}}€</span>
-            <img [src]="userService.user.image | image" alt="user" alt="user" class="profile-pic" />
+            <img [src]="userService.user.image | image" [alt]="user.name" alt="user" class="profile-pic" />
           </a>
           
           <div class="dropdown-menu dropdown-menu-right animated flipInY">

@@ -45,7 +45,7 @@ export class MatchService {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.post(url, params, { headers: headers })
     .map((res: any)=>{
-      swal("Match registrado", " " + match.name, "success");
+      swal("Partido registrado", " " + "El partido está ya disponible para añadirlo en las mesas de juego.", "success");
       return res.match;
     });
   }

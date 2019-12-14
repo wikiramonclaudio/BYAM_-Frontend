@@ -25,6 +25,10 @@
               class="badge badge-success ml-2 fa fa-unlock-alt">
               <i class="fa fa-xczc"></i>
             </span>
+            <span style="font-size:13px;" class="badge badge-primary ml-2"
+              data-toggle="modal" data-target="#chatModal" *ngIf="table.chat && checkSubscription()">
+              <i class="fa fa-comments fa-2x"></i>
+            </span>
             <!-- <span class="fa fa-soccer-ball-o ml-3" *ngIf="table.type == 'Futbol'"></span> -->
             <!-- <img class="ml-3" src="./assets/images/basketball.png" *ngIf="table.type == 'Baloncesto'" width="38"> -->
           </div>
@@ -60,9 +64,9 @@
               </a>
             </li>
           </ul>
-          <h3 class="total-prize badge-pill badge-success ml-3 px-4 fa fa-trophy"
+          <h3 class="d-flex total-prize badge-pill badge-success ml-3 px-4 fa fa-trophy"
             style="line-height: 46px;font-weight: bold;">
-            {{totalAmount}}€
+            <span class="ml-2">{{totalAmount}}€</span>
           </h3>
         </div>
         <button class="btn secondary" (click)="checkWinner()" *ngIf="allMatchesFinished == true && !table.winner">
@@ -85,8 +89,10 @@
                   <span class="ml-2">VS</span>
                   <span class="ml-2">{{matchByTable.match.awayteam}}</span>
                   <br>
+                  <!-- <span class="ml-2"
+                    style="font-size: 13px; color: #ccc2c2;">{{matchByTable.match.when | date: 'short' : 'UTC' : 'es'}}</span> -->
                   <span class="ml-2"
-                    style="font-size: 13px; color: #ccc2c2;">{{matchByTable.match.when | date: 'short' : 'UTC' : 'es'}}</span>
+                    style="font-size: 13px; color: #ccc2c2;">{{matchByTable.match.when | date: 'short' : 'es'}}</span>
                 </a>
               </h4>
             </div>
@@ -118,7 +124,7 @@
                       Pronóstico desempate (Num goles partido). Cuando haya más de un ganador se
                       revisará este pronóstico para desempatar.
                     </span></h5>
-                  <span style="font-size: 14px;">Num total goles partido (Desempates)</span>                  
+                  <span style="font-size: 14px;">Num total goles partido (Desempates)</span>
                   <div class="form-group d-flex">
                     <input class="form-control text-center" type="number" required placeholder="0"
                       [(ngModel)]="goalsTotal" name="subject">
@@ -143,11 +149,6 @@
           <i class="fa fa-plus mr-1"></i>
           <span (click)="subscribeToTable()">Unirme a la mesa</span>
         </button>
-        <!-- <button class="btn btn-info mt-3" data-toggle="modal" data-target="#addMatchModal" (click)="getMatches()"
-          *ngIf="userService.user._id == owner._id">
-          <i class="fa fa-plus mr-2"></i>
-          <span>Añadir partidos</span>
-        </button> -->
       </div>
     </div>
   </div>
@@ -212,45 +213,54 @@
             <hr>
           </div>
         </div>
-        <!-- <button class="btn btn-info mt-3" data-toggle="modal" data-target="#addMatchModal" (click)="getMatches()"
-          *ngIf="userService.user._id == owner._id">
-          <i class="fa fa-plus mr-2"></i>
-          <span>Añadir partidos</span>
-        </button> -->
       </div>
     </div>
   </div>
 </div>
 
-
-<!-- AÑADIR PARTIDOS -->
-<div class="modal" id="addMatchModal">
+<!-- chatModal -->
+<div class="modal animate" id="chatModal">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Añadir partidos</h4>
+      <!-- <div class="modal-header">
+        <h4 class="modal-title">Chat partida {{table.name}}</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div class="card">
-          <ul class="list-group">
-            <li class="list-group-item" *ngFor="let match of matches" [ngClass]="{'active': match.selected}"
-              (click)="toggleSelected(match)">
-              <a href="javascript:void(0)" style="color: inherit;">
-                <span>{{match.localteam}}</span>
-                <span class="ml-2">VS</span>
-                <span class="ml-2">{{match.awayteam}}</span>
-                <span class="ml-2" style="font-size: 13px; color: #ccc2c2;">{{match.when | date: 'short' : 'UTC' : 'es'}}</span>
-              </a>
-            </li>
-          </ul>
+      </div> -->
+      <div class="modal-body p-2">
+        <div class="card m-0">
+          <div class="d-flex pl-0">
+            <ul class="flex-1 pl-0">
+              <li *ngFor="let subscription of tableSubscriptions" class="d-flex pl-0">
+                <img [src]="subscription.player.image | image" alt="" width="16px" height="16px">
+                <small class="ml-2" style="white-space: nowrap;
+                max-width: 80px;
+                overflow: hidden;
+                text-overflow: ellipsis;">{{subscription.player.name}} </small>
+              </li>
+            </ul>
+            <ul class="flex-2 pl-2" style="width: 100%;">
+              <!-- <li *ngFor="let subscription of tableSubscriptions">{{subscription.player.name}} </li> -->
+              <div id="chat-mensajes" style="height: 380px;overflow-y: auto;">
+                <li *ngFor="let mensaje of mensajes" class="list-group-item p-2 d-flex flex-column">
+                  <small class="text-success mr-2">{{mensaje.emiter.name}}:</small>
+                  <small class="">{{mensaje.text}}</small>
+                </li>
+                <li *ngIf="mensajes.length == 0 " class="list-group-item p-2">                   
+                    <small class="">No hay mensajes en la mesa escribe el primero!</small>
+                  </li>
+              </div>
+              <form (ngSubmit)="enviar()">
+                <input type="text" [(ngModel)]="texto" class="form-control chat-input" name="texto"
+                  placeholder="Escribe tu mensaje" autofocus autocomplete="off">
+              </form>
+            </ul>
+          </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="saveMatches()">Añadir
-          partidos</button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+          <!-- <button type="button" class="btn btn-success" data-dismiss="modal" (click)="saveMatches()">Añadir
+            partidos</button> -->
+        </div>
       </div>
     </div>
   </div>
-</div>

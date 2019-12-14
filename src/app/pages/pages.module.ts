@@ -39,6 +39,7 @@ import { RankingComponent } from './ranking/ranking/ranking.component';
 // dates format
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
+import { InviteComponent } from './invite/invite/invite.component';
 
 // ...other imports
 // import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
@@ -51,7 +52,7 @@ registerLocaleData(localeEs);
         DashboardComponent,
         Graficas1Component,
         ProgressComponent,  
-        IncrementatorComponent, GraficoDonaComponent, AccountSettingsComponent, PromesasComponent, RxjsComponent, ProfileComponent, UsersComponent, SearchComponent, ChatComponent, TableComponent, CreateTableComponent, CreateMatchComponent, EditTableComponent, CreateBetTypeComponent, CheckMatchesComponent, LivescoresComponent, TablesComponent, NotificationsComponent, RankingComponent
+        IncrementatorComponent, GraficoDonaComponent, AccountSettingsComponent, PromesasComponent, RxjsComponent, ProfileComponent, UsersComponent, SearchComponent, ChatComponent, TableComponent, CreateTableComponent, CreateMatchComponent, EditTableComponent, CreateBetTypeComponent, CheckMatchesComponent, LivescoresComponent, TablesComponent, NotificationsComponent, RankingComponent, InviteComponent
     ],
     exports: [
         DashboardComponent,

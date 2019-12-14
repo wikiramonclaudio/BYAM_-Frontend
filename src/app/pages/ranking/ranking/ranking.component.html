@@ -2,49 +2,23 @@
   <div class="col-sm-12">
     <div class="card">
       <div class="card-body">
-        <!-- <h4 class="card-title text-center">Partidas en juego</h4> -->
-        <!-- <a href="javascript:void(0)" [routerLink]="['/add-table']" class="btn btn-success">
-          <i class="fa fa-plus"></i>
-        </a>
-        <a href="javascript:void(0)" class="ml-2 btn btn-info" (click)="getMyTables()">
-          Mis partidas
-        </a>
-        <a href="javascript:void(0)" class="ml-2 btn btn-info" (click)="getTables()">
-          Todas
-        </a> -->
         <table class="table">
           <thead>
             <tr>
               <th>#</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Username</th>
+              <th>Usuario</th>             
+              <th><i class="text-success fa fa-trophy"></i></th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-            </tr>
+            <tr *ngFor="let user of users; let i = index;">
+              <th scope="row">{{i + 1}}</th>
+              <td><img [src]="user.image | image" width="24" alt="" class="mr-2">{{user.name}}</td>
+              <th scope="row">{{user.wins}}</th>
+            </tr>           
           </tbody>
         </table>
       </div>
     </div>
   </div>
-
-
 </div>

@@ -1,3 +1,4 @@
+import { InviteComponent } from './invite/invite/invite.component';
 // import { NotificationsComponent } from './notifications/notifications/notifications.component';
 import { TablesComponent } from './tables/tables/tables.component';
 import { LivescoresComponent } from './livescores/livescores/livescores.component';
@@ -45,7 +46,9 @@ const pagesRoutes : Routes = [
             //MANTENIMIENTOS
             { canActivate: [AdminGuard], path : 'users', component : UsersComponent, data: { title:'Mantenimiento de usuarios'}},
              { path : 'table/:id', component : TableComponent, data: { title:'Mesa de juego'}},
-             { path : '', redirectTo : '/dashboard', pathMatch : 'full', data: { title:'Dashboard'}} 
+             { path : 'invite', component : InviteComponent, data: { title:'Invitar amigos'}},
+             { path : '', redirectTo : '/dashboard', pathMatch : 'full', data: { title:'Dashboard'}},
+             
              // { path : 'chat', component : ChatComponent, data: { title:'Chat'}},
     //     ]
 

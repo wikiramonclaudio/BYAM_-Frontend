@@ -1,5 +1,5 @@
 <div class="row">
-  <div style="position:fixed; right: 5px; z-index: 999;" *ngIf="betTypesLoaded">
+  <div class="animated rubberBand" style="position:fixed; right: 5px; z-index: 999; top:50px;" *ngIf="betTypesLoaded">
     <span class="badge badge-warning">{{getSelectedMatches().length}} partidos añadidos</span>
     <div class="d-flex flex-column flex-center bg-white">
       <div *ngFor="let selectedMatch of getSelectedMatches()" class="d-flex align-items-center badge"

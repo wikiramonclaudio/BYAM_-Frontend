@@ -44,6 +44,10 @@ export class TableComponent implements OnInit {
   goalsLocalTeam: number;
   goalsAwayTeam: number;
   tiebreakMatch: any;
+  joinedUser: boolean;
+  mensajes: any []  = [];
+  texto: string = '';
+  elemento: HTMLElement;
   constructor(
     private tableService: TableService,
     private route: ActivatedRoute,
@@ -66,8 +70,16 @@ export class TableComponent implements OnInit {
         this.subscription.player = this.userService.user;
         this.getSubscriptors();
         this.selectedUser = this.userService.user;
+        this.elemento = document.getElementById('chat-mensajes');
       }
     );
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    console.log('SE ABANDONA EL SOCKET');
+    this.websocketService.emit('leaveTable', { user: this.userService.user, tableId: this.table._id});
   }
 
   addForecastTobet() {
@@ -91,8 +103,7 @@ export class TableComponent implements OnInit {
                 element.bet = res._id;
                 element.table = this.table._id;
               });
-              this.addForecastTobet();
-              this.subscribeToSocket();
+              this.addForecastTobet();              
               swal("Te has registrado en la mesa", " ", "success");              
             }
           )
@@ -107,17 +118,34 @@ export class TableComponent implements OnInit {
     }
   }
 
-  subscribeToSocket(){
-    this.websocketService.listen('newPlayerInTable', {}).subscribe(
-      (res:any)=>{
-        console.log('res', res);
-        // console.log('params', params);
-        swal(res.user.name + " se ha unido a la mesa " + res.table.name, {                    
-          timer: 2500,
-        });
-        this.ngOnInit();
-      }
-    );
+  subscribeToSocket(){    
+    if(!this.joinedUser){
+      this.joinedUser = true;
+      this.websocketService.listen('newPlayerInTable', {}).subscribe(
+        (res:any)=>{
+          console.log('New Subscription to table', res);
+          // console.log('params', params);
+          if(this.userService.user._id != res.user._id){
+            swal(res.user.name + " se ha unido a la mesa ", {                    
+              timer: 2500,
+            });
+          }
+          this.ngOnInit();
+        }
+      );
+      this.websocketService.listen('newTableMessage', {}).subscribe(
+        (res:any)=>{
+          let newMsg = {text: res.text, emiter: res.user};
+          this.mensajes.push(newMsg);
+          setTimeout(() => {
+            // scroll siempre abajo
+            this.elemento.scrollTop = this.elemento.scrollHeight;
+          }, 50);
+          // console.log('params', params);
+        }
+      );      
+      this.websocketService.emit('joinInTable', {user: this.userService.user, tableId: this.table._id});    
+    }  
   }
 
   getSubscriptors() {
@@ -126,7 +154,7 @@ export class TableComponent implements OnInit {
         this.tableSubscriptions = res.tableSubscriptions;
         this.totalAmount = Number(this.table.betamount) * this.tableSubscriptions.length;
         if (this.checkSubscription()) {
-          this.subscribeToSocket();
+          this.subscribeToSocket();     
           this.getBetsByTable(this.userService.user, this.userService.user._id);
         } else {
           if (!this.table.closed)
@@ -275,7 +303,7 @@ export class TableComponent implements OnInit {
         var now = new Date().getTime();
         // console.log('now', now);
         // console.log(now + new Date().getTimezoneOffset());
-        var t = deadline - (now + new Date().getTimezoneOffset()) ;
+        var t = deadline - now ;
         var days: any = Math.floor(t / (1000 * 60 * 60 * 24));
         var hours: any = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         // hours -= 1;
@@ -435,5 +463,12 @@ export class TableComponent implements OnInit {
     if (this.allMatchesFinished == true && (this.table.winner == undefined || !this.table.winner)) {
       this.checkWinner();
     }
+  }
+
+  enviar(){  
+    if(this.texto.trim().length==0)
+      return;
+    this.websocketService.emit('RoomMessage', {user: this.userService.user,text: this.texto, tableId: this.table._id});
+    this.texto = '';
   }
 }
