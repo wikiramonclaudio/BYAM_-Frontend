@@ -27,7 +27,7 @@
             </span>
             <span style="font-size:13px;" class="badge badge-primary ml-2"
               data-toggle="modal" data-target="#chatModal" *ngIf="table.chat && checkSubscription()">
-              <i class="fa fa-comments fa-2x"></i>
+              <i class="fa fa-comments fa-2x" (click)="activateInputField()"></i>
             </span>
             <!-- <span class="fa fa-soccer-ball-o ml-3" *ngIf="table.type == 'Futbol'"></span> -->
             <!-- <img class="ml-3" src="./assets/images/basketball.png" *ngIf="table.type == 'Baloncesto'" width="38"> -->
@@ -58,6 +58,7 @@
           <ul class="table-users-list d-flex flex-column pl-0" style="list-style:none;">
             <li *ngFor="let subscription of tableSubscriptions" class="mt-2">
               <a href="javascript:void(0)" (click)="getBetsByTable(subscription.player,subscription.player._id)">
+                <!-- <i class="fa fa-car" *ngIf="subscription.player.connected == true"></i> -->
                 <img [src]="subscription.player.image | image" alt="" width="30" class="mr-2 rounded-circle">
                 <span
                   [ngClass]="{'font-weight-bold': selectedUser._id == subscription.player._id }">{{subscription.player.name}}</span>
@@ -240,26 +241,28 @@
             </ul>
             <ul class="flex-2 pl-2" style="width: 100%;">
               <!-- <li *ngFor="let subscription of tableSubscriptions">{{subscription.player.name}} </li> -->
-              <div id="chat-mensajes" style="height: 380px;overflow-y: auto;">
-                <li *ngFor="let mensaje of mensajes" class="list-group-item p-2 d-flex flex-column">
+              <div id="chat-mensajes" style="height: 230px;overflow-y: auto; border-left: 1px solid #e1e1e1;">
+                <li *ngFor="let mensaje of mensajes" class="list-group-item p-2 d-flex flex-column" style="border: none;">
                   <small class="text-success mr-2">{{mensaje.emiter.name}}:</small>
                   <small class="">{{mensaje.text}}</small>
                 </li>
-                <li *ngIf="mensajes.length == 0 " class="list-group-item p-2">                   
+                <li *ngIf="mensajes.length == 0 " class="list-group-item p-2" style="border: none;">                   
                     <small class="">No hay mensajes en la mesa escribe el primero!</small>
                   </li>
               </div>
-              <form (ngSubmit)="enviar()">
-                <input type="text" [(ngModel)]="texto" class="form-control chat-input" name="texto"
-                  placeholder="Escribe tu mensaje" autofocus autocomplete="off">
+              <form (ngSubmit)="enviar()" class="d-flex mt-2">
+                <input type="text" id="textField" [(ngModel)]="texto" class="p-0 form-control chat-input" name="texto"
+                  placeholder="Escribe tu mensaje" autofocus autocomplete="off" style="border:none;">
+                  <button class="btn btn-success" style=" border-radius: 100%;">
+                    <i class="fa fa-sign-in"></i>
+                  </button>
               </form>
             </ul>
           </div>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer float-left">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-          <!-- <button type="button" class="btn btn-success" data-dismiss="modal" (click)="saveMatches()">Añadir
-            partidos</button> -->
+          <!-- <button type="button" class="btn btn-success" data-dismiss="modal" (click)="enviar()">Enviar</button> -->
         </div>
       </div>
     </div>

@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   constructor(
     public router: Router,
     public userService: UserService,
-    // private wsService: WebsocketService
+    private wsService: WebsocketService
   ) { }
 
   ngOnInit() {
@@ -76,14 +76,7 @@ export class LoginComponent implements OnInit {
        form.value.password
     );    
     this.userService.login(user, form.value.recuerdame).subscribe(
-      (response: any)=>{             
-        // swal('Bienvenido!, ' + user.email, 'success');      
-        // this.wsService.connect().subscribe(
-        //   res=>{
-        //     console.log('CONECTED TO SOCKET!!', res);
-        //     // this.wsService.connectUser(this.userService.user);
-        //   }
-        // )
+      (response: any)=>{                     
         this.router.navigate(['/tables']);
       },
       error=>{

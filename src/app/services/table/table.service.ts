@@ -72,6 +72,7 @@ export class TableService {
   }
 
   setTableWinner(table: any){
+    console.log('TABLE ENVIADA', table);
     let params = JSON.stringify(table);
     let url = URL_SERVICES + '/table/set-winner/' + table._id;  
     //revisar token

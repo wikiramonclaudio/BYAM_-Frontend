@@ -10,7 +10,8 @@ export class User {
         public money?: number,
         public role?: string,
         public google?: boolean,
-        public _id?: string
+        public _id?: string,
+        public connected?: boolean
     ){        
     }
 }

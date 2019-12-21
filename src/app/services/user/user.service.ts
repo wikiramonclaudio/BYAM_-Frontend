@@ -76,8 +76,9 @@ export class UserService {
     this.user = user;    
     return this._http.post(url, params, { headers: headers })
     .map((res: any)=>{          
-      this.saveStorage(res.id, res.token, res.user, res.menu);   
-      this.websocketService.emit('addDoc', {user: res.user});     
+      this.saveStorage(res.id, res.token, res.user, res.menu); 
+      this.user.connected = true;  
+      this.websocketService.emit('addDoc', {user: res.user});      
       return true;
     });
   }
@@ -109,7 +110,8 @@ export class UserService {
     localStorage.removeItem('user');
     localStorage.removeItem('menu');
     this.router.navigate(['/login']);
-    // this.websocketService.emit('desconectar', {});
+    this.user.connected = false;
+    this.websocketService.emit('desconectar', {});
   }
 
   saveStorage(id: string, token: string, user: User, menu: any){

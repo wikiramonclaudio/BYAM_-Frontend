@@ -107,7 +107,7 @@
                   <span class="ml-2">{{match.awayteam}}</span>
                   <br>
                   <!-- {{match.when | date: 'short'}} -->
-                  <span class="ml-2" style="font-size: 13px; color: #ccc2c2;">{{match.when}}</span>
+                  <span class="ml-2" style="font-size: 13px; color: #ccc2c2;">{{match.when | date: 'short'}}</span>
                   <br>
                   <!-- <span class="badge badge-success"> -->
                   <i class="fa fa-plus ml-2 fa-2x text-center" (click)="saveMatch(match, betTypeValues[i])"

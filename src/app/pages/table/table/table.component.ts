@@ -7,7 +7,7 @@ import { BetService } from 'src/app/services/bet/bet.service';
 import { Forecast } from './../../../models/forecast.model';
 import { MatchByTable } from 'src/app/models/matchbytable.model';
 import { TableSubscription } from './../../../models/tablesubscription.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { TableService } from 'src/app/services/table/table.service';
 import { ActivatedRoute } from '@angular/router';
 import { Table } from 'src/app/models/table.model';
@@ -23,7 +23,7 @@ import { WebsocketService } from 'src/app/services/websocket.service';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnDestroy {
   table: any = new Table('', '', '', false, false);
   owner: User = new User('', '', '');
   tableSubscriptions: any[] = [];
@@ -45,9 +45,10 @@ export class TableComponent implements OnInit {
   goalsAwayTeam: number;
   tiebreakMatch: any;
   joinedUser: boolean;
-  mensajes: any []  = [];
+  mensajes: any[] = [];
   texto: string = '';
   elemento: HTMLElement;
+  textField: HTMLElement;
   constructor(
     private tableService: TableService,
     private route: ActivatedRoute,
@@ -71,6 +72,7 @@ export class TableComponent implements OnInit {
         this.getSubscriptors();
         this.selectedUser = this.userService.user;
         this.elemento = document.getElementById('chat-mensajes');
+        this.textField = document.getElementById('textField');
       }
     );
   }
@@ -78,14 +80,19 @@ export class TableComponent implements OnInit {
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
-    console.log('SE ABANDONA EL SOCKET');
-    this.websocketService.emit('leaveTable', { user: this.userService.user, tableId: this.table._id});
+    // console.log('SE ABANDONA EL SOCKET');    
+  }
+
+  ngAfterContentInit(){
+    // console.log('ngAfterContentInit');
+    if (this.checkSubscription()) 
+      this.subscribeToSocket();
   }
 
   addForecastTobet() {
     this.forecastService.createManyForecasts(this.forecasts).subscribe(
       res => {
-        swal("Te has registrado en la mesa", " ", "success");
+        swal("Te has registrado en la mesa.", " Te deseamos mucha suerte! ", "success");
         this.ngOnInit();
       }
     )
@@ -103,8 +110,8 @@ export class TableComponent implements OnInit {
                 element.bet = res._id;
                 element.table = this.table._id;
               });
-              this.addForecastTobet();              
-              swal("Te has registrado en la mesa", " ", "success");              
+              this.addForecastTobet();
+              swal("Te has registrado en la mesa", " ", "success");
             }
           )
         },
@@ -118,24 +125,23 @@ export class TableComponent implements OnInit {
     }
   }
 
-  subscribeToSocket(){    
-    if(!this.joinedUser){
+  subscribeToSocket() {
+    if (!this.joinedUser) {
       this.joinedUser = true;
       this.websocketService.listen('newPlayerInTable', {}).subscribe(
-        (res:any)=>{
-          console.log('New Subscription to table', res);
+        (res: any) => {
           // console.log('params', params);
-          if(this.userService.user._id != res.user._id){
-            swal(res.user.name + " se ha unido a la mesa ", {                    
-              timer: 2500,
-            });
-          }
-          this.ngOnInit();
+          // if(this.userService.user._id != res.user._id){
+          //   swal(res.user.name + " se ha unido a la mesa ", {                    
+          //     timer: 2500,
+          //   });
+          // }
+          // this.ngOnInit();
         }
       );
       this.websocketService.listen('newTableMessage', {}).subscribe(
-        (res:any)=>{
-          let newMsg = {text: res.text, emiter: res.user};
+        (res: any) => {
+          let newMsg = { text: res.text, emiter: res.user };
           this.mensajes.push(newMsg);
           setTimeout(() => {
             // scroll siempre abajo
@@ -143,9 +149,9 @@ export class TableComponent implements OnInit {
           }, 50);
           // console.log('params', params);
         }
-      );      
-      this.websocketService.emit('joinInTable', {user: this.userService.user, tableId: this.table._id});    
-    }  
+      );
+      this.websocketService.emit('joinInTable', { user: this.userService.user, tableId: this.table._id });
+    }
   }
 
   getSubscriptors() {
@@ -154,7 +160,7 @@ export class TableComponent implements OnInit {
         this.tableSubscriptions = res.tableSubscriptions;
         this.totalAmount = Number(this.table.betamount) * this.tableSubscriptions.length;
         if (this.checkSubscription()) {
-          this.subscribeToSocket();     
+          this.subscribeToSocket();
           this.getBetsByTable(this.userService.user, this.userService.user._id);
         } else {
           if (!this.table.closed)
@@ -237,7 +243,7 @@ export class TableComponent implements OnInit {
     });
     this.matchService.createManyMatches(this.matchesByTable).subscribe(
       res => {
-        
+
       }
     )
   }
@@ -299,16 +305,18 @@ export class TableComponent implements OnInit {
 
     if (this.table.closed == false) {
       var x = setInterval(() => {
-        var deadline: any = new Date(earliest).getTime();        
+        var deadline: any = new Date(earliest).getTime();
+        // console.log( new Date().getTimezoneOffset());
+        // console.log(deadline + new Date().getTimezoneOffset());
         var now = new Date().getTime();
         // console.log('now', now);
         // console.log(now + new Date().getTimezoneOffset());
-        var t = deadline - now ;
+        var t = deadline - now;
         var days: any = Math.floor(t / (1000 * 60 * 60 * 24));
         var hours: any = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         // hours -= 1;
         var minutes: any = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds: any = Math.floor((t % (1000 * 60)) / 1000);        
+        var seconds: any = Math.floor((t % (1000 * 60)) / 1000);
         if (!document.getElementById("day")) {
           clearInterval(x);
           return;
@@ -318,7 +326,7 @@ export class TableComponent implements OnInit {
         document.getElementById("minute").innerHTML = minutes;
         document.getElementById("second").innerHTML = seconds;
         this.deadlineDate = 'La mesa cerrará en ' + days + ' días, ' + hours + 'hours, ' + minutes + ' minutos';
-        if (t < 0 || minutes < 0 ||  hours < 0) {
+        if (t < 0 || minutes < 0 || hours < 0) {
           clearInterval(x);
           this.table.closed = true;
           this.deadlineDate = 'Mesa cerrada';
@@ -390,6 +398,7 @@ export class TableComponent implements OnInit {
           winnerPlayer = winners[0];
           this.table.winner = winnerPlayer.userId;
           this.table.owner = this.table.owner._id;
+          this.table.closed = true;
           this.tableService.setTableWinner(this.table).subscribe(
             (res: any) => {
               if (winnerPlayer.userId == this.userService.user._id)
@@ -418,6 +427,7 @@ export class TableComponent implements OnInit {
               finalWinner = finalWinners[0];
               this.table.winner = finalWinner.userId;
               this.table.owner = this.table.owner._id;
+              this.table.closed = true;
               this.tableService.setTableWinner(this.table).subscribe(
                 (res: any) => {
                   if (winnerPlayer.userId == this.userService.user._id)
@@ -425,7 +435,7 @@ export class TableComponent implements OnInit {
                   this.ngOnInit();
                 }
               )
-            }else{
+            } else {
               console.log('Hay varios ganadores, hay que repartir...Los ganadores son', finalWinners);
               // this.tableService.setTableWinner(this.table).subscribe(
               //   (res: any) => {
@@ -439,6 +449,7 @@ export class TableComponent implements OnInit {
             if ((!this.table.winner || this.table.winner == undefined)) {
               this.table.winner = finalWinner.userId;
               this.table.owner = this.table.owner._id;
+              this.table.closed = true;
               this.tableService.setTableWinner(this.table).subscribe(
                 (res: any) => {
                   if (winnerPlayer.userId == this.userService.user._id)
@@ -459,16 +470,36 @@ export class TableComponent implements OnInit {
     let variolo = list.filter((el) => {
       return el.match.finished == true;
     });
+
     this.allMatchesFinished = (variolo.length == list.length);
     if (this.allMatchesFinished == true && (this.table.winner == undefined || !this.table.winner)) {
       this.checkWinner();
     }
   }
 
-  enviar(){  
-    if(this.texto.trim().length==0)
+  enviar() {
+    if (this.texto.trim().length == 0)
       return;
-    this.websocketService.emit('RoomMessage', {user: this.userService.user,text: this.texto, tableId: this.table._id});
+    this.websocketService.emit('RoomMessage', { user: this.userService.user, text: this.texto, tableId: this.table._id });
     this.texto = '';
+    this.textField.focus();
+  }
+
+  // @HostListener('window:focus', ['$event'])
+  // onFocus(event: any): void {      
+  //     console.log('FOCUSSSSS');
+  // }
+
+  // @HostListener('window:blur', ['$event'])
+  // onBlur(event: any): void {      
+  //     console.log('ON BLURRR DEJAR EL FOCUS');
+      
+  // }
+
+  activateInputField(){
+    setTimeout(() => {
+      this.textField.focus();  
+    }, 500);
+    
   }
 }
