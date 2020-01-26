@@ -2,15 +2,16 @@
 <!-- ============================================================== -->
 <div class="row page-titles">
   <div class="col-md-5 align-self-center">
-    <h3 class="text-themecolor">{{sectionTitle}}</h3>
+    <h3 class="text-themecolor">{{ translate.instant(sectionTitle)}}</h3>
+    <!-- {{sectionTitle}} -->
   </div>
   <div class="col-md-7 align-self-center">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">        
         <a [routerLink]="[ '/', '' ]">Home</a>
       </li>
-      <li class="breadcrumb-item" [routerLink]="[ '/dashboard', '' ]">pages</li>
-      <li class="breadcrumb-item active">{{sectionTitle}}</li>
+      <!-- <li class="breadcrumb-item" [routerLink]="[ '/dashboard', '' ]">pages</li> -->
+      <li class="breadcrumb-item active">{{translate.instant(sectionTitle)}}</li>
     </ol>
   </div>
   <!-- <div>

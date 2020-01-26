@@ -1,6 +1,6 @@
 <div class="row">
   <div class="animated rubberBand" style="position:fixed; right: 5px; z-index: 999; top:50px;" *ngIf="betTypesLoaded">
-    <span class="badge badge-warning">{{getSelectedMatches().length}} partidos añadidos</span>
+    <span class="badge badge-warning">{{getSelectedMatches().length + ' ' + translate.instant('main.create_game')}} </span>
     <div class="d-flex flex-column flex-center bg-white">
       <div *ngFor="let selectedMatch of getSelectedMatches()" class="d-flex align-items-center badge"
         [ngClass]="{'badge-success': selectedMatch.tiebreak, 'badge-primary': !selectedMatch.tiebreak}"
@@ -14,7 +14,7 @@
       </div>
       <button class="btn btn-success ml-2 mt-4" (click)="createTable()" [disabled]="getSelectedMatches().length<3"
         type="submit">
-        Crear mesa
+        {{translate.instant('main.create_game')}}
       </button>
     </div>
   </div>
@@ -24,9 +24,9 @@
         <form ngNativeValidate class="form-horizontal form-material" id="create-table-form">
           <div class="form-group ">
             <div class="col-xs-12">
-              <input class="form-control" type="text" required placeholder="Nombre de la mesa" [(ngModel)]="table.name"
+              <input class="form-control" type="text" required placeholder="{{translate.instant('main.game_name')}}" [(ngModel)]="table.name"
                 name="name" #name="ngModel">
-              <span class="text-danger" style="font-size:13px;" *ngIf="name.errors?.required">Campo obligatorio</span>
+              <span class="text-danger" style="font-size:13px;" *ngIf="name.errors?.required">{{translate.instant('main.mandatory_field')}}</span>
             </div>
           </div>
           <!-- <div class="form-group ">
@@ -39,20 +39,19 @@
           </div> -->
           <div class="form-group ">
             <div class="col-xs-12">
-              <input class="form-control" type="number" required placeholder="Importe apuesta"
+              <input class="form-control" type="number" required placeholder="{{translate.instant('main.bet_amount')}}"
                 [(ngModel)]="table.betamount" name="betamount" #betamount="ngModel">
-              <span class="text-danger" style="font-size:13px;" *ngIf="betamount.errors?.required">Campo
-                obligatorio</span>
+              <span class="text-danger" style="font-size:13px;" *ngIf="betamount.errors?.required">{{translate.instant('main.mandatory_field')}}</span>
             </div>
           </div>
-          <!-- <div class="form-group ">
+          <div class="form-group ">
             <div class="col-xs-12">
               <div class="checkbox checkbox-primary p-t-0">
                 <input id="checkbox-signup" type="checkbox" [(ngModel)]="table.chat" name="chat" #chat="ngModel">
-                <label for="checkbox-signup">Activar chat</alabel>
+                <label for="checkbox-signup">{{translate.instant('main.active_chat')}}</label>
               </div>
             </div>
-          </div> -->
+          </div>
           <!-- <div class="form-group ">
             <div class="col-xs-12">
               <input class="form-control" type="text" required placeholder="Deporte" [(ngModel)]="table.type"
@@ -76,7 +75,7 @@
       
         <button class="btn btn-primary mt-4" data-toggle="modal" (click)="getBetTypes()" *ngIf="!betTypesLoaded">
           <i class="fa fa-plus mr-2"></i>
-          <span>Añadir partidos</span>
+          <span>{{translate.instant('main.add_games')}}</span>
         </button>
         <!-- <button class="btn btn-success ml-2 mt-4" (click)="createTable()" [disabled]="getSelectedMatches().length<3"
           type="submit">
@@ -88,7 +87,7 @@
   <div class="col-lg-6 col-xs-12" *ngIf="betTypesLoaded">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title text-center">Partidos disponibles</h4>
+        <h4 class="card-title text-center">{{translate.instant('main.next_games')}}</h4>
         <hr>
         <h5 *ngIf="!checkTieBreakSelection()">
           <span class="badge badge-info pl-2 pr-2 mt-2" style="white-space: pre-wrap;">
@@ -124,7 +123,7 @@
                   <div class="col-xs-12">
                     <select id="inputState" class="form-control" name="betType" name="betType{{i}}"
                       [(ngModel)]="betTypeValues[i]">
-                      <option>Selecciona el tipo de apuesta</option>
+                      <option>{{translate.instant('main.select_bet_type')}}</option>
                       <option *ngFor="let betType of betTypes; let in=index;" [ngValue]="betType">
                         {{betType.name}}
                       </option>
@@ -134,17 +133,16 @@
                 <div class="form-group ">
                   <div class="col-xs-12">
                     <button class="btn btn-success mt-0 mb-0 float-right"
-                      (click)="saveMatch(match, betTypeValues[i])">Añadir partido</button>
+                      (click)="saveMatch(match, betTypeValues[i])">{{translate.instant('main.add_game')}}</button>
                   </div>
                 </div>
                 <div class="form-group ">
                   <div class="col-xs-12 text-center">
-                    <span>Marcar como partido de desempate </span>
+                    <span>{{translate.instant('main.special_match')}} </span>
                     <i (click)="setTieBreak(match)" [ngClass]="{'text-success': match.tiebreak}"
                       class="fa fa-check-square ml-2 fa-2x text-center"></i>
                   </div>
                 </div>
-
               </form>
             </div>
             <hr>

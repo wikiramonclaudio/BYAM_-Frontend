@@ -40,10 +40,18 @@ import { RankingComponent } from './ranking/ranking/ranking.component';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { InviteComponent } from './invite/invite/invite.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient } from '@angular/common/http';
 
 // ...other imports
 // import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 // const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(httpClient: HttpClient) {
+  return new TranslateHttpLoader(httpClient);
+}
 
 registerLocaleData(localeEs);
 
@@ -65,7 +73,14 @@ registerLocaleData(localeEs);
         FormsModule,
         ChartsModule,
         PipesModule,
-        CommonModule        
+        CommonModule,
+        TranslateModule.forRoot({
+            loader: {
+              provide: TranslateLoader,
+              useFactory: HttpLoaderFactory,
+              deps: [ HttpClient ]
+            }
+          })   
     ]
 })
 

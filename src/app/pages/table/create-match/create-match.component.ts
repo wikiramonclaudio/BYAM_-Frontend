@@ -1,6 +1,8 @@
 import { MatchService } from './../../../services/match/match.service';
 import { Match } from './../../../models/match.model';
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { TranslationService } from 'src/app/services/translation/translation.service';
 
 @Component({
   selector: 'app-create-match',
@@ -11,11 +13,14 @@ export class CreateMatchComponent implements OnInit {
 
   match: Match = new Match('','','','','', '');  
   matches: Match [];
+  translate: TranslateService;
   constructor(
-    private matchService: MatchService
+    private matchService: MatchService,
+    public translationService: TranslationService
   ) { }
 
   ngOnInit() {
+    this.translate = this.translationService.getTranslateService();
   }
 
   createMatch(){        

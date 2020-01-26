@@ -1,5 +1,7 @@
+import { TranslationService } from './../../services/translation/translation.service';
 import { Component, OnInit } from '@angular/core';
 import { SidebarService, UserService } from 'src/app/services/service.index';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,15 +10,19 @@ import { SidebarService, UserService } from 'src/app/services/service.index';
 })
 export class SidebarComponent implements OnInit {
   user: any;
-  menu: any = {};
-
+  menu: any = {};  
+  translate: TranslateService;
   constructor(
     public _sidebarService : SidebarService,
-    public userService: UserService
-  ) { }
+    public userService: UserService,    
+    public translationService: TranslationService
+  ) {     
+    this.translate = this.translationService.getTranslateService();
+  }
 
   ngOnInit() {
     this.user = this.userService.user; 
+    this.translate.setDefaultLang(this.translationService.getActiveLang());
   }
 
 }

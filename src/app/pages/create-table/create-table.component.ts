@@ -13,6 +13,8 @@ import { Match } from 'src/app/models/match.model';
 import { MatchByTable } from 'src/app/models/matchbytable.model';
 import { SubscriptionTableService } from 'src/app/services/tablesubscription/table-subscription.service';
 import swal from 'sweetalert';
+import { TranslateService } from '@ngx-translate/core';
+import { TranslationService } from 'src/app/services/translation/translation.service';
 
 @Component({
   selector: 'app-create-table',
@@ -32,6 +34,7 @@ export class CreateTableComponent implements OnInit {
   disableCreateButton: boolean = true;
   submitted: boolean = false;
   tiebreakMatch: any;
+  translate: TranslateService;
   constructor(
     private router: Router,
     private tableService: TableService,
@@ -39,10 +42,12 @@ export class CreateTableComponent implements OnInit {
     private matchService: MatchService,
     private betTypeService: BetTypeService,
     private matchTypeRelService: MatchTypeRelationService,
-    public tableSubscriptionService: SubscriptionTableService
+    public tableSubscriptionService: SubscriptionTableService,
+    public translationService: TranslationService
   ) { }
 
   ngOnInit() {
+    this.translate = this.translationService.getTranslateService();
     this.getMatches();
   }
 

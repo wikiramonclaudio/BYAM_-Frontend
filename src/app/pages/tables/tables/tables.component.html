@@ -6,11 +6,11 @@
         <a href="javascript:void(0)" [routerLink]="['/add-table']" class="btn btn-success">
           <i class="fa fa-plus"></i>
         </a>
-        <a href="javascript:void(0)" class="ml-2 btn btn-info" (click)="getMyTables()">
-          Mis partidas
+        <a href="javascript:void(0)" class="ml-2 btn btn-info" (click)="getMyTables()">          
+          {{ translate.instant('main.my_games') }}
         </a>
         <a href="javascript:void(0)" class="ml-2 btn btn-info" (click)="getTables()">
-            Todas
+          {{ translate.instant('main.all') }}
           </a>
       </div>
     </div>
@@ -36,7 +36,7 @@
         <br>
         <a href="javascript:void(0)" [routerLink]="['/table', table._id]" class="btn btn-primary float-right">
           <i class="fa fa-sign-in"></i>
-          Entrar
+          {{ translate.instant('main.join') }}
         </a>
       </div>
     </div>

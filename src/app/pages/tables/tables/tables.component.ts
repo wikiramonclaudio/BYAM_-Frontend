@@ -3,6 +3,8 @@ import { UserService } from './../../../services/user/user.service';
 import { TableService } from 'src/app/services/table/table.service';
 import { SubscriptionTableService } from 'src/app/services/tablesubscription/table-subscription.service';
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { TranslationService } from 'src/app/services/translation/translation.service';
 
 @Component({
   selector: 'app-tables',
@@ -11,13 +13,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TablesComponent implements OnInit {
   tables: Table[] = [];
+  translate: TranslateService;
   constructor(
     private tableService: TableService,
     private userService: UserService,
-    private tableSubscriptionService: SubscriptionTableService
+    private tableSubscriptionService: SubscriptionTableService,    
+    public translationService: TranslationService
   ) { }
 
   ngOnInit() {
+    this.translate = this.translationService.getTranslateService();
     this.getTables();
   }
 

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivationEnd } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import { Title, MetaDefinition, Meta } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
+import { TranslationService } from 'src/app/services/translation/translation.service';
 
 @Component({
   selector: 'app-breadcrumbs',
@@ -11,11 +13,12 @@ import { Title, MetaDefinition, Meta } from '@angular/platform-browser';
 export class BreadcrumbsComponent implements OnInit {
 
   public sectionTitle: string;
-
+  translate: TranslateService;
   constructor(
     private router: Router,
     private title: Title,
-    private meta: Meta
+    private meta: Meta,
+    public translationService: TranslationService
   ) {
     this.getRouteData()
       .subscribe(
@@ -34,6 +37,7 @@ export class BreadcrumbsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.translate = this.translationService.getTranslateService();
   }
 
   getRouteData() {

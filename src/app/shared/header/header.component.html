@@ -50,8 +50,19 @@
                   <div class="u-text">
                     <h4>{{ userService.user.name }}</h4>
                     <p class="text-muted">{{userService.user.email}}</p>
-                    <a routerLink="/profile" class="btn btn-rounded btn-danger btn-sm">Ver perfil</a>
+                    <a routerLink="/profile" class="btn btn-rounded btn-danger btn-sm">Ver perfil</a>                   
                   </div>
+                </div>
+              </li>
+              <li role="separator" class="divider"></li>
+              <li>
+                <div class="d-flex mt-2 ml-3">
+                  <a href="javascript:void(0)" class="p-0" style="cursor:pointer;" (click)="changeLanguage('es')"> 
+                    <img src="./assets/images/espana.svg" width="30" alt="">
+                  </a>
+                  <a href="javascript:void(0)" class="p-0 ml-3" style="cursor:pointer;" (click)="changeLanguage('en')">
+                    <img src="./assets/images/reino-unido.svg" width="30" alt="">
+                  </a>
                 </div>
               </li>
               <li role="separator" class="divider"></li>

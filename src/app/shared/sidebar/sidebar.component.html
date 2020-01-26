@@ -12,11 +12,10 @@
               <span class="hide-menu">{{ user.name }} </span>
           </a>
           <ul aria-expanded="false" class="collapse">
-            <li><a routerLinkActive="active" routerLink="/profile">Mi perfil </a></li>
-            <!-- <li><a href="javascript:void()">My Balance</a></li> -->
-            <li><a [routerLink]="[ '/chat' ]" href="javascript:void()">Mensajes</a></li>
-            <li><a [routerLink]="[ '/settings' ]">Ajustes</a></li>
-            <li><a (click)="userService.logout()" class="pointer">Salir</a></li>
+            <li><a routerLinkActive="active" routerLink="/profile">{{translate.instant('main.see_profile')}}</a></li>
+            <li><a [routerLink]="[ '/chat' ]" href="javascript:void()">{{translate.instant('main.messages')}}</a></li>
+            <li><a [routerLink]="[ '/settings' ]">{{translate.instant('main.settings')}}</a></li>
+            <li><a (click)="userService.logout()" class="pointer">{{translate.instant('main.exit')}}</a></li>
           </ul>
         </li>
         <li class="nav-devider"></li>
@@ -24,14 +23,16 @@
         <li *ngFor="let menu of userService.menu">
           <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
             <i class="{{menu.icon}}"></i>
-            <span class="hide-menu">{{menu.title}}
+            <span class="hide-menu">{{translate.instant(menu.title)}}
               <span class="label label-rouded label-themecolor pull-right">{{menu.submenu.length}}
               </span>
             </span>
           </a>
           <ul aria-expanded="false" class="collapse">
             <li *ngFor="let submenu of menu.submenu">
-              <a [routerLinkActive]="" [ngClass]="rla.isActive?'active':''"  #rla="routerLinkActive" [routerLink]="[ submenu.url ]" >{{submenu.title}}</a>
+              <a [routerLinkActive]="" [ngClass]="rla.isActive?'active':''"  #rla="routerLinkActive" [routerLink]="[ submenu.url ]" >
+                {{translate.instant(submenu.title)}}
+              </a>
             </li>
             <!-- <li><a href="index2.html">Analytical</a></li>
             <li><a href="index3.html">Demographical</a></li>

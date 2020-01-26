@@ -1,3 +1,6 @@
+import { TranslationService } from './../../../services/translation/translation.service';
+import { Message } from './../../../models/message.model';
+import { MessageService } from './../../../services/message/message.service';
 import { SubscriptionTableService } from './../../../services/tablesubscription/table-subscription.service';
 import { ForecastService } from './../../../services/forecast/forecast.service';
 import { MatchTypeRelationService } from './../../../services/matchTypeRelation/match-type-relation.service';
@@ -17,6 +20,7 @@ import { MatchTypeRelation } from 'src/app/models/matchtyperelation';
 import { Bet } from 'src/app/models/bet.model';
 import swal from 'sweetalert';
 import { WebsocketService } from 'src/app/services/websocket.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-table',
@@ -49,6 +53,7 @@ export class TableComponent implements OnInit, OnDestroy {
   texto: string = '';
   elemento: HTMLElement;
   textField: HTMLElement;
+  translate: TranslateService;
   constructor(
     private tableService: TableService,
     private route: ActivatedRoute,
@@ -58,11 +63,16 @@ export class TableComponent implements OnInit, OnDestroy {
     private matchTypeRelationService: MatchTypeRelationService,
     private forecastService: ForecastService,
     private betService: BetService,
-    public websocketService: WebsocketService
+    public websocketService: WebsocketService,
+    public messageService: MessageService,
+    public translationService: TranslationService
+    // private translate: TranslateService
   ) { }
 
   ngOnInit() {
     let tableId = this.route.snapshot.paramMap.get('id');
+    // this.translate.setDefaultLang('en');
+    this.translate = this.translationService.getTranslateService();
     this.tableService.getTable(tableId).subscribe(
       res => {
         this.table = res.table;
@@ -141,7 +151,8 @@ export class TableComponent implements OnInit, OnDestroy {
       );
       this.websocketService.listen('newTableMessage', {}).subscribe(
         (res: any) => {
-          let newMsg = { text: res.text, emiter: res.user };
+          console.log(res);
+          let newMsg = { owner: res.user, table: this.table._id, content: res.text};                      
           this.mensajes.push(newMsg);
           setTimeout(() => {
             // scroll siempre abajo
@@ -481,6 +492,12 @@ export class TableComponent implements OnInit, OnDestroy {
     if (this.texto.trim().length == 0)
       return;
     this.websocketService.emit('RoomMessage', { user: this.userService.user, text: this.texto, tableId: this.table._id });
+    let newMsg = new Message(this.userService.user._id, this.table._id, this.texto);
+    this.messageService.createMessage(newMsg).subscribe(
+      res=>{
+        console.log('Mensajolo guardado', res);
+      }
+    )   
     this.texto = '';
     this.textField.focus();
   }
@@ -500,6 +517,12 @@ export class TableComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.textField.focus();  
     }, 500);
+    this.messageService.getMessagesByTable(this.table._id).subscribe(
+      (res:any)=>{
+        this.mensajes = res.messages;
+        this.elemento.scrollTop = this.elemento.scrollHeight;
+      }
+    )
     
   }
 }

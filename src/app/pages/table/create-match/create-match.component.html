@@ -5,25 +5,25 @@
         <form ngNativeValidate (ngSubmit)="createMatch()" class="form-horizontal form-material">
           <div class="form-group ">
             <div class="col-xs-12">
-              <input class="form-control" type="datetime-local" required placeholder="Fecha" [(ngModel)]="match.when"
+              <input class="form-control" type="datetime-local" required placeholder="{{translate.instant('main.date')}}" [(ngModel)]="match.when"
                 name="userslimit">
             </div>
           </div>
           <div class="form-group ">
             <div class="col-xs-12">
-              <input class="form-control" type="text" required placeholder="Torneo" [(ngModel)]="match.tournament"
+              <input class="form-control" type="text" required placeholder="{{translate.instant('main.tournament')}}" [(ngModel)]="match.tournament"
                 name="tournament">
             </div>
           </div>
           <div class="form-group ">
             <div class="col-xs-12">
-              <input class="form-control" type="text" required placeholder="Equipo local" [(ngModel)]="match.localteam"
+              <input class="form-control" type="text" required placeholder="{{translate.instant('main.local_team')}}" [(ngModel)]="match.localteam"
                 name="localteam">
             </div>
           </div>
           <div class="form-group ">
             <div class="col-xs-12">
-              <input class="form-control" type="text" required placeholder="Equipo visitante" [(ngModel)]="match.awayteam"
+              <input class="form-control" type="text" required placeholder="{{translate.instant('main.away_team')}}" [(ngModel)]="match.awayteam"
                 name="awayteam">
             </div>
           </div>
@@ -33,7 +33,7 @@
                     name="where">
                 </div>
               </div> -->
-          <button class="btn btn-success">Añadir Partido</button>          
+          <button class="btn btn-success">{{translate.instant('main.add_game')}}</button>          
 
         </form>
       </div>

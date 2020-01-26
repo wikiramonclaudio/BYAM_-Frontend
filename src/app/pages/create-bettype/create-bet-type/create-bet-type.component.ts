@@ -4,6 +4,8 @@ import { BetTypeOption } from './../../../models/bettypeoption';
 import { BetType } from './../../../models/bettype.model';
 import { Component, OnInit } from '@angular/core';
 import { OptionTypeRelation } from 'src/app/models/optiontyperelation';
+import { TranslateService } from '@ngx-translate/core';
+import { TranslationService } from 'src/app/services/translation/translation.service';
 
 @Component({
   selector: 'app-create-bet-type',
@@ -15,13 +17,16 @@ export class CreateBetTypeComponent implements OnInit {
   selectedOptions: BetTypeOption [] = [];
   betType: BetType = new BetType('', '');
   betTypeOption: BetTypeOption = new BetTypeOption('', '');
-  relationsTypeOption: OptionTypeRelation [] = []
+  relationsTypeOption: OptionTypeRelation [] = [];
+  translate: TranslateService;
   constructor(
     private betTypeService: BetTypeService,
-    private optionTypeRelationService: OptionTypeRelationService
+    private optionTypeRelationService: OptionTypeRelationService,
+    public translationService: TranslationService
   ) { }
 
   ngOnInit() {
+    this.translate = this.translationService.getTranslateService();
   }
  
   createBetType() {    
