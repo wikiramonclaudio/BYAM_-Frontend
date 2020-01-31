@@ -1,6 +1,6 @@
 {
     "main.main" : "Principal",
-    "main.home" : "Inicio",
+    "main.home" : "Principal",
     "main.game" : "Juego",
     "main.my_games" : "Mis partidas",
     "main.all" : "Todas",
@@ -55,6 +55,11 @@
     "main.write_message" : "Escribe tu mensje",
     "main.mandatory_field" : "Campo obligatorio",
     "main.select_bet_type" : "Selecciona el tipo de apuesta",    
-    "main.special_match" : "Partido especial (desempate)",
-    "main.matches_added" : "matches added"
+    "main.special_match" : "Partido especial (desempate)",    
+    "main.matches_added" : "Partidos añadidos",
+    "main.themes" : "Temas",
+    "main.light_sidebar" : "Con sidebar claro",
+    "main.dark_sidebar" : "Con sidebar oscuro",
+    "main.language" : "Idioma",
+    "main.choose_language" : "Elige un idioma"
 }

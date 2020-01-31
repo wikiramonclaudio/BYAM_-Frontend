@@ -2,11 +2,11 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Temas</h4>
+        <h4 class="card-title">{{translate.instant('main.themes')}}</h4>
         <hr>
         <div class="r-panel-body">
           <ul id="themecolors" class="m-t-20">
-              <li><b>Con el sidebar claro</b></li>
+              <li><b>{{translate.instant('main.light_sidebar')}}</b></li>
               <li><a #link20 (click)="changeColor('default', link20)" data-theme="default" class="selector default-theme">1</a></li>
               <li><a #link1 (click)="changeColor('green', link1)" data-theme="green" class="selector green-theme">2</a></li>
               <li><a #link2 (click)="changeColor('red', link2)" data-theme="red" class="selector red-theme">3</a></li>
@@ -14,7 +14,7 @@
               <li><a #link4 (click)="changeColor('purple', link4)" data-theme="purple" class="selector purple-theme">5</a></li>
               <li><a #link5 (click)="changeColor('megna', link5)" data-theme="megna" class="selector megna-theme">6</a></li>
               
-              <li class="d-block m-t-30"><b>Con el sidebar oscuro</b></li>
+              <li class="d-block m-t-30"><b>{{translate.instant('main.dark_sidebar')}}</b></li>
               <li><a #link6 (click)="changeColor('default-dark', link6)" data-theme="default-dark" class="selector default-dark-theme">7</a></li>
               <li><a #link7 (click)="changeColor('green-dark', link7)" data-theme="green-dark" class="selector green-dark-theme">8</a></li>
               <li><a #link8 (click)="changeColor('red-dark', link8)" data-theme="red-dark" class="selector red-dark-theme">9</a></li>
@@ -26,5 +26,27 @@
       </div>
     </div>
   </div>
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">{{translate.instant('main.language')}}</h4>
+        <hr>
+        <div class="r-panel-body">
+          <ul id="themecolors" class="m-t-20">
+              <li><b>{{translate.instant('main.choose_language')}}</b></li>          
+              <li>
+                <div class="d-flex mt-2 ml-3">
+                  <a href="javascript:void(0)" class="p-0" style="cursor:pointer;" (click)="changeLanguage('es')"> 
+                    <img src="./assets/images/espana.svg" width="30" alt="">
+                  </a>
+                  <a href="javascript:void(0)" class="p-0 ml-3" style="cursor:pointer;" (click)="changeLanguage('en')">
+                    <img src="./assets/images/reino-unido.svg" width="30" alt="">
+                  </a>
+                </div>
+              </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<!-- <app-translation></app-translation> -->

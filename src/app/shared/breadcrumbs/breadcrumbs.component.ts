@@ -24,7 +24,7 @@ export class BreadcrumbsComponent implements OnInit {
       .subscribe(
         data => {          
           this.sectionTitle = data.title;
-          this.title.setTitle(this.sectionTitle);
+          this.title.setTitle('BYAM - Settings');
 
           const metaTag: MetaDefinition = {
             name: 'description',

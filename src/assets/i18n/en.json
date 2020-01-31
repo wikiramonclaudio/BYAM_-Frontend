@@ -1,7 +1,7 @@
 {
     "main.main" : "Main",
     "main.home" : "Home",
-    "main.game" : "Juego",
+    "main.game" : "Game",
     "main.my_games" : "My games",
     "main.all" : "All",
     "main.join" : "Join",
@@ -55,5 +55,10 @@
     "main.next_games" : "Next games",
     "main.select_bet_type" : "Select bet type",
     "main.special_match" : "Tiebreak match",    
-    "main.matches_added" : "matches added"
+    "main.matches_added" : "matches added",
+    "main.themes" : "Themes",
+    "main.light_sidebar" : "Light sidebar",
+    "main.dark_sidebar" : "Dark sidebar",
+    "main.language" : "Language",
+    "main.choose_language" : "Choose your language"
 }

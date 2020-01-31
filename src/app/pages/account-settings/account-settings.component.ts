@@ -1,5 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { SettingsService } from 'src/app/services/service.index';
+import { TranslateService } from '@ngx-translate/core';
+import { TranslationService } from 'src/app/services/translation/translation.service';
 
 @Component({
   selector: 'app-account-settings',
@@ -7,12 +9,14 @@ import { SettingsService } from 'src/app/services/service.index';
   styleUrls: ['./account-settings.component.css']
 })
 export class AccountSettingsComponent implements OnInit {
-
+  translate: TranslateService;
   constructor(    
-    public _settingsService: SettingsService
+    public _settingsService: SettingsService,
+    public translationService: TranslationService
   ) {  }
 
   ngOnInit() {
+    this.translate = this.translationService.getTranslateService();
   }
 
   changeColor(theme: string, link: any){    
@@ -39,6 +43,10 @@ export class AccountSettingsComponent implements OnInit {
       break;
      }
     }
+  }
+  
+  changeLanguage(lang:string){
+    this.translationService.changeLanguage(lang);
   }
 
 }
