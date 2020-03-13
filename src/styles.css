@@ -46,3 +46,22 @@
     width: 100%!important;
 }
 
+.video-container{
+    position: fixed;
+    z-index: 99999;
+    background: white;
+    width: 450px;
+    border-radius: 20px;
+    padding:20px;
+    display:none;
+    border: 1px solid #e1e1e1;    
+}
+
+.video-container #myvideo{
+    width: 100%;
+    position: relative;
+    border:1px solid #e1e1e1;
+    background: gray;
+    margin-top: 15px;
+    border-radius: 10px;
+}

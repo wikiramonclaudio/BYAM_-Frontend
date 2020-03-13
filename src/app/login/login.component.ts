@@ -1,3 +1,4 @@
+import { PeerService } from './../services/peer/peer.service';
 import { WebsocketService } from './../services/websocket.service';
 
 import { Component, OnInit } from '@angular/core';
@@ -27,7 +28,8 @@ export class LoginComponent implements OnInit {
   constructor(
     public router: Router,
     public userService: UserService,
-    private wsService: WebsocketService
+    private wsService: WebsocketService,
+    public peerService: PeerService
   ) { }
 
   ngOnInit() {
@@ -78,6 +80,9 @@ export class LoginComponent implements OnInit {
     this.userService.login(user, form.value.recuerdame).subscribe(
       (response: any)=>{                     
         this.router.navigate(['/tables']);
+        setTimeout(() => {
+          this.peerService.initPeer();
+        }, 2000);
       },
       error=>{
         swal('Usuario no encontrado, inténtalo otra vez!', user.email, 'error'); 

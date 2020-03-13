@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { AngularDraggableModule } from 'angular2-draggable';
 //routes
 import { APP_ROUTES } from './app.routes';
 
@@ -47,6 +47,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     ReactiveFormsModule,
     ServiceModule,
     SharedModule,
+    AngularDraggableModule,
     SocketIoModule.forRoot(config),
     TranslateModule.forRoot({
       loader: {
