@@ -1,3 +1,4 @@
+import { PcComponent } from './../components/pc/pc/pc.component';
 import { NgModule } from "@angular/core";
 import { SharedModule } from "../shared/shared.module";
 import { FormsModule } from '@angular/forms';
@@ -60,7 +61,7 @@ registerLocaleData(localeEs);
         DashboardComponent,
         Graficas1Component,
         ProgressComponent,  
-        IncrementatorComponent, GraficoDonaComponent, AccountSettingsComponent, PromesasComponent, RxjsComponent, ProfileComponent, UsersComponent, SearchComponent, ChatComponent, TableComponent, CreateTableComponent, CreateMatchComponent, EditTableComponent, CreateBetTypeComponent, CheckMatchesComponent, LivescoresComponent, TablesComponent, NotificationsComponent, RankingComponent, InviteComponent
+        IncrementatorComponent, GraficoDonaComponent, AccountSettingsComponent, PromesasComponent, RxjsComponent, ProfileComponent, UsersComponent, SearchComponent, ChatComponent, TableComponent, CreateTableComponent, CreateMatchComponent, EditTableComponent, CreateBetTypeComponent, CheckMatchesComponent, LivescoresComponent, TablesComponent, NotificationsComponent, RankingComponent, InviteComponent, PcComponent
     ],
     exports: [
         DashboardComponent,

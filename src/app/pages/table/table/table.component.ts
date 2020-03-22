@@ -90,13 +90,14 @@ export class TableComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
-    // console.log('SE ABANDONA EL SOCKET');    
+    console.log('SE ABANDONA EL SOCKET');
+    this.websocketService.emit('leaveTable', {tableId: this.table._id, user: this.userService.user});
   }
 
   ngAfterContentInit(){
     // console.log('ngAfterContentInit');
-    if (this.checkSubscription()) 
-      this.subscribeToSocket();
+    // if (this.checkSubscription()) 
+    //   this.subscribeToSocket();
   }
 
   addForecastTobet() {
@@ -140,12 +141,13 @@ export class TableComponent implements OnInit, OnDestroy {
       this.joinedUser = true;
       this.websocketService.listen('newPlayerInTable', {}).subscribe(
         (res: any) => {
+          console.log('NEW PLAYER IN TABLE', res);
           // console.log('params', params);
-          // if(this.userService.user._id != res.user._id){
-          //   swal(res.user.name + " se ha unido a la mesa ", {                    
-          //     timer: 2500,
-          //   });
-          // }
+          if(this.userService.user._id != res.user._id){
+            swal(res.user.name + " se ha unido a la mesa ", {                    
+              timer: 2500,
+            });
+          }
           // this.ngOnInit();
         }
       );
@@ -161,6 +163,13 @@ export class TableComponent implements OnInit, OnDestroy {
           // console.log('params', params);
         }
       );
+      this.websocketService.listen('chat:typing', function(data){
+        console.log('someone is typing', data);
+        var actions = document.getElementById('actions-text');
+        actions.innerHTML = `<p>
+            <em>${data}</em> is typing a message...
+        </p>`
+    });
       this.websocketService.emit('joinInTable', { user: this.userService.user, tableId: this.table._id });
     }
   }
@@ -515,14 +524,16 @@ export class TableComponent implements OnInit, OnDestroy {
 
   activateInputField(){
     setTimeout(() => {
-      this.textField.focus();  
+      this.textField.focus();
+      this.textField.addEventListener('keypress', (e)=>{
+        this.websocketService.emit('chat:typing', this.userService.user.name);
+      });
     }, 500);
     this.messageService.getMessagesByTable(this.table._id).subscribe(
       (res:any)=>{
         this.mensajes = res.messages;
         this.elemento.scrollTop = this.elemento.scrollHeight;
       }
-    )
-    
+    )    
   }
 }

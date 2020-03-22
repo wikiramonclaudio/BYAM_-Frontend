@@ -34,10 +34,7 @@ export class HeaderComponent implements OnInit {
   }
 
   showCallsPanel(){
-    var videoContainer = document.querySelector('.video-container');
     var jQueryVideocontainer = $('.video-container');
-    console.log('VIdeo container', videoContainer);
-    console.log('jQueryVideocontainer container', jQueryVideocontainer);
     jQueryVideocontainer.toggle();
   }
 

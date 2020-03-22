@@ -60,6 +60,7 @@ export class UserService {
     return this._http.post(url, {token: googleToken}, { headers: headers })
     .map((res: any)=>{      
       this.saveStorage(res.id, res.token, res.user, res.menu);
+      this.websocketService.emit('addDoc', {user: res.user}); 
       return true;
     });       
   }

@@ -5,7 +5,10 @@ import swal from 'sweetalert';
 // import { DOCUMENT } from '@angular/platform-browser';
 import { SettingsService } from './services/service.index';
 import { User } from './models/user.model';
-
+import { WebsocketService } from './services/websocket.service';
+declare var $: any;
+declare var io: any;
+declare var navigator: any;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -34,7 +37,8 @@ export class AppComponent implements OnInit {
     // @Inject(DOCUMENT) private _document,
     public _settingsService: SettingsService,
     public userService: UserService,
-    public peerService: PeerService
+    public peerService: PeerService,
+    public websocketService: WebsocketService,
   ) {
   }
   ngOnInit() {
@@ -112,6 +116,9 @@ export class AppComponent implements OnInit {
 
   startCall() {
     this.peerService.startCall(this.selectedUser);
+
+
+
     // var n = <any>navigator;
     // n.getUserMedia = (n.getUserMedia || n.webkitGetUserMedia || n.mozGetUserMedia || n.msGetUserMedia);
     // n.getUserMedia({ video: true, audio: true }, (stream) => {

@@ -1,3 +1,16 @@
+<div class="d-flex mb-2">
+  <!-- <pc></pc> -->
+
+  <!-- <ul class="flex-1 pl-0 ml-3">
+    <li *ngFor="let subscription of tableSubscriptions" class="d-flex pl-0">
+      <img [src]="subscription.player.image | image" alt="" width="16px" height="16px">
+      <small class="ml-2" style="white-space: nowrap;
+      max-width: 80px;
+      overflow: hidden;
+      text-overflow: ellipsis;">{{subscription.player.name}} </small>
+    </li>
+  </ul> -->
+</div>
 <div class="row row mb-3 mt-0">
   <div class="col-lg-6 col-xs-12">
     <h4 class="card-title mb-0">
@@ -25,8 +38,8 @@
               class="badge badge-success ml-2 fa fa-unlock-alt">
               <i class="fa fa-xczc"></i>
             </span>
-            <span style="font-size:13px;" class="badge badge-primary ml-2"
-              data-toggle="modal" data-target="#chatModal" *ngIf="table.chat && checkSubscription()">
+            <span style="font-size:13px;" class="badge badge-primary ml-2" data-toggle="modal" data-target="#chatModal"
+              *ngIf="table.chat && checkSubscription()">
               <i class="fa fa-comments fa-2x" (click)="activateInputField()"></i>
             </span>
             <!-- <span class="fa fa-soccer-ball-o ml-3" *ngIf="table.type == 'Futbol'"></span> -->
@@ -52,7 +65,8 @@
         </div>
         <div class="badge badge-info d-flex mb-2 p-2" *ngIf="table.winner">
           <i class="fa fa-trophy mr-2"></i>
-          <b>{{table.winner.name}}</b>&nbsp; {{ translate.instant('main.someone_win') }} {{table.activeusers * table.betamount}}€
+          <b>{{table.winner.name}}</b>&nbsp; {{ translate.instant('main.someone_win') }}
+          {{table.activeusers * table.betamount}}€
         </div>
         <div class="d-flex align-items-center justify-content-center">
           <ul class="table-users-list d-flex flex-column pl-0" style="list-style:none;">
@@ -157,7 +171,8 @@
   <div class="col-lg-6 col-xs-12" *ngIf="checkSubscription() || table.closed == true">
     <div class="card">
       <div class="card-body table-body">
-        <h4 class="text-center" *ngIf="selectedUser._id == userService.user._id">{{ translate.instant('main.my_bets') }}</h4>
+        <h4 class="text-center" *ngIf="selectedUser._id == userService.user._id">{{ translate.instant('main.my_bets') }}
+        </h4>
         <h4 class="text-center" *ngIf="selectedUser && selectedUser._id != userService.user._id">
           {{translate.instant('main.someone_bets')}}
           {{selectedUser.name}}
@@ -223,13 +238,13 @@
 
 <!-- chatModal -->
 <div class="modal animate" id="chatModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
+  <div class="modal-dialog chat-modal">
+    <div class="modal-content chat-modal-content">
       <!-- <div class="modal-header">
         <h4 class="modal-title">Chat partida {{table.name}}</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div> -->
-      <div class="modal-body p-2">
+      <div class="modal-body p-2 chat-modal-body">
         <div class="card m-0">
           <div class="d-flex pl-0">
             <ul class="flex-1 pl-0">
@@ -244,26 +259,30 @@
             <ul class="flex-2 pl-2" style="width: 100%;">
               <!-- <li *ngFor="let subscription of tableSubscriptions">{{subscription.player.name}} </li> -->
               <div id="chat-mensajes" style="height: 230px;overflow-y: auto; border-left: 1px solid #e1e1e1;">
-                <li *ngFor="let mensaje of mensajes" class="list-group-item p-2 d-flex flex-column" style="border: none;">
+                <li *ngFor="let mensaje of mensajes" class="list-group-item p-2 d-flex flex-column"
+                  style="border: none;">
                   <small class="text-success mr-2">{{mensaje.owner.name}}:</small>
                   <small class="">{{mensaje.content}}</small>
                 </li>
-                <li *ngIf="mensajes.length == 0 " class="list-group-item p-2" style="border: none;">                   
-                    <small class="">{{ translate.instant('main.no_messages') }}</small>
-                  </li>
+                <li *ngIf="mensajes.length == 0 " class="list-group-item p-2" style="border: none;">
+                  <small class="">{{ translate.instant('main.no_messages') }}</small>
+                </li>
               </div>
               <form (ngSubmit)="enviar()" class="d-flex mt-2">
                 <input type="text" id="textField" [(ngModel)]="texto" class="p-0 form-control chat-input" name="texto"
-                  placeholder="{{ translate.instant('main.write_message')}}" autofocus autocomplete="off" style="border:none;">
-                  <button class="btn btn-success" style=" border-radius: 100%;">
-                    <i class="fa fa-sign-in"></i>
-                  </button>
+                  placeholder="{{ translate.instant('main.write_message')}}" autofocus autocomplete="off"
+                  style="border:none;">
+                <button class="btn btn-success" style=" border-radius: 100%;">
+                  <i class="fa fa-sign-in"></i>
+                </button>
               </form>
             </ul>
           </div>
         </div>
         <div class="modal-footer float-left">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">{{ translate.instant('main.close')}}</button>
+          <button type="button" class="btn btn-danger"
+            data-dismiss="modal">{{ translate.instant('main.close')}}</button>
+          <p class="ml-3" id="actions-text"></p>
           <!-- <button type="button" class="btn btn-success" data-dismiss="modal" (click)="enviar()">Enviar</button> -->
         </div>
       </div>

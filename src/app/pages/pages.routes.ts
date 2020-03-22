@@ -1,3 +1,4 @@
+import { PcComponent } from './../components/pc/pc/pc.component';
 import { InviteComponent } from './invite/invite/invite.component';
 // import { NotificationsComponent } from './notifications/notifications/notifications.component';
 import { TablesComponent } from './tables/tables/tables.component';
@@ -18,6 +19,7 @@ import { SearchComponent } from "./search/search.component";
 import { TableComponent } from './table/table/table.component';
 import { CreateTableComponent } from './create-table/create-table.component';
 import { RankingComponent } from './ranking/ranking/ranking.component';
+import { ChatComponent } from '../components/chat/chat.component';
 
 const pagesRoutes : Routes = [
     // { 
@@ -41,7 +43,9 @@ const pagesRoutes : Routes = [
             { path : 'tables', component : TablesComponent, data: { title:'main.active_games'}},
             { path : 'ranking', component : RankingComponent, data: { title:'main.winners_ranking'}},
             { path : 'set-winner-choices', canActivate: [LoginGuardGuard, ChecktokenGuard], component : CheckMatchesComponent, data: { title:'main.bet_checking'}},            
-            // { path : 'notifications', canActivate: [LoginGuardGuard, ChecktokenGuard], component : NotificationsComponent, data: { title:'Notificaciones'}},            
+            // { path : 'notifications', canActivate: [LoginGuardGuard, ChecktokenGuard], component : NotificationsComponent, data: { title:'Notificaciones'}},      
+            
+            { path : 'test', component : PcComponent, data: { title:'main.winners_ranking'}},
              
             //MANTENIMIENTOS
             { canActivate: [AdminGuard], path : 'users', component : UsersComponent, data: { title:'Mantenimiento de usuarios'}},
@@ -49,7 +53,7 @@ const pagesRoutes : Routes = [
              { path : 'invite', component : InviteComponent, data: { title:'main.invite_friends'}},
              { path : '', redirectTo : '/dashboard', pathMatch : 'full', data: { title:'main.main'}},
              
-             // { path : 'chat', component : ChatComponent, data: { title:'Chat'}},
+             { path : 'chat', component : ChatComponent, data: { title:'Chat'}},
     //     ]
 
     // }

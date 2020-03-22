@@ -81,8 +81,8 @@ export class LoginComponent implements OnInit {
       (response: any)=>{                     
         this.router.navigate(['/tables']);
         setTimeout(() => {
-          this.peerService.initPeer();
-        }, 2000);
+          // this.peerService.initPeer();
+        }, 1000);
       },
       error=>{
         swal('Usuario no encontrado, inténtalo otra vez!', user.email, 'error'); 

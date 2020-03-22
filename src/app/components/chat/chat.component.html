@@ -1,41 +1,133 @@
-<!-- <h1>
-    Usuario:
-    <small>{{wsService.user.name}}</small>
-</h1>
-<button class="btn btn-danger" (click)="salir()">
-    Salir
-</button>
-<div class="row">
-    <div class="col-6">
-        <h1>Usuarios</h1>
-        <hr>
-
-        <ul class="list-group">
-            <li class="list-group-item" *ngFor="let user of activeUsers | async">
-                {{user.nombre}}
-                <span class="badge badge-primary">
-                    {{user.sala}}
-                </span>
-                <br>
-                <span class="badge badge-info">
-                    {{user.id}}
-                </span>
-            </li>
-        </ul>
-    </div>
-    <div class="col-6">
-        <h1>Mensajes</h1>
-        <hr>
-
-        <div id="chat-mensajes">
-            <li *ngFor="let mensaje of mensajes" class="list-group-item">
-                {{mensaje.de}}: {{mensaje.cuerpo}}
-            </li>
+<div class="container chat-container">
+  <div class="row no-gutters">
+    <div class="col-md-4 border-right">
+      <div class="settings-tray">
+        <img class="profile-image"
+            [src]="userService.user.image | image"
+          alt="Profile img">
+        <span class="settings-tray--right">
+            <i class="fa fa-refresh"></i>
+            <i class="fa fa-comments"></i>
+            <i class="fa fa-bars"></i>
+        </span>
+      </div>
+      <div class="search-box">
+        <div class="input-wrapper">
+          <i class="fa fa-search mr-2"></i>
+          <input placeholder="Search here" type="text">
         </div>
-        <form (ngSubmit)="enviar()">
-            <input type="text" [(ngModel)]="texto" class="form-control chat-input" name="texto" placeholder="Mensaje;"
-                autofocus autocomplete="off">
-        </form>
-        <hr>
+      </div>
+    
+      <div class="friend-drawer friend-drawer--onhover" *ngFor="let user of users; let i = index;" (click)="switchUserChat(user)">
+        <img class="profile-image"
+        [src]="user.image | image"
+          alt="">
+        <div class="text">
+          <h6>{{user.name}}</h6>
+          <!-- <p class="text-muted">Hey, you're arrested!</p> --> 
+        </div>
+        <span class="time text-muted small">13:21</span>
+      </div>
+      <hr>
+      <!-- <div class="friend-drawer friend-drawer--onhover">
+        <img class="profile-image"
+          src="https://clarity-enhanced.net/wp-content/themes/clarity-enhanced/assets/img/bootstrap-chat-app-assets/optimus-prime.jpeg"
+          alt="">
+        <div class="text">
+          <h6>Optimus</h6>
+          <p class="text-muted">Wanna grab a beer?</p>
+        </div>
+        <span class="time text-muted small">00:32</span>
+      </div>
+      <hr>
+      <div class="friend-drawer friend-drawer--onhover ">
+        <img class="profile-image"
+          src="https://clarity-enhanced.net/wp-content/themes/clarity-enhanced/assets/img/bootstrap-chat-app-assets/real-terminator.png"
+          alt="">
+        <div class="text">
+          <h6>Skynet</h6>
+          <p class="text-muted">Seen that canned piece of s?</p>
+        </div>
+        <span class="time text-muted small">13:21</span>
+      </div>
+      <hr>
+      <div class="friend-drawer friend-drawer--onhover">
+        <img class="profile-image"
+          src="https://clarity-enhanced.net/wp-content/themes/clarity-enhanced/assets/img/bootstrap-chat-app-assets/termy.jpg"
+          alt="">
+        <div class="text">
+          <h6>Termy</h6>
+          <p class="text-muted">Im studying spanish...</p>
+        </div>
+        <span class="time text-muted small">13:21</span>
+      </div>
+      <hr>
+      <div class="friend-drawer friend-drawer--onhover">
+        <img class="profile-image"
+          src="https://clarity-enhanced.net/wp-content/themes/clarity-enhanced/assets/img/bootstrap-chat-app-assets/rick.jpg"
+          alt="">
+        <div class="text">
+          <h6>Richard</h6>
+          <p class="text-muted">I'm not sure...</p>
+        </div>
+        <span class="time text-muted small">13:21</span>
+      </div>
+      <hr>
+      <div class="friend-drawer friend-drawer--onhover">
+        <img class="profile-image"
+          src="https://clarity-enhanced.net/wp-content/themes/clarity-enhanced/assets/img/bootstrap-chat-app-assets/rachel.jpeg"
+          alt="">
+        <div class="text">
+          <h6>XXXXX</h6>
+          <p class="text-muted">Hi, wanna see something?</p>
+        </div>
+        <span class="time text-muted small">13:21</span>
+      </div> -->
     </div>
-</div> -->
+    <div class="col-md-8">
+      <div class="settings-tray">
+        <div class="friend-drawer no-gutters friend-drawer--grey">
+          <img class="profile-image"
+            [src]="selectedUser.image | image"
+            alt="">
+          <div class="text">
+            <h6>{{selectedUser.name}}</h6>
+            <!-- <p class="text-muted">Layin' down the law since like before Christ...</p> -->
+          </div>
+          <span class="settings-tray--right">
+            <i class="fa fa-refresh"></i>
+            <i class="fa fa-video-camera" (click)="sendCall()"></i>
+            <i class="fa fa-bars"></i>
+          </span>
+        </div>
+      </div>
+      <div class="chat-panel">
+        <div class="row no-gutters" *ngFor="let message of messages">
+          <div [hidden]="message.content == '123call'" class="col-md-5" [ngClass]="{'offset-md-7': userService.user._id == message.owner._id}">
+            <div class="chat-bubble" [ngClass]="{'chat-bubble--left': userService.user._id != message.owner._id, 'chat-bubble--right': userService.user._id == message.owner._id}">
+                {{message.content}}
+            </div>
+          </div>
+          <div [hidden]="message.content != '123call'" class="col-md-5" [ngClass]="{'offset-md-7': userService.user._id == message.owner._id}">
+            <div class="chat-bubble" [ngClass]="{'chat-bubble--left': userService.user._id != message.owner._id, 'chat-bubble--right': userService.user._id == message.owner._id}">
+                <a href="javascript:void(0);" (click)="openCall(message)">
+                  <i class="fa fa-video-camera mr-2"></i>
+                  <span>Video llamada</span>  
+                </a>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="chat-box-tray">
+                <i class="fa fa-smile-o"></i>
+              <input (keydown)="keyDownInput($event)" type="text" placeholder="Type your message here..." name="msg" [(ngModel)]="msg">
+              <!-- <i class="fa fa-video-camera btn btn-outline-success" (click)="sendCall()"></i> -->
+              <i class="fa fa-arrow-circle-right btn btn-outline-info" (click)="sendMessage()"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
