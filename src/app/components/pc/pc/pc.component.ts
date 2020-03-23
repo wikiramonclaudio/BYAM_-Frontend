@@ -1,18 +1,19 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 declare var JitsiMeetExternalAPI;
 @Component({
   selector: 'pc',
   templateUrl: './pc.component.html',
   styleUrls: ['./pc.component.css']
 })
-export class PcComponent implements OnInit{
+export class PcComponent implements OnInit {
   // @ViewChild('startButton',{static: false}) startButton: ElementRef;
   // @ViewChild('callButton', {static: false}) callButton: ElementRef;
   // @ViewChild('hangupButton', {static: false}) hangupButton: ElementRef;
   // @ViewChild('localVideo', {static: false}) localVideo: ElementRef;
   // @ViewChild('remoteVideo', {static: false}) remoteVideo: ElementRef;
 
-  
+
   // startButtonDisabled = false;
   // callButtonDisabled = true;
   // hangupButtonDisabled = true;
@@ -25,18 +26,75 @@ export class PcComponent implements OnInit{
   //   offerToReceiveAudio: 1,
   //   offerToReceiveVideo: 1
   // };
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
 
-  ngOnInit(){
-    var domain = "meet.jit.si";
-    var options = {
-        roomName: "Embed",
-        width: 700,
-        height: 700,
-        parentNode: document.querySelector('#meet')
-    }
-    var api = new JitsiMeetExternalAPI(domain, options);
   }
-  
+
+  ngOnInit() {
+    var domain = "meet.jit.si";
+    // var options = {
+    //     roomName: "Embed",
+    //     width: 700,
+    //     height: 700,
+    //     parentNode: document.querySelector('#meet')
+    // }
+    // var api = new JitsiMeetExternalAPI(domain, options);
+
+    let test: any = this.route.snapshot.params;
+    console.log('que es el params', typeof test)
+    var options: any = {
+      roomName: test.roomName,
+      width: '80%',
+      height: 600,
+      password: 'bartolez',
+      interfaceConfigOverwrite: {
+        SHOW_WATERMARK_FOR_GUESTS: false,
+        SHOW_JITSI_WATERMARK: false,
+        CLOSE_PAGE_GUEST_HINT: false,
+        SHOW_PROMOTIONAL_CLOSE_PAGE: false,
+        RANDOM_AVATAR_URL_PREFIX: false,
+        SHOW_DEEP_LINKING_IMAGE: false,
+        RANDOM_AVATAR_URL_SUFFIX: false,
+        SHOW_BRAND_WATERMARK: false,
+        GENERATE_ROOMNAMES_ON_WELCOME_PAGE: false,
+        DISPLAY_WELCOME_PAGE_CONTENT: false,
+        DISPLAY_WELCOME_PAGE_TOOLBAR_ADDITIONAL_CONTENT: false,
+        APP_NAME: 'BYAM Juegos',
+        NATIVE_APP_NAME: 'BYAM Between you and me',
+        JITSI_WATERMARK_LINK: 'https://byam.cleverapps.io',
+        // SHOW_POWERED_BY: false,SHOW_DEEP_LINKING_IMAGE: false,DEFAULT_BACKGROUND: '#000',
+        // INVITATION_POWERED_BY: false,
+        MOBILE_APP_PROMO: true,
+        SHOW_CHROME_EXTENSION_BANNER: false
+      },
+      configOverwrite: {
+        enableNoAudioDetection: false,
+        enableNoisyMicDetection: false,
+        enableWelcomePage: false,
+        enableClosePage: false,
+        useIPv6: true,
+        defaultLanguage: 'es',
+        // disableThirdPartyRequests: false,            
+        testing: {
+          // Enables experimental simulcast support on Firefox.
+          enableFirefoxSimulcast: true
+        }
+      },
+      parentNode: document.querySelector('#meet')
+    }
+    // options.parentNode = document.querySelector('#meet');
+    setTimeout(() => {
+      options.parentNode = document.querySelector('#meet');
+      console.log('OPTIONS AL EJECUTAR EL API', options);
+      var api = new JitsiMeetExternalAPI(domain, options);
+    }, 2000);
+    console.log('OBJETO ACTIVATED ROUTE', this.route.snapshot.params);
+
+  }
+
   // getName(pc) {
   //   return (pc === this.pc1) ? 'pc1' : 'pc2';
   // }
@@ -64,7 +122,7 @@ export class PcComponent implements OnInit{
   //     alert('getUserMedia() error: ' + e.name);
   //   });
   // }
-  
+
   // call() {
   //   this.callButtonDisabled = true;
   //   this.hangupButtonDisabled = false;
@@ -86,7 +144,7 @@ export class PcComponent implements OnInit{
   //   };
   //   this.pc2 = new RTCPeerConnection(servers);
   //   this.trace('Created remote peer connection object pc2');
-    
+
   //   this.pc2.onicecandidate = e => {
   //     this.onIceCandidate(this.pc2, e);
   //   };

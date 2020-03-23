@@ -45,7 +45,7 @@ const pagesRoutes : Routes = [
             { path : 'set-winner-choices', canActivate: [LoginGuardGuard, ChecktokenGuard], component : CheckMatchesComponent, data: { title:'main.bet_checking'}},            
             // { path : 'notifications', canActivate: [LoginGuardGuard, ChecktokenGuard], component : NotificationsComponent, data: { title:'Notificaciones'}},      
             
-            { path : 'test', component : PcComponent, data: { title:'main.winners_ranking'}},
+            { path : 'meet', component : PcComponent, data: { title:'Meet'}},
              
             //MANTENIMIENTOS
             { canActivate: [AdminGuard], path : 'users', component : UsersComponent, data: { title:'Mantenimiento de usuarios'}},

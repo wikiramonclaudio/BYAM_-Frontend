@@ -194,17 +194,17 @@ hr {
 
 @media only screen and (min-width: 700px) {
   .chat-container {
-    max-height: 650px;
+    max-height: 550px;
     overflow: hidden;
   }
 
   .chat-container .border-right {
-    max-height: 650px;
+    max-height: 550px;
     overflow-y: auto;
   }
 
   .chat-container .chat-panel {    
-    max-height: 580px;
+    max-height: 500px;
     overflow-y: auto;
     overflow-x: hidden;
   }

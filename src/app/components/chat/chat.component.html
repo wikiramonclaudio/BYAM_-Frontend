@@ -8,13 +8,13 @@
         <span class="settings-tray--right">
             <i class="fa fa-refresh"></i>
             <i class="fa fa-comments"></i>
-            <i class="fa fa-bars"></i>
+            <!-- <i class="fa fa-bars"></i> -->
         </span>
       </div>
       <div class="search-box">
         <div class="input-wrapper">
           <i class="fa fa-search mr-2"></i>
-          <input placeholder="Search here" type="text">
+          <input placeholder="Search here" type="text" (keydown)="searchInput($event)">
         </div>
       </div>
     
@@ -95,9 +95,9 @@
             <!-- <p class="text-muted">Layin' down the law since like before Christ...</p> -->
           </div>
           <span class="settings-tray--right">
-            <i class="fa fa-refresh"></i>
+            <i class="fa fa-refresh" (click)="refresh()"></i>
             <i class="fa fa-video-camera" (click)="sendCall()"></i>
-            <i class="fa fa-bars"></i>
+            <!-- <i class="fa fa-bars"></i> -->
           </span>
         </div>
       </div>
@@ -110,7 +110,7 @@
           </div>
           <div [hidden]="message.content != '123call'" class="col-md-5" [ngClass]="{'offset-md-7': userService.user._id == message.owner._id}">
             <div class="chat-bubble" [ngClass]="{'chat-bubble--left': userService.user._id != message.owner._id, 'chat-bubble--right': userService.user._id == message.owner._id}">
-                <a href="javascript:void(0);" (click)="openCall(message)">
+                <a href="javascript:void(0);" [routerLink]="['/meet', message.callOptions]" routerLinkActive="router-link-active"  target="_blank">
                   <i class="fa fa-video-camera mr-2"></i>
                   <span>Video llamada</span>  
                 </a>
@@ -121,7 +121,7 @@
           <div class="col-12">
             <div class="chat-box-tray">
                 <i class="fa fa-smile-o"></i>
-              <input (keydown)="keyDownInput($event)" type="text" placeholder="Type your message here..." name="msg" [(ngModel)]="msg">
+              <input #messageInput (input)="searchInput(messageInput.value)" (keyup.enter)="sendMessage()" type="text" placeholder="Type your message here..." name="msg" [(ngModel)]="msg">
               <!-- <i class="fa fa-video-camera btn btn-outline-success" (click)="sendCall()"></i> -->
               <i class="fa fa-arrow-circle-right btn btn-outline-info" (click)="sendMessage()"></i>
             </div>

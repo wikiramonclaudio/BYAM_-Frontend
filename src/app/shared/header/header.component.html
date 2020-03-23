@@ -63,7 +63,7 @@
               <li role="separator" class="divider"></li>
               <li><a routerLink="/settings"><i class="ti-settings mr-1"></i> {{translate.instant('main.settings')}}</a></li>
               <li role="separator" class="divider"></li>
-              <li><a (click)="showCallsPanel()" class="pointer"><i class="fa fa-phone mr-1"></i> Conversaciones</a></li>
+              <li><a routerLink="/chat" class="pointer"><i class="fa fa-phone mr-1"></i> Conversaciones</a></li>
               <li role="separator" class="divider"></li>
               <li><a (click)="userService.logout()" class="pointer"><i class="fa fa-power-off mr-1"></i> {{translate.instant('main.exit')}}</a></li>
             </ul>
