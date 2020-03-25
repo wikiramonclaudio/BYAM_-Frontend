@@ -24,9 +24,11 @@
           alt="">
         <div class="text">
           <h6>{{user.name}}</h6>
+         
           <!-- <p class="text-muted">Hey, you're arrested!</p> --> 
         </div>
-        <span class="time text-muted small">13:21</span>
+        <i class="fa fa-circle" style="color:#34c15c" *ngIf="user.connected == true"></i>
+        <!-- <span class="time text-muted small">13:21</span> -->
       </div>
       <hr>
       <!-- <div class="friend-drawer friend-drawer--onhover">

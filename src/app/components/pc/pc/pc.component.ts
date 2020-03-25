@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 declare var JitsiMeetExternalAPI;
+declare var $;
 @Component({
   selector: 'pc',
   templateUrl: './pc.component.html',
@@ -44,7 +45,6 @@ export class PcComponent implements OnInit {
     // var api = new JitsiMeetExternalAPI(domain, options);
 
     let test: any = this.route.snapshot.params;
-    console.log('que es el params', typeof test)
     var options: any = {
       roomName: test.roomName,
       width: '80%',
@@ -77,7 +77,8 @@ export class PcComponent implements OnInit {
         enableClosePage: false,
         useIPv6: true,
         defaultLanguage: 'es',
-        // disableThirdPartyRequests: false,            
+        // disableThirdPartyRequests: false,
+        gatherStats: false,
         testing: {
           // Enables experimental simulcast support on Firefox.
           enableFirefoxSimulcast: true
@@ -88,10 +89,12 @@ export class PcComponent implements OnInit {
     // options.parentNode = document.querySelector('#meet');
     setTimeout(() => {
       options.parentNode = document.querySelector('#meet');
-      console.log('OPTIONS AL EJECUTAR EL API', options);
       var api = new JitsiMeetExternalAPI(domain, options);
+      api.addEventListener('readyToClose', function () {
+        $('iframe').hide();      
+      });
+
     }, 2000);
-    console.log('OBJETO ACTIVATED ROUTE', this.route.snapshot.params);
 
   }
 

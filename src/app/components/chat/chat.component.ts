@@ -108,6 +108,40 @@ export class ChatComponent implements OnInit {
         this.selectedUser = res.emiter;
       }
     );
+    this.websocketService.listen('newPlayerInTable', {}).subscribe(
+      (res: any) => {
+        if(res.tableId == 'general'){
+          this.users.forEach((user) => {
+            var userConnected = res.onlineUsers.find((el) => {
+              return el.userId == user._id;
+            });
+            if (userConnected) {
+              user.connected = true;
+            } else {
+              user.connected = false;
+            }
+  
+          });
+        }
+      }
+    )
+    this.websocketService.listen('leaveTable', {}).subscribe(
+      (res: any) => {
+        if (res.user._id != this.userService.user._id && res.tableId == 'general') {
+          this.users.forEach((user) => {
+            user.connected = false;
+            var userConnected = res.onlineUsers.find((el) => {
+              return el.userId == user._id;
+            });
+            if (userConnected && (userConnected._id != this.userService.user._id)) {
+              user.connected = true;
+            } else {
+              user.connected = false;
+            }
+          });
+        }
+      }
+    )
   }
 
   getUsers() {
@@ -115,7 +149,9 @@ export class ChatComponent implements OnInit {
       (res: any) => {
         if (res.users.lenght > 0)
           this.selectedUser = res.users[0];
-        this.users = res.users;
+        this.users = res.users.filter((user) => {
+          return user._id != this.userService.user._id;
+        });
         this.initUsers = res.users;
         this.initSockets('general');
       }
@@ -176,7 +212,7 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    console.log('ng destroy SE ABANDONA EL SOCKET');
+    console.log('ng destroy SE ABANDONA EL la sala');
     this.websocketService.emit('leaveTable', { tableId: this.activeTable, user: this.userService.user });
     this.websocketService.emit('leaveTable', { tableId: 'general', user: this.userService.user });
   }
@@ -216,7 +252,7 @@ export class ChatComponent implements OnInit {
           roomName: this.userService.user._id + this.selectedUser._id,
           width: '80%',
           height: '80%',
-          password: 'bartolez',          
+          password: 'bartolez',
           interfaceConfigOverwrite: {
             SHOW_WATERMARK_FOR_GUESTS: false,
             SHOW_JITSI_WATERMARK: false,
@@ -268,8 +304,8 @@ export class ChatComponent implements OnInit {
 
   openCall(message) {
 
-    this.router.navigate(['/meet'], { queryParams: { options: message.callOptions }});
-    
+    this.router.navigate(['/meet'], { queryParams: { options: message.callOptions } });
+
     // var options = message.callOptions;
     // var wd = window.open('', '_blank');
     // wd.location.href = 'https://';

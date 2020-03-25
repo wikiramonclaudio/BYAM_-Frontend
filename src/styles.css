@@ -75,3 +75,6 @@ video {
     background: #222;
 }
 
+.close-page-container{
+    display:none!important;
+}
