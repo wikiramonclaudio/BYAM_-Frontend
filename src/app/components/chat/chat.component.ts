@@ -5,7 +5,7 @@ import { MessageService } from './../../services/message/message.service';
 import { WebsocketService } from './../../services/websocket.service';
 import { User } from './../../models/user.model';
 import { UserService } from './../../services/user/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import swal from 'sweetalert';
 declare var $: any;
 declare var JitsiMeetExternalAPI;
@@ -17,7 +17,7 @@ declare var JitsiMeetExternalAPI;
 })
 export class ChatComponent implements OnInit {
   users: any[] = [];
-  selectedUser: User = new User('', '', '', '');
+  selectedUser: any = new User('', '', '', '');
   msg: any = '';
   activeTable: any = 'general';
   activeRoom: any = 'general';
@@ -25,6 +25,7 @@ export class ChatComponent implements OnInit {
   callDomain: any = '';
   callOptions: any = {};
   initUsers: any[] = [];
+  @ViewChild('messageInput', {static: true}) searchElement: ElementRef;
   constructor(
     public userService: UserService,
     public websocketService: WebsocketService,
@@ -90,8 +91,10 @@ export class ChatComponent implements OnInit {
             content: res.message
           };
         }
-        this.messages.push(msg);
-        this.msg = '';
+        if((msg.owner._id == this.selectedUser._id)|| msg.owner._id == this.userService.user._id){
+          this.messages.push(msg);
+          this.msg = '';
+        }
         setTimeout(() => {
           var chatPanel = document.querySelector('.chat-panel');
           chatPanel.scrollTop = chatPanel.scrollHeight;
@@ -110,7 +113,7 @@ export class ChatComponent implements OnInit {
     );
     this.websocketService.listen('newPlayerInTable', {}).subscribe(
       (res: any) => {
-        if(res.tableId == 'general'){
+        if(res.tableId == 'general' && res.onlineUsers){
           this.users.forEach((user) => {
             var userConnected = res.onlineUsers.find((el) => {
               return el.userId == user._id;
@@ -142,6 +145,17 @@ export class ChatComponent implements OnInit {
         }
       }
     )
+    this.websocketService.listen('privateChatAlert', {}).subscribe(
+      (res:any)=>{     
+        if(res.emiter._id != this.selectedUser._id)   {
+          var emiter = this.users.find((user)=>{
+            return res.emiter._id == user._id;
+          });
+          emiter.lastcontent = res.message;
+          emiter.alerting = true;             
+        }
+      }
+    )
   }
 
   getUsers() {
@@ -159,8 +173,9 @@ export class ChatComponent implements OnInit {
   }
 
   switchUserChat(user: any) {
-    // this.websocketService.emit('leaveTable', { tableId: this.activeTable, user: this.userService.user });
+    // this.websocketService.emit('leaveTable', { tableId: this.activeTable, user: this.userService.user });    
     this.selectedUser = user;
+    this.selectedUser.alerting = false;
     $('.chat-bubble').hide('slow').show('slow');
     //obtener mensages de esta sala     
     this.chatRoomService.getChatRooms(this.userService.user._id, this.selectedUser._id).subscribe(
@@ -181,6 +196,7 @@ export class ChatComponent implements OnInit {
                   receiver: this.selectedUser
                 };
                 this.websocketService.emit('inviteRoom', socketData);
+                this.searchElement.nativeElement.focus();
               } else {
 
               }
@@ -198,6 +214,7 @@ export class ChatComponent implements OnInit {
                 if ((window.innerWidth <= 768)) {
                   window.scrollTo(0, document.body.scrollHeight);
                 }
+                this.searchElement.nativeElement.focus();                
               }, 0);
             }
           )

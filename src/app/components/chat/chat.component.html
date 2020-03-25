@@ -18,17 +18,18 @@
         </div>
       </div>
     
-      <div class="friend-drawer friend-drawer--onhover" *ngFor="let user of users; let i = index;" (click)="switchUserChat(user)">
-        <img class="profile-image"
-        [src]="user.image | image"
-          alt="">
-        <div class="text">
-          <h6>{{user.name}}</h6>
-         
-          <!-- <p class="text-muted">Hey, you're arrested!</p> --> 
+      <div class="users-container">
+        <div class="friend-drawer friend-drawer--onhover" *ngFor="let user of users; let i = index;" (click)="switchUserChat(user)">
+          <img class="profile-image"
+          [src]="user.image | image"
+            alt="">
+          <div class="text">
+            <h6>{{user.name}}</h6>         
+            <p class="text-muted private-msg-alert" [title]="user.lastcontent" style="font-size: 12px;" [ngClass]="{'text-primary': user.alerting}">{{user.lastcontent}}</p> 
+          </div>
+          <i class="fa fa-circle" style="color:#34c15c" *ngIf="user.connected == true"></i>
+          <!-- <span class="time text-muted small">13:21</span> -->
         </div>
-        <i class="fa fa-circle" style="color:#34c15c" *ngIf="user.connected == true"></i>
-        <!-- <span class="time text-muted small">13:21</span> -->
       </div>
       <hr>
       <!-- <div class="friend-drawer friend-drawer--onhover">
@@ -123,7 +124,7 @@
           <div class="col-12">
             <div class="chat-box-tray">
                 <i class="fa fa-smile-o"></i>
-              <input #messageInput (input)="searchInput(messageInput.value)" (keyup.enter)="sendMessage()" type="text" placeholder="Type your message here..." name="msg" [(ngModel)]="msg">
+              <input #messageInput autofocus (input)="searchInput(messageInput.value)" (keyup.enter)="sendMessage()" type="text" placeholder="Type your message here..." name="msg" [(ngModel)]="msg">
               <!-- <i class="fa fa-video-camera btn btn-outline-success" (click)="sendCall()"></i> -->
               <i class="fa fa-arrow-circle-right btn btn-outline-info" (click)="sendMessage()"></i>
             </div>
