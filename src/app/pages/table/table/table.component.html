@@ -127,6 +127,7 @@
                   <option [value]="matchByTable.bettype.option2._id">{{matchByTable.bettype.option2.name}}</option>
                   <option  *ngIf="matchByTable.bettype.option3" [value]="matchByTable.bettype.option3._id">{{matchByTable.bettype.option3.name}}</option>
                 </select>
+                <p-dropdown [options]="cities" formControlName="selectedCity"></p-dropdown>
               </div>
               <br>
               <div *ngIf="matchByTable.tiebreak">

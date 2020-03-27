@@ -21,7 +21,7 @@ import { Bet } from 'src/app/models/bet.model';
 import swal from 'sweetalert';
 import { WebsocketService } from 'src/app/services/websocket.service';
 import { TranslateService } from '@ngx-translate/core';
-
+import {DropdownModule} from 'primeng/dropdown';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
