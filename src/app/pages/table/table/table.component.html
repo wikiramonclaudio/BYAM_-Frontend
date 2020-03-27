@@ -88,7 +88,7 @@
           <div class="panel panel-default" *ngFor="let matchByTable of matchTypeRelations; let i=index">
             <div class="panel-heading" *ngIf="!matchByTable.winnerchoice">
               <h4 class="panel-title card-title text-center match-title">
-                <a data-toggle="collapse" [href]="'#'+matchByTable._id">
+                <a >
                   <span>{{matchByTable.match.localteam}}</span>
                   <span class="ml-2">VS</span>
                   <span class="ml-2">{{matchByTable.match.awayteam}}</span>
@@ -97,13 +97,31 @@
                     style="font-size: 13px; color: #ccc2c2;">{{matchByTable.match.when | date: 'short' : 'UTC' : 'es'}}</span> -->
                   <span class="ml-2"
                     style="font-size: 13px; color: #ccc2c2;">{{matchByTable.match.when | date: 'short' : 'es'}}</span>
+                  <br>
+                  <p-dropdown optionLabel="name" [name]="name"
+                    [options]="[matchByTable.bettype.option1, matchByTable.bettype.option2,matchByTable.bettype.option3]"
+                    [(ngModel)]="matchByTable.choice" (onChange)="toggleOption(matchByTable, 1, $event.value._id)">
+                  </p-dropdown>
+                  <div *ngIf="matchByTable.tiebreak">
+                    <form ngNativeValidate class="form-horizontal form-material">
+                      <h5><span class="badge badge-info pl-2 pr-2 mt-2" style="white-space: pre-wrap;">
+                          Pronóstico desempate (Num goles partido). Cuando haya más de un ganador se
+                          revisará este pronóstico para desempatar.
+                        </span></h5>
+                      <span style="font-size: 14px;">Num total goles partido (Desempates)</span>
+                      <div class="form-group d-flex">
+                        <input class="form-control text-center" type="number" required placeholder="0"
+                          [(ngModel)]="goalsTotal" name="subject">
+                      </div>
+                    </form>
+                  </div>
                 </a>
               </h4>
             </div>
-            <div [id]="matchByTable._id" class="panel-collapse collapse">
+            <!-- <div [id]="matchByTable._id" class="panel-collapse collapse">
               <span class="text-center">{{matchByTable.bettype.name}}</span>
               <br>
-              <!-- <div class="list-group">
+              <div class="list-group">
                 <a href="javascript:void(0)" class="list-group-item list-group-item-action"
                   [ngClass]="{'list-group-item-success': matchByTable.bettype.option1.selected}"
                   (click)="toggleOption(matchByTable, 1, matchByTable.bettype.option1._id)">
@@ -120,13 +138,9 @@
                   (click)="toggleOption(matchByTable, 3, matchByTable.bettype.option3._id)">
                   {{matchByTable.bettype.option3.name}}
                 </a>
-              </div> -->
-              <div class="col-xs-12 col-md-6">
-                <select #selectOption name="club" id="club" (change)="toggleOption(matchByTable,1, selectOption.value)" class="select-styled select">
-                  <option [value]="matchByTable.bettype.option1._id">{{matchByTable.bettype.option1.name}}</option>
-                  <option [value]="matchByTable.bettype.option2._id">{{matchByTable.bettype.option2.name}}</option>
-                  <option  *ngIf="matchByTable.bettype.option3" [value]="matchByTable.bettype.option3._id">{{matchByTable.bettype.option3.name}}</option>
-                </select>
+              </div>
+              <div class="col-xs-12 col-md-6">                
+                <p-dropdown optionLabel="name" [name]="name" [options]="[matchByTable.bettype.option1, matchByTable.bettype.option2,matchByTable.bettype.option3]" [(ngModel)]="selectedCity1" (onChange)="toggleOption(matchByTable, 1, $event.value._id)"></p-dropdown>
               </div>
               <br>
               <div *ngIf="matchByTable.tiebreak">
@@ -139,12 +153,10 @@
                   <div class="form-group d-flex">
                     <input class="form-control text-center" type="number" required placeholder="0"
                       [(ngModel)]="goalsTotal" name="subject">
-                    <!-- <input class="form-control" type="number" required
-                      [placeholder]="matchByTable.match.awayteam" [(ngModel)]="goalsAwayTeam" name="subject"> -->
                   </div>
                 </form>
               </div>
-            </div>
+            </div> -->
             <hr>
           </div>
           <!-- <form ngNativeValidate class="form-horizontal form-material">

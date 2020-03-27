@@ -33,6 +33,8 @@
     "core-js": "^2.5.4",
     "ng2-charts": "^2.0.0-beta.21",
     "ngx-socket-io": "^3.0.1",
+    "primeicons": "^2.0.0",
+    "primeng": "^9.0.2",
     "reflect-metadata": "~0.1.12",
     "rxjs": "^6.2.2",
     "rxjs-compat": "^6.3.3",

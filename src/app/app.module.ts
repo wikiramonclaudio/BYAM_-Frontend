@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import { NgModule } from '@angular/core';
 import { AngularDraggableModule } from 'angular2-draggable';
 //routes
@@ -44,6 +45,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     APP_ROUTES,    
     FormsModule,
     ReactiveFormsModule,

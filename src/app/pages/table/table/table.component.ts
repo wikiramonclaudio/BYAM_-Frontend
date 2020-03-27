@@ -21,6 +21,7 @@ import { Bet } from 'src/app/models/bet.model';
 import swal from 'sweetalert';
 import { WebsocketService } from 'src/app/services/websocket.service';
 import { TranslateService } from '@ngx-translate/core';
+import {DropdownModule} from 'primeng/dropdown';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -268,23 +269,25 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   toggleOption(matchByTable, optionNumber, optionId: string) {
-    if (optionNumber == 1) {
-      matchByTable.bettype.option1.selected = true;
-      matchByTable.bettype.option2.selected = false;
-      if (matchByTable.bettype.option3)
-        matchByTable.bettype.option3.selected = false;
-    }
-    if (optionNumber == 2) {
-      matchByTable.bettype.option2.selected = true;
-      matchByTable.bettype.option1.selected = false;
-      if (matchByTable.bettype.option3)
-        matchByTable.bettype.option3.selected = false;
-    }
-    if (optionNumber == 3) {
-      matchByTable.bettype.option3.selected = true;
-      matchByTable.bettype.option2.selected = false;
-      matchByTable.bettype.option1.selected = false;
-    }
+    // toggleOption(matchByTable, optionNumber, optionId: string) {
+    console.log('eventolo', event);
+    // if (optionNumber == 1) {
+    //   matchByTable.bettype.option1.selected = true;
+    //   matchByTable.bettype.option2.selected = false;
+    //   if (matchByTable.bettype.option3)
+    //     matchByTable.bettype.option3.selected = false;
+    // }
+    // if (optionNumber == 2) {
+    //   matchByTable.bettype.option2.selected = true;
+    //   matchByTable.bettype.option1.selected = false;
+    //   if (matchByTable.bettype.option3)
+    //     matchByTable.bettype.option3.selected = false;
+    // }
+    // if (optionNumber == 3) {
+    //   matchByTable.bettype.option3.selected = true;
+    //   matchByTable.bettype.option2.selected = false;
+    //   matchByTable.bettype.option1.selected = false;
+    // }
     let newForecast = new Forecast(matchByTable.match._id, matchByTable.bettype._id, optionId, '');
     var exists = this.forecasts.filter((el) => {
       return matchByTable.match._id == el.match;

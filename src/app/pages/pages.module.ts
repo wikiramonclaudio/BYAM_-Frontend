@@ -48,7 +48,8 @@ import { HttpClient } from '@angular/common/http';
 // ...other imports
 // import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 // const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
-
+import {PickListModule} from 'primeng/picklist';
+import {DropdownModule} from 'primeng/dropdown';
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
@@ -65,8 +66,7 @@ registerLocaleData(localeEs);
     ],
     exports: [
         DashboardComponent,
-        Graficas1Component,
-        
+        Graficas1Component        
     ],
     imports : [
         SharedModule,
@@ -81,7 +81,9 @@ registerLocaleData(localeEs);
               useFactory: HttpLoaderFactory,
               deps: [ HttpClient ]
             }
-          })   
+          }),
+        PickListModule,
+        DropdownModule
     ]
 })
 

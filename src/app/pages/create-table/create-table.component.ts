@@ -15,7 +15,7 @@ import { SubscriptionTableService } from 'src/app/services/tablesubscription/tab
 import swal from 'sweetalert';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslationService } from 'src/app/services/translation/translation.service';
-
+import {PickListModule} from 'primeng/picklist';
 @Component({
   selector: 'app-create-table',
   templateUrl: './create-table.component.html',
@@ -23,12 +23,12 @@ import { TranslationService } from 'src/app/services/translation/translation.ser
 })
 export class CreateTableComponent implements OnInit {
   public tableForm: FormGroup;
-  table: Table = new Table('10', '', '', false, true, '','','Futbol');
+  table: Table = new Table('10', '', '', false, false, '','','Futbol');
   matches: any[] = [];
   matchesByTable: MatchByTable[] = [];
   selectedMatches: Match[] = [];
   betTypesLoaded: boolean = false;
-  betTypes: BetType[] = [];
+  betTypes: any[] = [];
   betTypeValues = [];
   matchesWithBetType: any [] = [];
   disableCreateButton: boolean = true;
@@ -56,9 +56,10 @@ export class CreateTableComponent implements OnInit {
       res => {        
         this.betTypes = res.betTypes;
         for (let index = 0; index < this.matches.length; index++) {
-          const element = this.matches[index];
+          // const element = this.matches[index];
           this.betTypeValues[index] = this.betTypes[0];             
         };
+        console.log('this.betTypeValues',this.betTypeValues);
       }
     )
     this.betTypesLoaded = true;
@@ -77,14 +78,15 @@ export class CreateTableComponent implements OnInit {
         }
       )
     } else {
-      swal('Rellena todos los campos', 'Asegúrate que has añadido al menos 3 partidos y que has marcado el check del partido de desempate', 'warning');
+      swal('Rellena todos los campos', 'Asegúrate que has añadido al menos 3 partidos y que has marcado el partido de desempate en los partidos añadidoas', 'warning');
     }
   }
 
   getMatches() {
     this.matchService.getMatches().subscribe(
       res => {
-        this.matches = res.matches;        
+        this.matches = res.matches;
+        this.getBetTypes();
       }
     )
   }
@@ -108,10 +110,11 @@ export class CreateTableComponent implements OnInit {
 
   //get the selected matches 
   getSelectedMatches() {
-    var pepino = this.matches.filter((el) => {
-      return el.selected == true;
-    });
-    return pepino;
+    // var pepino = this.matches.filter((el) => {
+    //   return el.selected == true;
+    // });
+    // return pepino;
+    return this.selectedMatches;
   }
 
   //Save matches by table
@@ -121,33 +124,53 @@ export class CreateTableComponent implements OnInit {
         item.tiebreak = true;
       item.table = tableId;      
     });
+    console.log('matches with bet type',this.matchesWithBetType);
     this.matchTypeRelService.createManyMatchTypeRelations(this.matchesWithBetType).subscribe(
       res => {        
+        console.log('Guardados OK los match type relations');
         this.router.navigate(['/table', this.table._id]);
       }
     )
   }
 
   //Add match to selected matches (To save them on this table)
-  saveMatch(match: any, betType: any, tableId: string) {    
-    match.selected = true;
+  saveMatch(event: any, betType: any, tableId: string) {   
+    let match = event.items[0];
+    let matches = event.items;    
+    // match.selected = true;
     
-    var exists = this.matchesWithBetType.find((item)=>{
-      return item.match == match._id;
+    matches.forEach(match => {
+      var exists = this.matchesWithBetType.find((item)=>{
+        return item.match == match._id;
+      });
+      let newMatchTypeRelation = { 
+        match: match._id, 
+        bettype: this.betTypes[0]._id      
+      };
+      if(!exists){
+        this.matchesWithBetType.push(newMatchTypeRelation);
+      }else{      
+        swal('Partido añadido', 'Este partido ya está añadido', 'warning');
+      }
+    });    
+  }
+
+  removeSelectedMatchTypeRelation(event){
+    // quitar de los this.matchesWithBetType
+    event.items.forEach((item)=>{      
+      var exists = this.matchesWithBetType.find((item)=>{
+        return item.match == item._id;
+      });
+      this.matchesWithBetType = this.matchesWithBetType.filter((matchWithBet)=>{
+        return !exists;
+      });
     });
-    let newMatchTypeRelation = { 
-      match: match._id, 
-      bettype: betType._id      
-    };
-    if(!exists){
-      this.matchesWithBetType.push(newMatchTypeRelation);
-    }else{      
-      swal('Partido añadido', 'Este partido ya está añadido', 'warning');
-    }
+   
   }
 
   //check selected tiebrekmatch (Draws)
-  setTieBreak(match){
+  setTieBreak(event){    
+    let match = event.items[0];
     this.matches.forEach((ma)=>{
       ma.tiebreak = false;
     });
@@ -157,10 +180,14 @@ export class CreateTableComponent implements OnInit {
 
   //check selected tiebrekmatch
   checkTieBreakSelection(){
-    let choices = this.matches.filter((el)=>{
-      return el.tiebreak == true;
-    });
-    return choices.length == 1;
+    // let choices = this.matches.filter((el)=>{
+    //   return el.tiebreak == true;
+    // });
+    // return choices.length == 1;
+    if(this.tiebreakMatch)
+      return true;
+    else
+      return false;
   }
 
   //Deselect selected match 
