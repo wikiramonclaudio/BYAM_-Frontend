@@ -1,8 +1,11 @@
+import { LeagueService } from './../../../services/league/league.service';
 import { MatchService } from './../../../services/match/match.service';
 import { Match } from './../../../models/match.model';
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslationService } from 'src/app/services/translation/translation.service';
+import swal from 'sweetalert';
+declare var $;
 
 @Component({
   selector: 'app-create-match',
@@ -10,30 +13,101 @@ import { TranslationService } from 'src/app/services/translation/translation.ser
   styleUrls: ['./create-match.component.css']
 })
 export class CreateMatchComponent implements OnInit {
-
-  match: Match = new Match('','','','','', '');  
-  matches: Match [];
+  match: Match = new Match('', '', '', '', '', '');
+  matches: Match[];
+  leagues: any[] = [];
+  clubs: any[] = [];
+  club: any;
+  league: any;
   translate: TranslateService;
   constructor(
     private matchService: MatchService,
-    public translationService: TranslationService
+    public translationService: TranslationService,
+    private leagueService: LeagueService
   ) { }
 
   ngOnInit() {
+    this.getLeagues();
     this.translate = this.translationService.getTranslateService();
   }
 
-  createMatch(){        
+  createMatch() {
     this.match.where = 'SEGOVIA';
-    // console.log(this.match.when);
-    // var cepillo = new Date(this.match.when).toISOString();
-    // console.log('CEPILLO', cepillo);
-    // this.match.when = cepillo;
-    this.matchService.createMatch(this.match).subscribe(
-      res=>{
-        // console.log('Creado nuevo partido', res);        
+    if (this.match.localteam != this.match.awayteam) {
+      this.matchService.createMatch(this.match).subscribe(
+        res => {
+          // console.log('Creado nuevo partido', res);        
+          this.match.localteam='';
+          this.match.awayteam='';
+          this.match.when = '';
+        }
+      )
+    }
+    else {
+      swal('Error', 'El equipo local no puede coincidir con el equipo visitante, revisa la selección de equipos', 'error');
+    }
+  }
+
+  getLeagues() {
+    this.leagueService.getLeagues().subscribe(
+      (res: any) => {
+        this.leagues = res.leagues;
+        if (res.length > 0) {
+          this.league = res.leagues[0];
+          this.clubs = this.league.clubs
+        }
+        $('select').each(function () {
+          var $this = $(this), numberOfOptions = $(this).children('option').length;
+
+          $this.addClass('select-hidden');
+          $this.wrap('<div class="select"></div>');
+          $this.after('<div class="select-styled"></div>');
+
+          var $styledSelect = $this.next('div.select-styled');
+          $styledSelect.text($this.children('option').eq(0).text());
+
+          var $list = $('<ul />', {
+            'class': 'select-options'
+          }).insertAfter($styledSelect);
+
+          for (var i = 0; i < numberOfOptions; i++) {
+            $('<li />', {
+              text: $this.children('option').eq(i).text(),
+              rel: $this.children('option').eq(i).val()
+            }).appendTo($list);
+          }
+
+          var $listItems = $list.children('li');
+
+          $styledSelect.click(function (e) {
+            e.stopPropagation();
+            $('div.select-styled.active').not(this).each(function () {
+              $(this).removeClass('active').next('ul.select-options').hide();
+            });
+            $(this).toggleClass('active').next('ul.select-options').toggle();
+          });
+
+          $listItems.click(function (e) {
+            e.stopPropagation();
+            $styledSelect.text($(this).text()).removeClass('active');
+            $this.val($(this).attr('rel'));
+            $list.hide();
+            //console.log($this.val());
+          });
+
+          $(document).click(function () {
+            $styledSelect.removeClass('active');
+            $list.hide();
+          });
+
+        });
       }
-    )
+    );
+  }
+
+  changeLeague(league: any) {
+    this.clubs = JSON.parse(this.league).clubs;
+    this.match.tournament = this.league.name;
   }
 
 }

@@ -94,7 +94,7 @@ export class PcComponent implements OnInit {
         $('iframe').hide();      
       });
 
-    }, 2000);
+    }, 300);
 
   }
 

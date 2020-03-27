@@ -1,31 +1,55 @@
 <div class="row">
-  <div class="col-lg-6 col-xs-12">
+  <div class="col-lg-6 col-xs-12 col-md-8">
     <div class="card">
-      <div class="card-body">      
+      <div class="card-body">
         <form ngNativeValidate (ngSubmit)="createMatch()" class="form-horizontal form-material">
           <div class="form-group ">
+            <div class="col-xs-12 col-md-6">
+              <label for="">Fecha</label>
+              <input class="form-control" type="datetime-local" required
+                placeholder="{{translate.instant('main.date')}}" [(ngModel)]="match.when" name="when">
+            </div>
+          </div>
+          <!-- <div class="form-group ">
             <div class="col-xs-12">
-              <input class="form-control" type="datetime-local" required placeholder="{{translate.instant('main.date')}}" [(ngModel)]="match.when"
-                name="userslimit">
+              <input class="form-control" type="text" required placeholder="{{translate.instant('main.tournament')}}"
+                [(ngModel)]="match.tournament" name="tournament">
+            </div>
+          </div> -->
+          <div class="form-group ">
+            <div class="col-xs-12">
+              <div class="col-xs-12 col-md-6">
+                <label for="">{{translate.instant('main.tournament')}} -
+                  {{translate.instant('main.local_team')}}</label>
+                <select name="competicion" id="competition" [(ngModel)]="league" class="select-styled select"
+                  (change)="changeLeague(league)" *ngIf="leagues.length>0">
+                  <option *ngFor="let league of leagues" [value]="league | json">{{league.name}}</option>
+                </select>
+              </div>
+              <div class="col-xs-12 col-md-6" *ngIf="league">
+                <select name="club" id="club" [(ngModel)]="match.localteam" class="select-styled select">
+                  <option *ngFor="let club of clubs" [value]="club.name">{{club.name}}</option>
+                </select>
+              </div>
+              <!-- <input class="form-control" type="text" required placeholder="{{translate.instant('main.local_team')}}"
+                [(ngModel)]="match.localteam" name="localteam"> -->
             </div>
           </div>
           <div class="form-group ">
-            <div class="col-xs-12">
-              <input class="form-control" type="text" required placeholder="{{translate.instant('main.tournament')}}" [(ngModel)]="match.tournament"
-                name="tournament">
+            <div class="col-xs-12 col-md-6">
+              <label for="">{{translate.instant('main.tournament')}} - {{translate.instant('main.away_team')}}</label>
+              <select name="competicion" id="competition" [(ngModel)]="league" class="select-styled select"
+                (change)="changeLeague(league)" *ngIf="leagues.length>0">
+                <option *ngFor="let league of leagues" [value]="league | json">{{league.name}}</option>
+              </select>
             </div>
-          </div>
-          <div class="form-group ">
-            <div class="col-xs-12">
-              <input class="form-control" type="text" required placeholder="{{translate.instant('main.local_team')}}" [(ngModel)]="match.localteam"
-                name="localteam">
+            <div class="col-xs-12 col-md-6" *ngIf="league">
+              <select name="club" id="club" [(ngModel)]="match.awayteam" class="select-styled select">
+                <option *ngFor="let club of clubs" [value]="club.name">{{club.name}}</option>
+              </select>
             </div>
-          </div>
-          <div class="form-group ">
-            <div class="col-xs-12">
-              <input class="form-control" type="text" required placeholder="{{translate.instant('main.away_team')}}" [(ngModel)]="match.awayteam"
-                name="awayteam">
-            </div>
+            <!-- <input class="form-control" type="text" required placeholder="{{translate.instant('main.away_team')}}"
+                [(ngModel)]="match.awayteam" name="awayteam"> -->
           </div>
           <!-- <div class="form-group ">
                 <div class="col-xs-12">
@@ -33,8 +57,10 @@
                     name="where">
                 </div>
               </div> -->
-          <button class="btn btn-success">{{translate.instant('main.add_game')}}</button>          
-
+          <!-- <button class="btn btn-secondary">{{translate.instant('main.add_game')}}</button> -->
+          <div class="col-xs-12 col-md-6">
+            <button _ngcontent-qqq-c5="" class="btn btn-secondary">{{translate.instant('main.add_game')}}</button>
+          </div>
         </form>
       </div>
     </div>

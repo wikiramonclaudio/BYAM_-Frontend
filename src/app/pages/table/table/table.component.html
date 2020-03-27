@@ -1,15 +1,4 @@
 <div class="d-flex mb-2">
-  <!-- <pc></pc> -->
-
-  <!-- <ul class="flex-1 pl-0 ml-3">
-    <li *ngFor="let subscription of tableSubscriptions" class="d-flex pl-0">
-      <img [src]="subscription.player.image | image" alt="" width="16px" height="16px">
-      <small class="ml-2" style="white-space: nowrap;
-      max-width: 80px;
-      overflow: hidden;
-      text-overflow: ellipsis;">{{subscription.player.name}} </small>
-    </li>
-  </ul> -->
 </div>
 <div class="row row mb-3 mt-0">
   <div class="col-lg-6 col-xs-12">
@@ -114,7 +103,7 @@
             <div [id]="matchByTable._id" class="panel-collapse collapse">
               <span class="text-center">{{matchByTable.bettype.name}}</span>
               <br>
-              <div class="list-group">
+              <!-- <div class="list-group">
                 <a href="javascript:void(0)" class="list-group-item list-group-item-action"
                   [ngClass]="{'list-group-item-success': matchByTable.bettype.option1.selected}"
                   (click)="toggleOption(matchByTable, 1, matchByTable.bettype.option1._id)">
@@ -131,6 +120,13 @@
                   (click)="toggleOption(matchByTable, 3, matchByTable.bettype.option3._id)">
                   {{matchByTable.bettype.option3.name}}
                 </a>
+              </div> -->
+              <div class="col-xs-12 col-md-6">
+                <select #selectOption name="club" id="club" (change)="toggleOption(matchByTable,1, selectOption.value)" class="select-styled select">
+                  <option [value]="matchByTable.bettype.option1._id">{{matchByTable.bettype.option1.name}}</option>
+                  <option [value]="matchByTable.bettype.option2._id">{{matchByTable.bettype.option2.name}}</option>
+                  <option  *ngIf="matchByTable.bettype.option3" [value]="matchByTable.bettype.option3._id">{{matchByTable.bettype.option3.name}}</option>
+                </select>
               </div>
               <br>
               <div *ngIf="matchByTable.tiebreak">

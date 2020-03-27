@@ -27,7 +27,7 @@
 }
 
 .settings-tray--right i {
-  margin-top: 10px;
+  /* margin-top: 10px; */
   font-size: 25px;
   color: grey;
   margin-left: 14px;
@@ -219,6 +219,12 @@ hr {
   /* animation: show 5s linear infinite; */
 }
 
+/* media queries para mobile */
+@media screen and (max-width: 700px) {
+  .chat-container{
+      padding:0;    
+  }
+}
 /* @keyframes show {
   0% {margin-top:-270px;}
   5% {margin-top:-180px;}
