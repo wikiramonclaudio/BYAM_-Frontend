@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
     handle: false
   };
 
-  @ViewChild('myvideo', { read: null, static: false }) myvideo: any;
+  @ViewChild('myvideo', { read: null }) myvideo: any;
 
   title = 'BYAM';
   peer: any;
