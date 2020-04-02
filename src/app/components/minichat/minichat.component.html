@@ -1,0 +1,93 @@
+<div class="fabs">
+  <div class="chat" [hidden]="!chatVisible">
+    <div class="chat_header bg-theme">
+      <div class="chat_option">
+        <div class="header_img">
+          <img [src]="selectedUser.image | image" class="bg-white"/>
+        </div>
+        <span id="chat_head">{{selectedUser.name}}</span>
+        <br>
+        <!-- <span class="agent">Agent</span> -->
+        <span class="online">(Online)</span>
+        <span id="chat_fullscreen_loader" (click)="getFullScreenMode()" class="chat_fullscreen_loader"><i
+            class="fullscreen zmdi zmdi-window-maximize"></i></span>
+      </div>
+
+    </div>
+    <div class="chat_body chat_login">
+      <!-- <a id="chat_first_screen" class="fab bg-theme"><i class="zmdi zmdi-arrow-right"></i></a> -->
+      <div id="chat-user-list">
+        <ul class="user-list pl-0">
+          <li class="d-flex justify-content-start align-items-center user-item-list pointer p-1"
+            *ngFor="let user of users; let i = index;" (click)="switchUserChat(user, index)">
+            <img [src]="user.image | image" alt="" width="26" class="rounded-circle ml-2">
+            <span class="text-themecolor pl-2">{{user.name}}</span>
+            <i class="fa fa-circle ml-2" style="color:#34c15c" *ngIf="user.connected == true"></i>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div id="chat_converse" class="chat_conversion chat_converse">
+      <a id="chat_second_screen" class="fab bg-theme"><i class="zmdi zmdi-arrow-left" (click)="hideChat(0)"></i></a>
+      <span class="chat_msg_item chat_msg_item_admin" *ngFor="let message of messages"
+        [ngClass]="{'chat_msg_item_user': userService.user._id == message.owner._id}">
+        <div class="chat_avatar" *ngIf="userService.user._id != message.owner._id">
+          <img *ngIf="userService.user._id != message.owner._id"
+            [src]="message.owner.image | image" />
+        </div>
+        {{message.content}}
+      </span>
+    </div>
+    <div id="chat_fullscreen" class="chat_conversion chat_converse">
+      <span class="chat_msg_item chat_msg_item_admin">
+        <div class="chat_avatar">
+          <img src="http://res.cloudinary.com/dqvwa7vpe/image/upload/v1496415051/avatar_ma6vug.jpg" />
+        </div>Hey there! Any question?
+      </span>
+      <span class="chat_msg_item chat_msg_item_user">
+        Hello!</span>
+      <div class="status">20m ago</div>
+      <span class="chat_msg_item chat_msg_item_admin">
+        <div class="chat_avatar">
+          <img src="http://res.cloudinary.com/dqvwa7vpe/image/upload/v1496415051/avatar_ma6vug.jpg" />
+        </div>Hey! Would you like to talk sales, support, or anyone?
+      </span>
+      <span class="chat_msg_item chat_msg_item_user">
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span>
+      <span class="chat_msg_item chat_msg_item_admin">
+        <div class="chat_avatar">
+          <img src="http://res.cloudinary.com/dqvwa7vpe/image/upload/v1496415051/avatar_ma6vug.jpg" />
+        </div>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+        industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled
+        it to make a type specimen book.
+      </span>
+      <span class="chat_msg_item chat_msg_item_user">
+        Where can I get some?</span>
+      <span class="chat_msg_item chat_msg_item_admin">
+        <div class="chat_avatar">
+          <img src="http://res.cloudinary.com/dqvwa7vpe/image/upload/v1496415051/avatar_ma6vug.jpg" />
+        </div>The standard chuck...
+      </span>
+      <span class="chat_msg_item chat_msg_item_user">
+        There are many variations of passages of Lorem Ipsum available</span>
+      <div class="status2">Just now, Not seen yet</div>
+      <span class="chat_msg_item ">
+        <ul class="tags">
+          <li>Hats</li>
+          <li>T-Shirts</li>
+          <li>Pants</li>
+        </ul>
+      </span>
+    </div>
+    <div class="fab_field d-flex- align-items-center">
+      <!-- <i id="chat_second_screen" class="fab bg-theme"><i class="zmdi zmdi-arrow-left" (click)="hideChat(0)"></i></a> -->
+      <a id="fab_camera" class="fab"><i class="zmdi zmdi-arrow-left" [hidden]="selectedUser._id == userService.user._id" (click)="hideChat(0)"></i></a>
+      <textarea id="chatSend" name="chat_message" placeholder="Send a message"
+        class="chat_field chat_message" (keyup.enter)="sendMessage()" [(ngModel)]="msg"></textarea>
+        <a id="fab_send" class="fab" (click)="sendMessage()"><i class="zmdi zmdi-mail-send"></i></a>
+        <a class="fab"><i class="zmdi zmdi-comment-video" (click)="sendCall()"></i></a>
+    </div>
+  </div>
+  <a id="prime" (click)="toggleFab()" class="fab bg-theme text-white"><i
+      class="prime zmdi zmdi-comment-outline"></i></a>
+</div>

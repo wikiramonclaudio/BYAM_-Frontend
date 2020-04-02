@@ -1,13 +1,10 @@
-/*
-Template Name: Admin Pro Admin
-Author: Wrappixel
-Email: niravjoshi87@gmail.com
-File: scss
+ /*
+BYAM SCSS
 */
 
 
-/*============================================================== 
- For Laptop & above all (1650px) 
+/*==============================================================
+ For Laptop & above all (1650px)
  ============================================================== */
 
 @media(min-width:1650px) {
@@ -18,22 +15,22 @@ File: scss
         height: 365px !important;
     }
     .website-visitor{
-        height:445px; 
+        height:445px;
     }
     .auto-height{
-        max-height:315px;   
+        max-height:315px;
     }
 }
 @media(max-width:1600px) {
     .website-visitor{
-        height:333px; 
+        height:333px;
     }
     .auto-height{
-        min-height:240px;   
+        min-height:240px;
     }
 }
-/*============================================================== 
- For Laptop & above all (1370px) 
+/*==============================================================
+ For Laptop & above all (1370px)
  ============================================================== */
 
 @media(max-width:1370px) {
@@ -41,24 +38,24 @@ File: scss
         column-count: 2;
     }
     .website-visitor{
-        height:353px; 
+        height:353px;
     }
     .auto-height{
-        min-height:186px;   
+        min-height:186px;
     }
 }
 
 
 
-/*-- ============================================================== 
- Small Desktop & above all (1024px) 
+/*-- ==============================================================
+ Small Desktop & above all (1024px)
  ============================================================== */
 
 @media(min-width:1024px) {
     .page-wrapper {
         margin-left: 240px;
     }
-    
+
 }
 
 @media(max-width:1023px) {
@@ -95,7 +92,7 @@ File: scss
         }
     }
     .d-flex{
-        display:block!important; 
+        display:block!important;
         &.no-block{
             display:flex!important;
         }
@@ -104,8 +101,8 @@ File: scss
 
 
 
-/*-- ============================================================== 
- Ipad & above all(768px) 
+/*-- ==============================================================
+ Ipad & above all(768px)
  ============================================================== */
 
 @media(min-width:768px) {
@@ -145,8 +142,8 @@ File: scss
 
 
 
-/*-- ============================================================== 
- Phone and below ipad(767px) 
+/*-- ==============================================================
+ Phone and below ipad(767px)
  ============================================================== */
 
 @media(max-width:767px) {
@@ -303,7 +300,7 @@ File: scss
     .chat-list li .chat-content {
         width: calc(100% - 80px);
     }
-    
+
     /*Calendar*/
     .fc-toolbar .fc-left, .fc-toolbar .fc-right, .fc-toolbar .fc-center{
         float:none;

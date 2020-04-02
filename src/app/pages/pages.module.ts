@@ -1,4 +1,3 @@
-import { PcComponent } from './../components/pc/pc/pc.component';
 import { NgModule } from "@angular/core";
 import { SharedModule } from "../shared/shared.module";
 import { FormsModule } from '@angular/forms';
@@ -7,18 +6,11 @@ import { FormsModule } from '@angular/forms';
 import { PAGES_ROUTES } from './pages.routes';
 
 //ng2 charts
-import { ChartsModule } from 'ng2-charts';
+// import { ChartsModule } from 'ng2-charts';
 
 // import { PagesComponent } from "./pages.component";
-import { Graficas1Component } from "./graficas1/graficas1.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
-import { ProgressComponent } from './progress/progress.component';
-// tslint:disable-next-line:quotemark
-import { IncrementatorComponent } from "../components/incrementator/incrementator.component";
-import { GraficoDonaComponent } from './grafico-dona/grafico-dona.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
-import { PromesasComponent } from './promesas/promesas.component';
-import { RxjsComponent } from './rxjs/rxjs.component';
 import { PipesModule } from "../pipes/pipes.module";
 import { ProfileComponent } from './profile/profile.component';
 import { CommonModule } from "@angular/common";
@@ -36,6 +28,7 @@ import { LivescoresComponent } from './livescores/livescores/livescores.componen
 import { TablesComponent } from './tables/tables/tables.component';
 import { NotificationsComponent } from './notifications/notifications/notifications.component';
 import { RankingComponent } from './ranking/ranking/ranking.component';
+import { PcComponent } from './../components/pc/pc/pc.component';
 
 // dates format
 import { registerLocaleData } from '@angular/common';
@@ -48,8 +41,16 @@ import { HttpClient } from '@angular/common/http';
 // ...other imports
 // import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 // const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+
+// NG PRIME COMPONENTES
 import {PickListModule} from 'primeng/picklist';
 import {DropdownModule} from 'primeng/dropdown';
+import {InputTextModule} from 'primeng/inputtext';
+import { CalendarComponent } from './calendar/calendar.component';
+
+// JQWIDGETS
+import { jqxKanbanModule } from 'jqwidgets-ng/jqxkanban';
+import { jqxSplitterModule } from 'jqwidgets-ng/jqxsplitter';
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
@@ -58,21 +59,35 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
 registerLocaleData(localeEs);
 
 @NgModule({
-    declarations : [        
+    declarations : [
         DashboardComponent,
-        Graficas1Component,
-        ProgressComponent,  
-        IncrementatorComponent, GraficoDonaComponent, AccountSettingsComponent, PromesasComponent, RxjsComponent, ProfileComponent, UsersComponent, SearchComponent, ChatComponent, TableComponent, CreateTableComponent, CreateMatchComponent, EditTableComponent, CreateBetTypeComponent, CheckMatchesComponent, LivescoresComponent, TablesComponent, NotificationsComponent, RankingComponent, InviteComponent, PcComponent
+        AccountSettingsComponent,
+        ProfileComponent,
+        UsersComponent,
+        SearchComponent,
+        ChatComponent,
+        TableComponent,
+        CreateTableComponent,
+        CreateMatchComponent,
+        EditTableComponent,
+        CreateBetTypeComponent,
+        CheckMatchesComponent,
+        LivescoresComponent,
+        TablesComponent,
+        NotificationsComponent,
+        RankingComponent,
+        InviteComponent,
+        PcComponent,
+        CalendarComponent
     ],
     exports: [
-        DashboardComponent,
-        Graficas1Component        
+        DashboardComponent
     ],
     imports : [
         SharedModule,
         PAGES_ROUTES,
         FormsModule,
-        ChartsModule,
+        // ChartsModule,
         PipesModule,
         CommonModule,
         TranslateModule.forRoot({
@@ -83,7 +98,10 @@ registerLocaleData(localeEs);
             }
           }),
         PickListModule,
-        DropdownModule
+        DropdownModule,
+        InputTextModule,
+        jqxKanbanModule,
+        jqxSplitterModule
     ]
 })
 

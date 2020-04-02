@@ -10,15 +10,15 @@ export interface CanComponentDeactivate {
 
 @Injectable()
 export class CanDeactivateGuard implements CanDeactivate<CanComponentDeactivate> {
-  canDeactivate(component: CanComponentDeactivate, 
-           route: ActivatedRouteSnapshot, 
+  canDeactivate(component: CanComponentDeactivate,
+           route: ActivatedRouteSnapshot,
            state: RouterStateSnapshot) {
 
      let url: string = state.url;
      console.log('Url: '+ url);
 
-     alert('CAN DEACTIVATE');  
+     alert('CAN DEACTIVATE');
 
      return component.canDeactivate ? component.canDeactivate() : true;
   }
-} 
+}

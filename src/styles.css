@@ -46,7 +46,7 @@
   cursor: not-allowed!important;
 }
 
- 
+
 .results-box iframe, .results-box iframe html body {
     width: 100%!important;
 }
@@ -59,7 +59,7 @@
     border-radius: 20px;
     padding:20px;
     display:none;
-    border: 1px solid #e1e1e1;    
+    border: 1px solid #e1e1e1;
 }
 
 .video-container #myvideo{
@@ -85,7 +85,7 @@ video {
     visibility: hidden;
     padding-right: 10px;
   }
-  
+
   .select {
     cursor: pointer;
     display: inline-block;
@@ -95,7 +95,7 @@ video {
     width: 100%;
     height: 40px;
   }
-  
+
   .select-styled {
     position: relative;
     top: 0;
@@ -129,7 +129,7 @@ video {
     top: 9px;
     border-color: transparent transparent #fff transparent;
   }
-  
+
   .select-options {
     display: none;
     position: absolute;
@@ -159,4 +159,9 @@ video {
   .select-options li[rel="hide"] {
     display: none;
   }
-  
+
+  h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+    font-weight: initial!important;
+    margin:initial !important;
+    /* margin: 40px 0 20px; */
+}

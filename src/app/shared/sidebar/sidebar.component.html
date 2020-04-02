@@ -1,27 +1,23 @@
-<!-- Left Sidebar - style you can find in sidebar.scss  -->
-<!-- ============================================================== -->
 <aside class="left-sidebar">
-  <!-- Sidebar scroll-->
   <div class="scroll-sidebar">
-    <!-- Sidebar navigation-->
     <nav class="sidebar-nav">
       <ul id="sidebarnav">
         <li class="user-profile">
           <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
             <img [src]="user.image | image" alt="user" />
-              <span class="hide-menu">{{ user.name }} </span>
+            <span class="hide-menu">{{ user.name }} </span>
           </a>
           <ul aria-expanded="false" class="collapse">
             <li><a routerLinkActive="active" routerLink="/profile">{{translate.instant('main.see_profile')}}</a></li>
-            <!-- <li><a [routerLink]="[ '/chat' ]" href="javascript:void()">{{translate.instant('main.messages')}}</a></li> -->
+            <li><a [routerLink]="[ '/chat' ]" href="javascript:void()">{{translate.instant('main.messages')}}</a></li>
             <li><a [routerLink]="[ '/settings' ]">{{translate.instant('main.settings')}}</a></li>
             <li><a (click)="userService.logout()" class="pointer">{{translate.instant('main.exit')}}</a></li>
           </ul>
         </li>
-        <li class="nav-devider"></li>        
-        <li *ngFor="let menu of userService.menu">          
+        <li class="nav-devider"></li>
+        <li *ngFor="let menu of userService.menu">
           <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
-            <i class="{{menu.icon}}"></i>            
+            <i class="{{menu.icon}}"></i>
             <span class="hide-menu">{{translate.instant(menu.title)}}
               <span class="label label-rouded label-themecolor pull-right">{{menu.submenu.length}}
               </span>
@@ -29,16 +25,14 @@
           </a>
           <ul aria-expanded="false" class="collapse">
             <li *ngFor="let submenu of menu.submenu">
-              <a [routerLinkActive]="" [ngClass]="rla.isActive?'active':''"  #rla="routerLinkActive" [routerLink]="[ submenu.url ]" >
+              <a [routerLinkActive]="" [ngClass]="rla.isActive?'active':''" #rla="routerLinkActive"
+                [routerLink]="[ submenu.url ]">
                 {{translate.instant(submenu.title)}}
               </a>
             </li>
-            <!-- <li><a href="index2.html">Analytical</a></li>
-            <li><a href="index3.html">Demographical</a></li>
-            <li><a href="index4.html">Modern</a></li> -->
           </ul>
-        </li>       
+        </li>
       </ul>
     </nav>
-  </div>  
+  </div>
 </aside>

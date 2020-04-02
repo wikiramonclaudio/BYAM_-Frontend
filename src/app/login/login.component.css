@@ -1,14 +1,8 @@
-/*
-Template Name: Admin pro Admin
-Author: Wrappixel
-Email: niravjoshi87@gmail.com
-File: scss
+ /*
+BYAM SCSS
 */
-/*
-Template Name: Admin Pro Admin
-Author: Wrappixel
-Email: niravjoshi87@gmail.com
-File: scss
+ /*
+BYAM SCSS
 */
 /*Theme Colors*/
 /*bootstrap Color*/
@@ -26,7 +20,7 @@ Login register and recover password Page
     width: 100%;
     padding: 10% 0;
     position: fixed; }
-  
+
   .login-box {
     min-width: 300px;;
     max-width: 400px;
@@ -38,10 +32,10 @@ Login register and recover password Page
     .login-box .social {
       display: block;
       margin-bottom: 30px; }
-  
+
   #recoverform {
     display: none; }
-  
+
   .login-sidebar {
     padding: 0px;
     margin-top: 0px; }
@@ -49,4 +43,3 @@ Login register and recover password Page
       right: 0px;
       position: absolute;
       height: 100%; }
-  

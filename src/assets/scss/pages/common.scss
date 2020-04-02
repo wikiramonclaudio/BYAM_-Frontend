@@ -1,27 +1,24 @@
-/*
-Template Name: Admin pro Admin
-Author: Wrappixel
-Email: niravjoshi87@gmail.com
-File: scss
+ /*
+BYAM SCSS
 */
 
 @import '../variable';
-/*============================================================== 
- For all pages 
+/*==============================================================
+ For all pages
  ============================================================== */
 
-#main-wrapper { 
+#main-wrapper {
     width: 100%;
     overflow: hidden;
 }
 
-.boxed #main-wrapper {  
+.boxed #main-wrapper {
     width: 100%;
     max-width: 1300px;
     margin: 0 auto;
     box-shadow: 0 0 60px rgba(0, 0, 0, 0.1);
     .sidebar-footer {
-        position: absolute; 
+        position: absolute;
     }
     .topbar{
         max-width: 1300px;
@@ -68,7 +65,7 @@ File: scss
     }
     .right-side-panel {
         top: 70px;
-        height: calc(100% - 70px); 
+        height: calc(100% - 70px);
     }
 }
 

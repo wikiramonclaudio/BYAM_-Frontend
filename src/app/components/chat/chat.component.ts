@@ -6,9 +6,10 @@ import { WebsocketService } from './../../services/websocket.service';
 import { User } from './../../models/user.model';
 import { UserService } from './../../services/user/user.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { TranslationService } from 'src/app/services/translation/translation.service';
+import { TranslateService } from '@ngx-translate/core';
 import swal from 'sweetalert';
 declare var $: any;
-declare var JitsiMeetExternalAPI;
 
 @Component({
   selector: 'app-chat',
@@ -16,6 +17,7 @@ declare var JitsiMeetExternalAPI;
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
+  public translate: TranslateService;
   users: any[] = [];
   selectedUser: any = new User('', '', '', '');
   msg: any = '';
@@ -25,16 +27,19 @@ export class ChatComponent implements OnInit {
   callDomain: any = '';
   callOptions: any = {};
   initUsers: any[] = [];
+  searchChatUser:any = '';
   @ViewChild('messageInput', {static: true}) searchElement: ElementRef;
   constructor(
     public userService: UserService,
     public websocketService: WebsocketService,
     public messageService: MessageService,
     public chatRoomService: ChatroomService,
-    public router: Router
+    public router: Router,
+    public translationService: TranslationService
   ) { }
 
   ngOnInit() {
+    this.translate = this.translationService.getTranslateService();
     this.getUsers();
     this.subscribeToEvents();
     this.websocketService.listen('inviteRoom', {}).subscribe(
@@ -123,7 +128,7 @@ export class ChatComponent implements OnInit {
             } else {
               user.connected = false;
             }
-  
+
           });
         }
       }
@@ -146,13 +151,13 @@ export class ChatComponent implements OnInit {
       }
     )
     this.websocketService.listen('privateChatAlert', {}).subscribe(
-      (res:any)=>{     
+      (res:any)=>{
         if(res.emiter._id != this.selectedUser._id)   {
           var emiter = this.users.find((user)=>{
             return res.emiter._id == user._id;
           });
           emiter.lastcontent = res.message;
-          emiter.alerting = true;             
+          emiter.alerting = true;
         }
       }
     )
@@ -173,11 +178,11 @@ export class ChatComponent implements OnInit {
   }
 
   switchUserChat(user: any) {
-    // this.websocketService.emit('leaveTable', { tableId: this.activeTable, user: this.userService.user });    
+    // this.websocketService.emit('leaveTable', { tableId: this.activeTable, user: this.userService.user });
     this.selectedUser = user;
     this.selectedUser.alerting = false;
     $('.chat-bubble').hide('slow').show('slow');
-    //obtener mensages de esta sala     
+    //obtener mensages de esta sala
     this.chatRoomService.getChatRooms(this.userService.user._id, this.selectedUser._id).subscribe(
       (res: any) => {
         if (!res.chatrooms) {
@@ -214,7 +219,7 @@ export class ChatComponent implements OnInit {
                 if ((window.innerWidth <= 768)) {
                   window.scrollTo(0, document.body.scrollHeight);
                 }
-                this.searchElement.nativeElement.focus();                
+                this.searchElement.nativeElement.focus();
               }, 0);
             }
           )
@@ -297,7 +302,7 @@ export class ChatComponent implements OnInit {
             enableClosePage: false,
             defaultLanguage: 'es',
             disableDeepLinking : true,
-            // disableThirdPartyRequests: false,            
+            // disableThirdPartyRequests: false,
             testing: {
               // Enables experimental simulcast support on Firefox.
               enableFirefoxSimulcast: true
@@ -320,36 +325,13 @@ export class ChatComponent implements OnInit {
   }
 
   openCall(message) {
-
     this.router.navigate(['/meet'], { queryParams: { options: message.callOptions } });
-
-    // var options = message.callOptions;
-    // var wd = window.open('', '_blank');
-    // wd.location.href = 'https://';
-    // setTimeout(() => {      
-    //   console.log('wd', wd);
-    //   wd.history.pushState({},"BYAM - Meet","/");
-    // }, 3000);
-    // var head = wd.document.getElementsByTagName("head")[0];
-    // var script: any = wd.document.createElement("script");
-    // script.src = 'https://meet.jit.si/external_api.js';
-    // head.appendChild(script);
-    // script.addEventListener('load', function () {
-    //   var newScript = wd.document.createElement("script");
-    //   newScript.type = 'text/javascript';
-    //   newScript.text = `var api = new JitsiMeetExternalAPI(  "meet.jit.si", ${JSON.stringify(options)});`;
-    //   wd.document.title = 'BYAM - Meet';
-    //   wd.document.body.appendChild(newScript);
-    // });    
   }
 
   searchInput(value: any) {
-    // if(event.keyCode == 13) {
-    //   this.sendMessage();
-    // }
-    if (this.msg.length > 0) {
+    if (this.searchChatUser.length > 0) {
       this.users = this.users.filter((user) => {
-        return user.name.indexOf(value);
+        return user.name.toLowerCase().indexOf(this.searchChatUser.toLowerCase()) > -1;
       });
     } else {
       this.users = this.initUsers;

@@ -60,5 +60,18 @@
     "main.light_sidebar" : "Light sidebar",
     "main.dark_sidebar" : "Dark sidebar",
     "main.language" : "Language",
-    "main.choose_language" : "Choose your language"
+    "main.choose_language" : "Choose your language",
+    "table.tiebreak_alert" : "There will be a tiebreaker match (selected match total goal scores) at the table. When there is more than one winner, this forecast will be reviewed to determine the final winner.",
+    "table.tiebreak_sugest" : "To mark the tiebreaker select it once added to the list",
+    "table.fit_mandatory_fields_text" : "Make sure that you have added at least 3 games and that you have marked the tiebreaker in the added games, to choose the tiebreaker simply select it in the list of added games",
+    "table.fit_mandatory_fields_title" : "Fill all the fields",
+    "table.create_game" : "Create table game",
+    "table.alert_selection_title" : "Select a forecast",
+    "table.alert_selection_text" : "Check your selection, to play you must select a forecast for the match",
+    "profile.user_profile": "User profile",
+    "profile.profile_image": "Profile image",
+    "profile.update_profile_image": "Update profile image",
+    "chat.search_here" : "Search here",
+    "chat.video_call": "Video call",
+    "chat.type_here": "Type your message here..."
 }

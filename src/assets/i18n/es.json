@@ -61,5 +61,18 @@
     "main.light_sidebar" : "Con sidebar claro",
     "main.dark_sidebar" : "Con sidebar oscuro",
     "main.language" : "Idioma",
-    "main.choose_language" : "Elige un idioma"
+    "main.choose_language" : "Elige un idioma",
+    "table.tiebreak_alert" : "En la mesa habrá un partido de desempate (Num goles partido seleccionado). Cuando haya más de un ganador se revisará este pronóstico para determinar el ganador final.",
+    "table.tiebreak_sugest" : "Para marcar el partido de desempate seleccionalo una vez añadido",
+    "table.fit_mandatory_fields_text" : "Asegúrate que has añadido al menos 3 partidos y que has marcado el partido de desempate en los partidos añadidos, para elegir el partido de desempate simplemente seleccionalo en la lista de partidos añadidos",
+    "table.fit_mandatory_fields_title" : "Rellena todos los campos",
+    "table.create_game" : "Crear mesa",
+    "table.alert_selection_title" : "Selecciona un pronóstico",
+    "table.alert_selection_text" : "Revisa tu selección, para jugar debes seleccionar un pronostico para el partido",
+    "profile.user_profile": "Perfil de usuario",
+    "profile.profile_image": "Imagen de perfil",
+    "profile.update_profile_image": "Actualizar imagen de perfil",
+    "chat.search_here" : "Busca aquí",
+    "chat.video_call": "Video llamada",
+    "chat.type_here": "Escribe tu mensaje aquí..."
 }

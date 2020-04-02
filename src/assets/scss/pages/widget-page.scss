@@ -1,14 +1,11 @@
-/*
-Template Name: Admin pro Admin
-Author: Wrappixel
-Email: niravjoshi87@gmail.com
-File: scss
+ /*
+BYAM SCSS
 */
 
 @import '../variable';
 
 
-/*============================================================== 
+/*==============================================================
 widget-chart-page product review
  ============================================================== */
 
@@ -78,7 +75,7 @@ ul.list-icons {
             }
         }
         i {
-           
+
             padding-right: 8px;
         }
     }
@@ -88,7 +85,7 @@ ul.list-icons {
 
 .total-revenue4 {
     position: relative;
-    .ct-series-a .ct-line { 
+    .ct-series-a .ct-line {
         stroke: $info;
         stroke-width: 1px;
     }

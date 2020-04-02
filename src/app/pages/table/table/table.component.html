@@ -37,7 +37,7 @@
         </div>
         <hr>
         <div class="d-flex mb-2" *ngIf="(table.closed == false || !table.closed)">
-          <div class="badge badge-info d-flex mb-2 p-2">
+          <div class="badge badge-info d-flex mb-2 p-2" style="display:none!important">
             <span class="ml-2 days" id="day"></span>
             <div class="ml-2 smalltext">{{'days'| translate}}</div>
             <span class="ml-2 hours" id="hour"></span>
@@ -73,9 +73,9 @@
             <span class="ml-2">{{totalAmount}}€</span>
           </h3>
         </div>
-        <button class="btn secondary" (click)="checkWinner()" *ngIf="allMatchesFinished == true && !table.winner">
+        <!-- <button class="btn secondary" (click)="checkWinner()" *ngIf="allMatchesFinished == true && !table.winner">
           Revisar ganador
-        </button>
+        </button> -->
       </div>
     </div>
   </div>
@@ -99,7 +99,7 @@
                     style="font-size: 13px; color: #ccc2c2;">{{matchByTable.match.when | date: 'short' : 'es'}}</span>
                   <br>
                   <p-dropdown optionLabel="name" [name]="name"
-                    [options]="[matchByTable.bettype.option1, matchByTable.bettype.option2,matchByTable.bettype.option3]"
+                    [options]="[{name: '-', label : '-'},matchByTable.bettype.option1, matchByTable.bettype.option2,matchByTable.bettype.option3]"
                     [(ngModel)]="matchByTable.choice" (onChange)="toggleOption(matchByTable, 1, $event.value._id)">
                   </p-dropdown>
                   <div *ngIf="matchByTable.tiebreak">
@@ -139,7 +139,7 @@
                   {{matchByTable.bettype.option3.name}}
                 </a>
               </div>
-              <div class="col-xs-12 col-md-6">                
+              <div class="col-xs-12 col-md-6">
                 <p-dropdown optionLabel="name" [name]="name" [options]="[matchByTable.bettype.option1, matchByTable.bettype.option2,matchByTable.bettype.option3]" [(ngModel)]="selectedCity1" (onChange)="toggleOption(matchByTable, 1, $event.value._id)"></p-dropdown>
               </div>
               <br>
@@ -165,7 +165,7 @@
                 <input class="form-control" type="number" required placeholder="Numero total de goles" [(ngModel)]="goalsTotal"
                   name="subject">
               </div>
-            </div>            
+            </div>
           </form> -->
         </div>
         <button class="btn btn-secondary" *ngIf="!checkSubscription() && table.closed == false">

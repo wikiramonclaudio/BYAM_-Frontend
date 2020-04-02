@@ -19,20 +19,20 @@ import {PickListModule} from 'primeng/picklist';
 @Component({
   selector: 'app-create-table',
   templateUrl: './create-table.component.html',
-  styleUrls: ['./create-table.component.css'] 
+  styleUrls: ['./create-table.component.css']
 })
 export class CreateTableComponent implements OnInit {
   public tableForm: FormGroup;
-  table: Table = new Table('10', '', '', false, false, '','','Futbol');
+  table: Table = new Table('10', '', '', false, false, '', '', 'Futbol');
   matches: any[] = [];
   matchesByTable: MatchByTable[] = [];
   selectedMatches: Match[] = [];
-  betTypesLoaded: boolean = false;
+  betTypesLoaded = false;
   betTypes: any[] = [];
   betTypeValues = [];
   matchesWithBetType: any [] = [];
-  disableCreateButton: boolean = true;
-  submitted: boolean = false;
+  disableCreateButton = true;
+  submitted = false;
   tiebreakMatch: any;
   translate: TranslateService;
   constructor(
@@ -53,19 +53,18 @@ export class CreateTableComponent implements OnInit {
 
   getBetTypes() {
     this.betTypeService.getBetTypes().subscribe(
-      res => {        
+      res => {
         this.betTypes = res.betTypes;
         for (let index = 0; index < this.matches.length; index++) {
           // const element = this.matches[index];
-          this.betTypeValues[index] = this.betTypes[0];             
-        };
-        console.log('this.betTypeValues',this.betTypeValues);
+          this.betTypeValues[index] = this.betTypes[0];
+        }
       }
-    )
+    );
     this.betTypesLoaded = true;
   }
 
-  createTable() {    
+  createTable() {
     if (this.getSelectedMatches().length > 2 && this.checkTieBreakSelection()) {
       this.table.owner = this.userService.user._id;
       this.table.totalamount = this.table.betamount;
@@ -76,9 +75,9 @@ export class CreateTableComponent implements OnInit {
           this.table = res;
           this.saveMatchesTypeRelation(res._id);
         }
-      )
+      );
     } else {
-      swal('Rellena todos los campos', 'Asegúrate que has añadido al menos 3 partidos y que has marcado el partido de desempate en los partidos añadidoas', 'warning');
+      swal(this.translate.instant('table.fit_mandatory_fields_title'), this.translate.instant('table.fit_mandatory_fields_text'), 'warning');
     }
   }
 
@@ -88,15 +87,15 @@ export class CreateTableComponent implements OnInit {
         this.matches = res.matches;
         this.getBetTypes();
       }
-    )
+    );
   }
 
-  //Visual toggle tiebreak matches 
+  // Visual toggle tiebreak matches
   toggleSelected(match) {
     match.selected = !match.selected;
   }
 
-  //Save matches 
+  // Save matches
   saveMatches() {
     this.selectedMatches = this.matches.filter((el) => {
       return el.selected == true;
@@ -104,107 +103,93 @@ export class CreateTableComponent implements OnInit {
     this.selectedMatches.forEach((item: any) => {
       this.matchesByTable.push(
         new MatchByTable(item._id, this.table._id)
-      )
+      );
     });
   }
 
-  //get the selected matches 
+  // get the selected matches
   getSelectedMatches() {
-    // var pepino = this.matches.filter((el) => {
-    //   return el.selected == true;
-    // });
-    // return pepino;
     return this.selectedMatches;
   }
 
-  //Save matches by table
-  saveMatchesTypeRelation(tableId: string) {    
-    this.matchesWithBetType.forEach((item)=>{
-      if(item.match == this.tiebreakMatch)
+  // Save matches by table
+  saveMatchesTypeRelation(tableId: string) {
+    this.matchesWithBetType.forEach((item) => {
+      if (item.match == this.tiebreakMatch) {
         item.tiebreak = true;
-      item.table = tableId;      
+      }
+      item.table = tableId;
     });
-    console.log('matches with bet type',this.matchesWithBetType);
+    console.log('matches with bet type', this.matchesWithBetType);
     this.matchTypeRelService.createManyMatchTypeRelations(this.matchesWithBetType).subscribe(
-      res => {        
+      res => {
         console.log('Guardados OK los match type relations');
         this.router.navigate(['/table', this.table._id]);
       }
-    )
+    );
   }
 
-  //Add match to selected matches (To save them on this table)
-  saveMatch(event: any, betType: any, tableId: string) {   
-    let match = event.items[0];
-    let matches = event.items;    
+  // Add match to selected matches (To save them on this table)
+  saveMatch(event: any, betType: any, tableId: string) {
+    const match = event.items[0];
+    const matches = event.items;
     // match.selected = true;
-    
+
     matches.forEach(match => {
-      var exists = this.matchesWithBetType.find((item)=>{
+      let exists = this.matchesWithBetType.find((item) => {
         return item.match == match._id;
       });
-      let newMatchTypeRelation = { 
-        match: match._id, 
-        bettype: this.betTypes[0]._id      
+      const newMatchTypeRelation = {
+        match: match._id,
+        bettype: this.betTypes[0]._id
       };
-      if(!exists){
+      if (!exists) {
         this.matchesWithBetType.push(newMatchTypeRelation);
-      }else{      
-        swal('Partido añadido', 'Este partido ya está añadido', 'warning');
+      } else {
+        // swal('Partido añadido', 'Este partido ya está añadido', 'warning');
       }
-    });    
+    });
   }
 
-  removeSelectedMatchTypeRelation(event){
+  removeSelectedMatchTypeRelation(event) {
     // quitar de los this.matchesWithBetType
-    event.items.forEach((item)=>{      
-      var exists = this.matchesWithBetType.find((item)=>{
+    event.items.forEach((item) => {
+      let exists = this.matchesWithBetType.find((item) => {
         return item.match == item._id;
       });
-      this.matchesWithBetType = this.matchesWithBetType.filter((matchWithBet)=>{
+      this.matchesWithBetType = this.matchesWithBetType.filter((matchWithBet) => {
         return !exists;
       });
     });
-   
+
   }
 
-  //check selected tiebrekmatch (Draws)
-  setTieBreak(event){    
-    let match = event.items[0];
-    this.matches.forEach((ma)=>{
+  // check selected tiebrekmatch (Draws)
+  setTieBreak(event) {
+    const match = event.items[0];
+    this.matches.forEach((ma) => {
       ma.tiebreak = false;
     });
     this.tiebreakMatch = match._id;
     match.tiebreak = !match.tiebreak;
   }
 
-  //check selected tiebrekmatch
-  checkTieBreakSelection(){
+  // check selected tiebrekmatch
+  checkTieBreakSelection() {
     // let choices = this.matches.filter((el)=>{
     //   return el.tiebreak == true;
     // });
     // return choices.length == 1;
-    if(this.tiebreakMatch)
+    if (this.tiebreakMatch) {
       return true;
-    else
+    } else {
       return false;
+    }
   }
 
-  //Deselect selected match 
-  deselectMatch(match: any, matches: any []){
-    match.selected = false;    
+  // Deselect selected match
+  deselectMatch(match: any, matches: any []) {
+    match.selected = false;
   }
-
-  // saveMatchesByTable(tableId: string) {
-  //   this.matchesByTable.forEach((el) => {
-  //     el.table = tableId;
-  //   });
-  //   this.matchService.createManyMatches(this.matchesByTable).subscribe(
-  //     res => {
-  //       console.log('EN TEORIA SE GUARDAN PARTIDOS DE ESTA TABLA', res);
-  //       this.router.navigate(['/table', this.table._id]);
-  //     }
-  //   )
-  // }
 
 }

@@ -1,4 +1,4 @@
-<div class="row mt-2">
+<!-- <div class="row mt-2">
   <div class="col-sm-12 col-md-6 col-lg-4 mb-2">
     <a href="javascript:void(0)" class="btn btn-info" data-toggle="modal" data-target="#addNotificationModal">
       Crear notificación
@@ -18,26 +18,12 @@
         <p class="card-text">
           {{notification.content}}
         </p>
-        <!-- <span class="badge badge-info"> {{notification.betamount}}€ </span>
-        <span class="badge badge-success fa fa-user ml-2" style="font-size: 13px;"> {{notification.activeusers}} </span>
-        <span class="badge badge-light fa fa-trophy ml-2 " style="font-size: 13px;">
-          {{notification.activeusers * notification.betamount}}€ </span> -->
-        <!-- <span *ngIf="notification.closed == true" style="font-size:13px;" class="badge badge-danger ml-2 fa fa-lock">
-          <i class="fa fa-xczc"></i>
-        </span> -->
-        <!-- <br>
-        <a href="javascript:void(0)" [routerLink]="['/notification', notification._id]"
-          class="btn btn-primary float-right">
-          <i class="fa fa-sign-in"></i>
-          Entrar
-        </a> -->
       </div>
     </div>
   </div>
 </div>
 
 
-<!-- Modal -->
 <div class="modal fade" id="addNotificationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -62,38 +48,39 @@
                 [(ngModel)]="notification.content" name="content">
             </div>
           </div>
-          <!-- <div class="form-group ">
-            <div class="col-xs-12">
-              <select id="inputState" class="form-control" name="betType" required name="userValue{{i}}"
-                [(ngModel)]="notification.receiver">
-                <option>Selecciona Usuario</option>
-                <option *ngFor="let user of users; let in=index;" [ngValue]="user._id">
-                  {{user.name}}
-                </option>
-              </select>
-            </div>
-          </div> -->
-          
-          <!-- <div class="form-group ">
-            <div class="col-xs-12">
-              <input class="form-control" type="text" required placeholder="Equipo visitante"
-                [(ngModel)]="notification.awayteam" name="awayteam">
-            </div>
-          </div>
-          <div class="form-group ">
-            <div class="col-xs-12">
-              <input class="form-control" type="text" required placeholder="Where" [(ngModel)]="notification.where"
-                name="where">
-            </div>
-          </div> -->
           <button class="btn btn-success">Enviar notificación</button>
 
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
       </div>
     </div>
   </div>
-</div>
+</div> -->
+
+
+<jqxSplitter [width]="getWidth()" [height]='600' [panels]='mainSplitterPanels'>
+  <div>
+    <jqxKanban id="kanban1" #myKanbanOne [width]='"100%"' [height]='"100%"' [source]='dataAdapter'
+      [columns]='kanbanOneColumns' [connectWith]='"#kanban2, #kanban3"' [resources]='resourcesAdapterFunc()'
+      [columnRenderer]='kanbanOneColumnRenderer'>
+    </jqxKanban>
+  </div>
+  <div>
+    <jqxSplitter [width]='"100%"' [height]='"100%"' [orientation]='"horizontal"' [panels]='rightSplitterPanels'>
+      <div>
+        <jqxKanban id="kanban2" #myKanbanTwo [width]='"100%"' [height]='"100%"' [source]='dataAdapter2'
+          [columns]='kanbanTwoColumns' [connectWith]='"#kanban1, #kanban3"' [resources]='resourcesAdapterFunc()'
+          [columnRenderer]='kanbanTwoColumnRenderer'>
+        </jqxKanban>
+      </div>
+      <div>
+        <jqxKanban id="kanban3" #myKanbanThree [width]='"100%"' [height]='"100%"' [source]='dataAdapter3'
+          [columns]='kanbanThreeColumns' [connectWith]='"#kanban2, #kanban1"' [resources]='resourcesAdapterFunc()'
+          [columnRenderer]='kanbanThreeColumnRenderer'>
+        </jqxKanban>
+      </div>
+    </jqxSplitter>
+  </div>
+</jqxSplitter>

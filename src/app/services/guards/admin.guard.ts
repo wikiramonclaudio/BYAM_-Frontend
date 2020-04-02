@@ -7,18 +7,17 @@ import { UserService } from '../user/user.service';
   providedIn: 'root'
 })
 export class AdminGuard implements CanActivate {
-  
+
   constructor(
     public userService: UserService,
     public router: Router
-  ){
+  ) {
 
   }
-  canActivate(){
-    if(this.userService.user.role == 'ROLE_ADMIN'){
+  canActivate() {
+    if (this.userService.user.role == 'ROLE_ADMIN') {
       return true;
-    }
-    else{
+    } else {
       this.userService.logout();
       return false;
     }

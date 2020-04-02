@@ -21,11 +21,14 @@ import { Bet } from 'src/app/models/bet.model';
 import swal from 'sweetalert';
 import { WebsocketService } from 'src/app/services/websocket.service';
 import { TranslateService } from '@ngx-translate/core';
-import {DropdownModule} from 'primeng/dropdown';
+import { fadeAnimation } from 'src/app/services/common/animations';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.css']
+  styleUrls: ['./table.component.css'],
+  animations: [
+    fadeAnimation
+  ]
 })
 export class TableComponent implements OnInit, OnDestroy {
   table: any = new Table('', '', '', false, false);
@@ -50,7 +53,7 @@ export class TableComponent implements OnInit, OnDestroy {
   tiebreakMatch: any;
   joinedUser: boolean;
   mensajes: any[] = [];
-  texto: string = '';
+  texto = '';
   elemento: HTMLElement;
   textField: HTMLElement;
   translate: TranslateService;
@@ -70,7 +73,7 @@ export class TableComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    let tableId = this.route.snapshot.paramMap.get('id');
+    const tableId = this.route.snapshot.paramMap.get('id');
     // this.translate.setDefaultLang('en');
     this.translate = this.translationService.getTranslateService();
     this.tableService.getTable(tableId).subscribe(
@@ -88,25 +91,25 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
-    console.log('SE ABANDONA EL SOCKET');
-    this.websocketService.emit('leaveTable', {tableId: this.table._id, user: this.userService.user});
+    // Called once, before the instance is destroyed.
+    // Add 'implements OnDestroy' to the class.
+    // console.log('SE ABANDONA EL SOCKET');
+    // this.websocketService.emit('leaveTable', {tableId: this.table._id, user: this.userService.user});
   }
 
-  ngAfterContentInit(){
+  ngAfterContentInit() {
     // console.log('ngAfterContentInit');
-    // if (this.checkSubscription()) 
+    // if (this.checkSubscription())
     //   this.subscribeToSocket();
   }
 
   addForecastTobet() {
     this.forecastService.createManyForecasts(this.forecasts).subscribe(
       res => {
-        swal("Te has registrado en la mesa.", " Te deseamos mucha suerte! ", "success");
+        // swal("Te has registrado en la mesa.", " Te deseamos mucha suerte! ", "success");
         this.ngOnInit();
       }
-    )
+    );
   }
 
   subscribeToTable() {
@@ -114,7 +117,7 @@ export class TableComponent implements OnInit, OnDestroy {
       // let totalgoals = this.goalsLocalTeam + this.goalsAwayTeam;
       this.subscribeToTableService.createSubscriptionTable(this.subscription, this.table.betamount).subscribe(
         res => {
-          let newBet = new Bet(this.table._id, this.userService.user._id, null, null, this.goalsTotal, this.tiebreakMatch.match._id);
+          const newBet = new Bet(this.table._id, this.userService.user._id, null, null, this.goalsTotal, this.tiebreakMatch.match._id);
           this.betService.createBet(newBet).subscribe(
             res => {
               this.forecasts.forEach(element => {
@@ -122,15 +125,15 @@ export class TableComponent implements OnInit, OnDestroy {
                 element.table = this.table._id;
               });
               this.addForecastTobet();
-              swal("Te has registrado en la mesa", " ", "success");
+              swal('Te has registrado en la mesa', ' ', 'success');
             }
-          )
+          );
         },
         err => {
           swal('No tienes saldo suficiente!', 'Necesitas ' + (this.table.betamount - this.userService.user.money) + ' euros para jugar', 'error');
           console.log(err);
         }
-      )
+      );
     } else {
       swal('Rellena todos los pronósticos', 'Rellena todos los pronósticos incliyendo el número total de goles para unirte', 'error');
     }
@@ -143,8 +146,8 @@ export class TableComponent implements OnInit, OnDestroy {
         (res: any) => {
           console.log('NEW PLAYER IN TABLE', res);
           // console.log('params', params);
-          if(this.userService.user._id != res.user._id){
-            swal(res.user.name + " se ha unido a la mesa ", {                    
+          if (this.userService.user._id != res.user._id) {
+            swal(res.user.name + ' se ha unido a la mesa ', {
               timer: 2500,
             });
           }
@@ -154,7 +157,7 @@ export class TableComponent implements OnInit, OnDestroy {
       this.websocketService.listen('newTableMessage', {}).subscribe(
         (res: any) => {
           console.log(res);
-          let newMsg = { owner: res.user, table: this.table._id, content: res.text};                      
+          const newMsg = { owner: res.user, table: this.table._id, content: res.text};
           this.mensajes.push(newMsg);
           setTimeout(() => {
             // scroll siempre abajo
@@ -163,13 +166,13 @@ export class TableComponent implements OnInit, OnDestroy {
           // console.log('params', params);
         }
       );
-      this.websocketService.listen('chat:typing', function(data){
-        console.log('someone is typing', data);
-        var actions = document.getElementById('actions-text');
-        actions.innerHTML = `<p>
-            <em>${data}</em> is typing a message...
-        </p>`
-    });
+    //   this.websocketService.listen('chat:typing', function(data){
+    //     console.log('someone is typing', data);
+    //     var actions = document.getElementById('actions-text');
+    //     actions.innerHTML = `<p>
+    //         <em>${data}</em> is typing a message...
+    //     </p>`
+    // });
       this.websocketService.emit('joinInTable', { user: this.userService.user, tableId: this.table._id });
     }
   }
@@ -180,29 +183,32 @@ export class TableComponent implements OnInit, OnDestroy {
         this.tableSubscriptions = res.tableSubscriptions;
         this.totalAmount = Number(this.table.betamount) * this.tableSubscriptions.length;
         if (this.checkSubscription()) {
-          this.subscribeToSocket();
+          // this.subscribeToSocket();
           this.getBetsByTable(this.userService.user, this.userService.user._id);
         } else {
-          if (!this.table.closed)
+          if (!this.table.closed) {
             this.getFullMatchesByTable(this.table._id);
-          else
+          }
+          else {
             this.getBetsByTable(this.tableSubscriptions[0].player, this.tableSubscriptions[0].player._id);
+          }
         }
       }
-    )
+    );
   }
 
   getBetsByTable(user: User, userId: string) {
     this.selectedUser = user;
     this.betService.getBetsByTable(this.table._id).subscribe(
       res => {
-        let myBet = res.bet.find((el) => {
-          return el.owner == userId
+        const myBet = res.bet.find((el) => {
+          return el.owner == userId;
         });
-        if (myBet)
+        if (myBet) {
           this.getMyBetData(myBet._id);
+        }
       }
-    )
+    );
   }
 
   getMyBetData(betId: string) {
@@ -210,19 +216,21 @@ export class TableComponent implements OnInit, OnDestroy {
       res => {
         this.myForecasts = res.forecast;
         this.countDown(this.myForecasts);
-        this.checkAllFinished(this.myForecasts)
+        this.checkAllFinished(this.myForecasts);
       }
-    )
+    );
   }
 
   checkSubscription() {
-    var subscribed = this.tableSubscriptions.find((sub) => {
+    let subscribed = this.tableSubscriptions.find((sub) => {
       return sub.player._id == this.userService.user._id;
-    })
-    if (subscribed && subscribed != null)
+    });
+    if (subscribed && subscribed != null) {
       return true;
-    else
+    }
+    else {
       return false;
+    }
   }
 
   getFullMatchesByTable(tableId: string) {
@@ -232,13 +240,13 @@ export class TableComponent implements OnInit, OnDestroy {
         this.tiebreakMatch = this.matchTypeRelations.find((el) => {
           return el.tiebreak == true;
         });
-        var finished = res.matchTypeRelation.filter((match) => {
+        let finished = res.matchTypeRelation.filter((match) => {
           return match.winnerchoice != null && match.winnerchoice != undefined;
         });
         this.checkAllFinished(this.matchTypeRelations);
         this.countDown();
       }
-    )
+    );
   }
 
   saveMatches() {
@@ -248,9 +256,9 @@ export class TableComponent implements OnInit, OnDestroy {
     this.selectedMatches.forEach((item: any) => {
       this.matchesByTable.push(
         new MatchByTable(item._id, this.table._id)
-      )
+      );
     });
-    this.saveMatchesByTable(this.table._id)
+    this.saveMatchesByTable(this.table._id);
   }
 
   toggleSelected(match) {
@@ -265,40 +273,25 @@ export class TableComponent implements OnInit, OnDestroy {
       res => {
 
       }
-    )
+    );
   }
 
   toggleOption(matchByTable, optionNumber, optionId: string) {
-    // toggleOption(matchByTable, optionNumber, optionId: string) {
-    console.log('eventolo', event);
-    // if (optionNumber == 1) {
-    //   matchByTable.bettype.option1.selected = true;
-    //   matchByTable.bettype.option2.selected = false;
-    //   if (matchByTable.bettype.option3)
-    //     matchByTable.bettype.option3.selected = false;
-    // }
-    // if (optionNumber == 2) {
-    //   matchByTable.bettype.option2.selected = true;
-    //   matchByTable.bettype.option1.selected = false;
-    //   if (matchByTable.bettype.option3)
-    //     matchByTable.bettype.option3.selected = false;
-    // }
-    // if (optionNumber == 3) {
-    //   matchByTable.bettype.option3.selected = true;
-    //   matchByTable.bettype.option2.selected = false;
-    //   matchByTable.bettype.option1.selected = false;
-    // }
-    let newForecast = new Forecast(matchByTable.match._id, matchByTable.bettype._id, optionId, '');
-    var exists = this.forecasts.filter((el) => {
-      return matchByTable.match._id == el.match;
-    }).length;
-    if (exists == 0) {
-      this.forecasts.push(newForecast);
+    if (!optionId) {
+      swal(this.translate.instant('table.alert_selection_title'), this.translate.instant('table.alert_selection_text'), 'error');
     } else {
-      let modifiedForecast = this.forecasts.find((el: any) => {
-        return el.match == matchByTable.match._id;
-      });
-      modifiedForecast.choice = optionId;
+      const newForecast = new Forecast(matchByTable.match._id, matchByTable.bettype._id, optionId, '');
+      let exists = this.forecasts.filter((el) => {
+        return matchByTable.match._id == el.match;
+      }).length;
+      if (exists == 0) {
+        this.forecasts.push(newForecast);
+      } else {
+        const modifiedForecast = this.forecasts.find((el: any) => {
+          return el.match == matchByTable.match._id;
+        });
+        modifiedForecast.choice = optionId;
+      }
     }
   }
 
@@ -308,45 +301,45 @@ export class TableComponent implements OnInit, OnDestroy {
 
   countDown(array?: any) {
 
-    var arrayFechas: any[] = [];
+    let arrayFechas: any[] = [];
     if (array) {
       array.forEach((element: any) => {
-        arrayFechas.push(element.match.when)
+        arrayFechas.push(element.match.when);
       });
     }
 
     this.matchTypeRelations.forEach((element: any) => {
-      arrayFechas.push(element.match.when)
+      arrayFechas.push(element.match.when);
     });
 
-    var earliest = arrayFechas.reduce(function (pre, cur) {
+    let earliest = arrayFechas.reduce(function (pre, cur) {
       return Date.parse(pre) > Date.parse(cur) ? cur : pre;
     });
 
-    // var latest = arrayFechas.reduce((m,v,i) => (v.ModDate > m.ModDate) && i ? v : m).ModDate;    
+    // var latest = arrayFechas.reduce((m,v,i) => (v.ModDate > m.ModDate) && i ? v : m).ModDate;
 
     if (this.table.closed == false) {
-      var x = setInterval(() => {
-        var deadline: any = new Date(earliest).getTime();
+      let x = setInterval(() => {
+        let deadline: any = new Date(earliest).getTime();
         // console.log( new Date().getTimezoneOffset());
         // console.log(deadline + new Date().getTimezoneOffset());
-        var now = new Date().getTime();
+        let now = new Date().getTime();
         // console.log('now', now);
         // console.log(now + new Date().getTimezoneOffset());
-        var t = deadline - now;
-        var days: any = Math.floor(t / (1000 * 60 * 60 * 24));
-        var hours: any = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let t = deadline - now;
+        let days: any = Math.floor(t / (1000 * 60 * 60 * 24));
+        let hours: any = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         // hours -= 1;
-        var minutes: any = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds: any = Math.floor((t % (1000 * 60)) / 1000);
-        if (!document.getElementById("day")) {
+        let minutes: any = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds: any = Math.floor((t % (1000 * 60)) / 1000);
+        if (!document.getElementById('day')) {
           clearInterval(x);
           return;
         }
-        document.getElementById("day").innerHTML = days;
-        document.getElementById("hour").innerHTML = hours;
-        document.getElementById("minute").innerHTML = minutes;
-        document.getElementById("second").innerHTML = seconds;
+        document.getElementById('day').innerHTML = days;
+        document.getElementById('hour').innerHTML = hours;
+        document.getElementById('minute').innerHTML = minutes;
+        document.getElementById('second').innerHTML = seconds;
         this.deadlineDate = 'La mesa cerrará en ' + days + ' días, ' + hours + 'hours, ' + minutes + ' minutos';
         if (t < 0 || minutes < 0 || hours < 0) {
           clearInterval(x);
@@ -356,7 +349,7 @@ export class TableComponent implements OnInit, OnDestroy {
             res => {
               this.ngOnInit();
             }
-          )
+          );
         }
       }, 1000);
     }
@@ -364,27 +357,27 @@ export class TableComponent implements OnInit, OnDestroy {
 
   editTableName() {
     if (this.table.owner._id == this.userService.user._id) {
-      var el: any = { content: "input", inputValue: this.table.name };
-      swal("Cambiar nombre de la mesa:", el).then((value) => {
+      let el: any = { content: 'input', inputValue: this.table.name };
+      swal('Cambiar nombre de la mesa:', el).then((value) => {
         if (value.length > 2) {
           this.table.name = value;
           this.tableService.updateTable(this.table).subscribe(
             res => {
               // this.ngOnInit();
             }
-          )
+          );
         }
-      });;
+      }); ;
     }
   }
 
   checkWinner() {
     this.forecastService.getForecastsByTable(this.table._id).subscribe(
       (res: any) => {
-        // let winnerchoice = res.forecast[0].winnerchoice;        
-        let users: any[] = [];
+        // let winnerchoice = res.forecast[0].winnerchoice;
+        const users: any[] = [];
         res.forecast.forEach(element => {
-          let contains = users.find((el) => {
+          const contains = users.find((el) => {
             return el.userId == element.bet.owner;
           });
           if (!contains || contains == null) {
@@ -394,7 +387,7 @@ export class TableComponent implements OnInit, OnDestroy {
           }
         });
 
-        let numAciertos: any = [];
+        const numAciertos: any = [];
         users.forEach((user: any) => {
           res.forecast.forEach(element => {
             if (element.bet.owner == user.userId && element.winnerchoice == element.choice._id) {
@@ -404,10 +397,10 @@ export class TableComponent implements OnInit, OnDestroy {
           });
         });
 
-        var valorMasGrande = Math.max.apply(null, numAciertos);
+        let valorMasGrande = Math.max.apply(null, numAciertos);
         let winnerPlayer: any = {};
-        let winners: any = [];
-        let numbers: any = [];
+        const winners: any = [];
+        const numbers: any = [];
         users.forEach(element => {
           if (element.successes >= valorMasGrande) {
             valorMasGrande = element.successes;
@@ -423,20 +416,22 @@ export class TableComponent implements OnInit, OnDestroy {
           this.table.closed = true;
           this.tableService.setTableWinner(this.table).subscribe(
             (res: any) => {
-              if (winnerPlayer.userId == this.userService.user._id)
+              if (winnerPlayer.userId == this.userService.user._id) {
                 this.userService.user.money = res.user.money;
+              }
               this.ngOnInit();
             }
-          )
+          );
         } else {
           let diferencia = 50;
-          var finalWinners = [];
-          var finalWinner: any = {};
-          let maxValue = 0;
-          var numero = winners[0].goalsResult;
+          let finalWinners = [];
+          let finalWinner: any = {};
+          const maxValue = 0;
+          let numero = winners[0].goalsResult;
           winners.forEach(player => {
-            if (player.goalsResult == player.goals)
+            if (player.goalsResult == player.goals) {
               finalWinners.push(player);
+            }
             else {
               if (Math.abs(player.goals - numero) < diferencia) {
                 finalWinner = player;
@@ -452,11 +447,12 @@ export class TableComponent implements OnInit, OnDestroy {
               this.table.closed = true;
               this.tableService.setTableWinner(this.table).subscribe(
                 (res: any) => {
-                  if (winnerPlayer.userId == this.userService.user._id)
+                  if (winnerPlayer.userId == this.userService.user._id) {
                     this.userService.user.money = res.user.money;
+                  }
                   this.ngOnInit();
                 }
-              )
+              );
             } else {
               console.log('Hay varios ganadores, hay que repartir...Los ganadores son', finalWinners);
               // this.tableService.setTableWinner(this.table).subscribe(
@@ -474,22 +470,23 @@ export class TableComponent implements OnInit, OnDestroy {
               this.table.closed = true;
               this.tableService.setTableWinner(this.table).subscribe(
                 (res: any) => {
-                  if (winnerPlayer.userId == this.userService.user._id)
+                  if (winnerPlayer.userId == this.userService.user._id) {
                     this.userService.user.money = res.user.money;
+                  }
                   this.ngOnInit();
                 }
-              )
+              );
             }
           }
         }
 
       }
-    )
+    );
   }
 
   checkAllFinished(list: any) {
     this.allMatchesFinished = false;
-    let variolo = list.filter((el) => {
+    const variolo = list.filter((el) => {
       return el.match.finished == true;
     });
 
@@ -500,42 +497,43 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   enviar() {
-    if (this.texto.trim().length == 0)
+    if (this.texto.trim().length == 0) {
       return;
+    }
     this.websocketService.emit('RoomMessage', { user: this.userService.user, text: this.texto, tableId: this.table._id });
-    let newMsg = new Message(this.userService.user._id, this.table._id, this.texto);
+    const newMsg = new Message(this.userService.user._id, this.table._id, this.texto);
     this.messageService.createMessage(newMsg).subscribe(
-      res=>{
+      res => {
         console.log('Mensajolo guardado', res);
       }
-    )   
+    );
     this.texto = '';
     this.textField.focus();
   }
 
   // @HostListener('window:focus', ['$event'])
-  // onFocus(event: any): void {      
+  // onFocus(event: any): void {
   //     console.log('FOCUSSSSS');
   // }
 
   // @HostListener('window:blur', ['$event'])
-  // onBlur(event: any): void {      
+  // onBlur(event: any): void {
   //     console.log('ON BLURRR DEJAR EL FOCUS');
-      
+
   // }
 
-  activateInputField(){
-    setTimeout(() => {
-      this.textField.focus();
-      this.textField.addEventListener('keypress', (e)=>{
-        this.websocketService.emit('chat:typing', this.userService.user.name);
-      });
-    }, 500);
+  activateInputField() {
+    // setTimeout(() => {
+    //   this.textField.focus();
+    //   this.textField.addEventListener('keypress', (e)=>{
+    //     this.websocketService.emit('chat:typing', this.userService.user.name);
+    //   });
+    // }, 500);
     this.messageService.getMessagesByTable(this.table._id).subscribe(
-      (res:any)=>{
+      (res: any) => {
         this.mensajes = res.messages;
         this.elemento.scrollTop = this.elemento.scrollHeight;
       }
-    )    
+    );
   }
 }

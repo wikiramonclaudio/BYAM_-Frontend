@@ -1,8 +1,5 @@
-/*
-Template Name: Admin Pro Admin
-Author: Wrappixel
-Email: niravjoshi87@gmail.com
-File: scss
+ /*
+BYAM SCSS
 */
 
 @media (min-width:1600px) {
@@ -15,7 +12,7 @@ File: scss
     -webkit-flex: 0 0 100%;
     -ms-flex: 0 0 100%;
     flex: 0 0 100%;
-    max-width: 100%;  
+    max-width: 100%;
   }
 
   .col-xlg-11 {
@@ -23,7 +20,7 @@ File: scss
     -webkit-flex: 0 0 91.66666667%;
     -ms-flex: 0 0 91.66666667%;
     flex: 0 0 91.66666667%;
-    max-width: 91.66666667%;  
+    max-width: 91.66666667%;
   }
 
   .col-xlg-10 {
@@ -31,7 +28,7 @@ File: scss
     -webkit-flex: 0 0 83.33333333%;
     -ms-flex: 0 0 83.33333333%;
     flex: 0 0 83.33333333%;
-    max-width: 83.33333333%;    
+    max-width: 83.33333333%;
   }
 
   .col-xlg-9 {
@@ -39,7 +36,7 @@ File: scss
     -webkit-flex: 0 0 75%;
     -ms-flex: 0 0 75%;
     flex: 0 0 75%;
-    max-width: 75%;    
+    max-width: 75%;
   }
 
   .col-xlg-8 {
@@ -47,7 +44,7 @@ File: scss
     -webkit-flex: 0 0 66.66666667%;
     -ms-flex: 0 0 66.66666667%;
     flex: 0 0 66.66666667%;
-    max-width: 66.66666667%;   
+    max-width: 66.66666667%;
   }
 
   .col-xlg-7 {
@@ -55,7 +52,7 @@ File: scss
     -webkit-flex: 0 0 58.33333333%;
     -ms-flex: 0 0 58.33333333%;
     flex: 0 0 58.33333333%;
-    max-width: 58.33333333%;   
+    max-width: 58.33333333%;
   }
 
   .col-xlg-6 {
@@ -63,7 +60,7 @@ File: scss
     -webkit-flex: 0 0 50%;
     -ms-flex: 0 0 50%;
     flex: 0 0 50%;
-    max-width: 50%;  
+    max-width: 50%;
   }
 
   .col-xlg-5 {
@@ -71,7 +68,7 @@ File: scss
     -webkit-flex: 0 0 41.66666667%;
     -ms-flex: 0 0 41.66666667%;
     flex: 0 0 41.66666667%;
-    max-width: 41.66666667%;    
+    max-width: 41.66666667%;
   }
 
   .col-xlg-4 {
@@ -79,7 +76,7 @@ File: scss
     -webkit-flex: 0 0 33.33333333%;
     -ms-flex: 0 0 33.33333333%;
     flex: 0 0 33.33333333%;
-    max-width: 33.33333333%;  
+    max-width: 33.33333333%;
   }
 
   .col-xlg-3 {
@@ -95,7 +92,7 @@ File: scss
     -webkit-flex: 0 0 16.66666667%;
     -ms-flex: 0 0 16.66666667%;
     flex: 0 0 16.66666667%;
-    max-width: 16.66666667%;  
+    max-width: 16.66666667%;
   }
 
   .col-xlg-1 {
@@ -103,7 +100,7 @@ File: scss
     -webkit-flex: 0 0 8.33333333%;
     -ms-flex: 0 0 8.33333333%;
     flex: 0 0 8.33333333%;
-    max-width: 8.33333333%;  
+    max-width: 8.33333333%;
   }
 
   .col-xlg-pull-12 {
@@ -325,9 +322,9 @@ File: scss
 }
 
 .input-group-addon {
-	[type="radio"]:not(:checked), 
-	[type="radio"]:checked, 
-	[type="checkbox"]:not(:checked), 
+	[type="radio"]:not(:checked),
+	[type="radio"]:checked,
+	[type="checkbox"]:not(:checked),
 	[type="checkbox"]:checked {
 		position: initial;
 		opacity: 1;
@@ -392,7 +389,7 @@ File: scss
 
 .hidden-xl-down {
   display: none !important;
-} 
+}
 
 
 //* card -inverse-font-white

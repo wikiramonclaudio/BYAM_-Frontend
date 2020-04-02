@@ -1,8 +1,5 @@
-/*
-Template Name: Admin Pro Admin
-Author: Wrappixel
-Email: niravjoshi87@gmail.com
-File: scss
+ /*
+BYAM SCSS
 */
 
 
@@ -21,13 +18,13 @@ File: scss
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700');
 
-/******************* 
-Global Styles 
+/*******************
+Global Styles
 *******************/
 
 * {
     outline: none;
-    
+
 }
 
 body {
@@ -37,7 +34,7 @@ body {
     overflow-x: hidden;
     color: $bodytext;
     font-weight: 300;
-    
+
 }
 
 html {
@@ -45,7 +42,7 @@ html {
     min-height: 100%;
     background: $white;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale; 
+    -moz-osx-font-smoothing: grayscale;
 }
 
 a:hover,
@@ -868,3 +865,28 @@ Layouts
     max-width: 1170px;
     margin: 0 auto;
 }
+
+
+// SCROLL STYLE CHROME
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.3), inset;
+  -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.3), inset;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3), inset;
+  border-radius: 4px;
+  background-color: #f5f5f5; }
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background-color: #f5f5f5; }
+
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 0 6px rgba(31, 21, 92, 0.3), inset;
+  -moz-box-shadow: 0 0 6px rgba(31, 21, 92, 0.3), inset;
+  box-shadow: 0 0 6px rgba(31, 21, 92, 0.3), inset;
+  background-color: #14a338; }

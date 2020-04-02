@@ -29,7 +29,7 @@ export class UserService {
 
   createUser(user: User) {
     let params = JSON.stringify(user);
-    let url = URL_SERVICES + '/user';    
+    let url = URL_SERVICES + '/user';
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.post(url, params, { headers: headers })
     .map((res: any)=>{
@@ -40,8 +40,8 @@ export class UserService {
 
   updateUser(user: User){
     let params = JSON.stringify(user);
-    let url = URL_SERVICES + '/user/' + user._id;  
-    url += '?token=' + this.token;  
+    let url = URL_SERVICES + '/user/' + user._id;
+    url += '?token=' + this.token;
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.put(url, user, { headers: headers })
     .map((res: any)=>{
@@ -49,20 +49,19 @@ export class UserService {
           var userDB: User = res.user;
           this.saveStorage(userDB._id, this.token, userDB, this.menu);
         }
-        swal('Usuario actualizado', user.name, 'success');
       return res.user;
     });
   }
 
   googleLogin(googleToken: String){
-    let url = URL_SERVICES + '/login/google';        
+    let url = URL_SERVICES + '/login/google';
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.post(url, {token: googleToken}, { headers: headers })
-    .map((res: any)=>{      
+    .map((res: any)=>{
       this.saveStorage(res.id, res.token, res.user, res.menu);
-      this.websocketService.emit('addDoc', {user: res.user}); 
+      this.websocketService.emit('addDoc', {user: res.user});
       return true;
-    });       
+    });
   }
 
   login(user: User, recordar: Boolean){
@@ -71,15 +70,15 @@ export class UserService {
     }else{
       localStorage.removeItem('email');
     }
-    let params = JSON.stringify(user);    
-    let url = URL_SERVICES + '/login';    
+    let params = JSON.stringify(user);
+    let url = URL_SERVICES + '/login';
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    this.user = user;    
+    this.user = user;
     return this._http.post(url, params, { headers: headers })
-    .map((res: any)=>{          
-      this.saveStorage(res.id, res.token, res.user, res.menu); 
-      this.user.connected = true;  
-      this.websocketService.emit('addDoc', {user: res.user});      
+    .map((res: any)=>{
+      this.saveStorage(res.id, res.token, res.user, res.menu);
+      this.user.connected = true;
+      this.websocketService.emit('addDoc', {user: res.user});
       return true;
     });
   }
@@ -96,7 +95,7 @@ export class UserService {
       this.menu = JSON.parse(localStorage.getItem('menu'));
     }else{
       this.token = '';
-      this.user = null;      
+      this.user = null;
       this.menu = [];
     }
   }
@@ -105,7 +104,7 @@ export class UserService {
     this.token = token;
   }
 
-  logout(){    
+  logout(){
     this.token = '';
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -122,36 +121,36 @@ export class UserService {
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('menu', JSON.stringify(menu));
     this.user = user;
-    this.token = token;    
+    this.token = token;
   }
 
   changeImg(file: File, id: string){
     this.uploadService.uploadFile(file, 'users', id).then(
-      (response: any)=>{        
+      (response: any)=>{
         this.user.image = response.user.image;
         swal('Imagen de usuario actualizada correctamente', this.user.name, 'success');
         this.saveStorage(id, this.token, this.user, this.menu);
       }
     ).catch(
-      error=>{        
+      error=>{
       }
     )
   }
 
   getUsers(from: number): Observable<any>{
-    let url = URL_SERVICES + '/user?from=' + from + '&token=' + this.token;    
+    let url = URL_SERVICES + '/user?from=' + from + '&token=' + this.token;
     return this._http.get(url);
   }
 
   getUser(userId: string): Observable<any>{
-    let url = URL_SERVICES + '/user/' + userId + '?token=' + this.token;       
+    let url = URL_SERVICES + '/user/' + userId + '?token=' + this.token;
     return this._http.get(url);
   }
 
   searchUser(term: string){
     let url = URL_SERVICES + '/search/collection/user/' + term;
     return this._http.get(url).map(
-      (response: any)=>{        
+      (response: any)=>{
         return response.user;
       }
     )
@@ -178,15 +177,15 @@ export class UserService {
   }
 
   getRanking(){
-    let url = URL_SERVICES + '/user/ranking/winners?token=' + this.token;    
+    let url = URL_SERVICES + '/user/ranking/winners?token=' + this.token;
     return this._http.get(url);
   }
 
   inviteFriend(invitation: any){
     let params = JSON.stringify(invitation);
-    let url = URL_SERVICES + '/user/invite';    
+    let url = URL_SERVICES + '/user/invite';
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.post(url, params, { headers: headers });
   }
-  
+
 }

@@ -5,7 +5,7 @@
         <form ngNativeValidate (ngSubmit)="createMatch()" class="form-horizontal form-material">
           <div class="form-group ">
             <div class="col-xs-12 col-md-6">
-              <label for="">Fecha</label>
+              <label for="">{{translate.instant('main.date')}}</label>
               <input class="form-control" type="datetime-local" required
                 placeholder="{{translate.instant('main.date')}}" [(ngModel)]="match.when" name="when">
             </div>

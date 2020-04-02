@@ -1,9 +1,4 @@
-/*
-Template Name: Admin Pro Admin
-Author: Wrappixel
-Email: niravjoshi87@gmail.com
-File: scss
-*/
+
 
 @import '../variable';
 $themecolor: #1e88e5;
@@ -31,7 +26,7 @@ $topbar-alt: #272c33;
     }
     .navbar-nav .nav-item > {
         a.nav-link {
-            color: rgba(255, 255, 255, 0.8); 
+            color: rgba(255, 255, 255, 0.8);
             &:hover,
             &:focus {
                 color:$white!important;
@@ -204,7 +199,7 @@ a.link {
 }
 @media (min-width: 768px){
     .mini-sidebar .sidebar-nav #sidebarnav > li:hover > a {
-        
+
         background: $sidebar-alt;
     }
-} 
+}

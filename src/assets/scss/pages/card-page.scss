@@ -1,11 +1,8 @@
-/*
-Template Name: Admin pro Admin
-Author: Wrappixel
-Email: niravjoshi87@gmail.com
-File: scss
+ /*
+BYAM SCSS
 */
 
-@import '../variable';    
+@import '../variable';
 /*******************
  Card title
 *******************/
@@ -21,7 +18,7 @@ File: scss
         background:$white;
         border-bottom:0px;
     }
-} 
+}
 .card-success {
     background: $success;
     border-color: $success;
@@ -57,7 +54,7 @@ File: scss
     border-color: $megna;
 }
 
-/*============================================================== 
+/*==============================================================
  Cards page
  ============================================================== */
 
@@ -140,5 +137,5 @@ File: scss
         background: $primary;
         border-color: $primary;
     }
-} 
+}
 

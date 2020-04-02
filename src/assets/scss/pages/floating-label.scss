@@ -1,10 +1,7 @@
-/*
-Template Name: Admin pro Admin
-Author: Wrappixel
-Email: niravjoshi87@gmail.com
-File: scss
+ /*
+BYAM SCSS
 */
-@import '../variable'; 
+@import '../variable';
 
 
 /*******************/
@@ -16,7 +13,7 @@ File: scss
 }
 
 .floating-labels .form-control {
-    
+
     padding: 10px 10px 10px 0;
     display: block;
     border: none;
@@ -48,7 +45,7 @@ File: scss
 
 .floating-labels label {
     color: $bodytext;
-    
+
     position: absolute;
     cursor: auto;
     top: 5px;

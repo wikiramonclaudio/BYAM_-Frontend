@@ -1,17 +1,25 @@
 <div class="row">
   <div class="col-sm-12">
     <div class="card">
-      <div class="card-body">
+      <div class="card-body d-flex flex-wrap align-items-center justify-content-center">
         <!-- <h4 class="card-title text-center">Partidas en juego</h4> -->
         <a href="javascript:void(0)" [routerLink]="['/add-table']" class="btn btn-success">
           <i class="fa fa-plus"></i>
         </a>
-        <a href="javascript:void(0)" class="ml-2 btn btn-info" (click)="getMyTables()">          
+        <a href="javascript:void(0)" class="ml-2 btn bg-theme text-white" (click)="getMyTables()">
           {{ translate.instant('main.my_games') }}
         </a>
-        <a href="javascript:void(0)" class="ml-2 btn btn-info" (click)="getTables()">
+        <a href="javascript:void(0)" class="ml-2 btn bg-theme text-white" (click)="getTables()">
           {{ translate.instant('main.all') }}
-          </a>
+        </a>
+        <div class="d-flex justify-content-center align-items-baseline search-table-box">
+          <i class="fa fa-search ml-2 mr-2 text-muted"></i>
+          <span class="ui-float-label">
+            <input id="float-input" type="text" size="30" name="filterSearch" (keyup)="filterTables()"
+              [(ngModel)]="searchFilter" pInputText>
+            <label for="float-input">{{translate.instant('chat.search_here')}}</label>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -23,20 +31,22 @@
               height: 22px;
               border-radius: 100%;
               margin-right: 10px;" [src]="table.owner.image | image" width="25px" alt="">
-          <h5 class="card-title match-title">{{table.name}}</h5>         
+          <h5 class="card-title match-title mt-0">{{table.name}}</h5>
         </a>
         <p class="card-text"></p>
-        <span class="badge badge-info"> {{table.betamount}}€ </span>
+        <span class="badge badge-info fa fa-eur"> {{table.betamount}}</span>
         <span class="badge badge-success fa fa-user ml-2" style="font-size: 13px;"> {{table.activeusers}} </span>
         <span class="badge badge-light fa fa-trophy ml-2 " style="font-size: 13px;">
           {{table.activeusers * table.betamount}}€ </span>
-          <span *ngIf="table.closed == true" style="font-size:13px;" class="badge badge-danger ml-2 fa fa-lock">
-            <i class="fa fa-xczc"></i>            
-          </span>
+        <span *ngIf="table.closed == true" style="font-size:13px;" class="badge badge-danger ml-2 fa fa-lock">
+          <i class="fa fa-xczc"></i>
+          <i class="fa fa-xczc"></i>
+          <i class="fa fa-xczc"></i>
+        </span>
         <br>
-        <a href="javascript:void(0)" [routerLink]="['/table', table._id]" class="btn btn-primary float-right">
+        <a href="javascript:void(0)" [routerLink]="['/table', table._id]" class="btn text-white bg-theme float-right">
           <i class="fa fa-sign-in"></i>
-          {{ translate.instant('main.join') }}
+          <!-- {{ translate.instant('main.join') }} -->
         </a>
       </div>
     </div>

@@ -1,16 +1,13 @@
 <div class="row">
-
   <div class="col-lg-12">
     <div class="card">
       <div class="card-body pt-0">
         <div class="animated rubberBand" style="position:fixed; right: 5px; z-index: 999; top:50px;"
           *ngIf="betTypesLoaded">
-
         </div>
         <form ngNativeValidate class="form-horizontal form-material" id="create-table-form">
           <div class="container ">
             <div class="row">
-
               <div class="col-lg-3 col-xs-12 col-md-4 mt-2">
                 <input class="form-control" type="text" required placeholder="{{translate.instant('main.game_name')}}"
                   [(ngModel)]="table.name" name="name" #name="ngModel">
@@ -32,19 +29,17 @@
               </div>
             </div>
           </div>
-
         </form>
         <div *ngIf="!checkTieBreakSelection()" class="alert alert-info mt-3">
           <span>
-            En la mesa habrá un partido de desempate (Num goles partido
-            seleccionado). Cuando haya más de un ganador se revisará este pronóstico para determinar el ganador
-            final.<b>Para marcar el partido de desempate seleccionalo una vez añadido</b>.
+            {{translate.instant('table.tiebreak_alert')}}
+            <b>{{translate.instant('table.tiebreak_sugest')}}</b>.
           </span>
         </div>
         <br>
         <p-pickList [source]="matches" [target]="selectedMatches" [responsive]="true"
           sourceHeader="Partidos disponibles" targetHeader="Partidos añadidos" filterBy="localteam, awayteam"
-          (onTargetSelect)="setTieBreak($event)" (onMoveToTarget)="saveMatch($event)"
+          (onTargetSelect)="setTieBreak($event)" (onMoveToTarget)="saveMatch($event,'','')"
           (onMoveToSource)="removeSelectedMatchTypeRelation($event)">
           <ng-template let-match let-index pTemplate="item">
             <div class="ui-helper-clearfix">
@@ -60,9 +55,9 @@
           </ng-template>
         </p-pickList>
         <div class="d-flex">
-          <button class="btn btn-primary ml-2 mt-4" (click)="createTable()" [disabled]="selectedMatches.length<3"
+          <button class="btn bg-theme text-white ml-2 mt-4" (click)="createTable()" [disabled]="selectedMatches.length<3"
             type="submit">
-            Crear mesa
+            {{translate.instant('table.create_game')}}
           </button>
         </div>
       </div>

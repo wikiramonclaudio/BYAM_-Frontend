@@ -1,8 +1,5 @@
-/*
-Template Name: Admin pro Admin
-Author: Wrappixel
-Email: niravjoshi87@gmail.com
-File: scss
+ /*
+BYAM SCSS
 */
 
 @import '../variable';
@@ -32,12 +29,12 @@ File: scss
 #sales-overview2{
     .ct-point{
         stroke-width:6px;
-        stroke:$info; 
+        stroke:$info;
     }
     .ct-grid{
         stroke-dasharray:0px;
         stroke:$border;
-        
+
     }
     .ct-area{
         fill-opacity:0;
@@ -72,4 +69,4 @@ File: scss
     .right-side-panel{
         display:none;
     }
-}    
+}

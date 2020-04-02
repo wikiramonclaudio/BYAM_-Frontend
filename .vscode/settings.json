@@ -1,0 +1,4 @@
+{
+    "tslint.ignoreDefinitionFiles": true,
+    "javascript.format.insertSpaceAfterSemicolonInForStatements": false
+}

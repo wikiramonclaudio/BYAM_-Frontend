@@ -3,24 +3,28 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/service.index';
 import swal from 'sweetalert';
+import { TranslationService } from 'src/app/services/translation/translation.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styles: []
 })
 export class ProfileComponent implements OnInit {
-
+  public translate: TranslateService;
   user: User = new User('', '', '', '', 0);
   fileToUpload: File;
   provisionalImg: any;
   constructor(
     public userService: UserService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public translationService: TranslationService
   ) {
     // this.user = this.userService.user;
   }
 
   ngOnInit() {
+    this.translate = this.translationService.getTranslateService();
     let profileId = this.route.snapshot.paramMap.get('id');
     if (!profileId)
       this.user = this.userService.user;

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GraficoDonaComponent } from './grafico-dona.component';
+import { MinichatComponent } from './minichat.component';
 
-describe('GraficoDonaComponent', () => {
-  let component: GraficoDonaComponent;
-  let fixture: ComponentFixture<GraficoDonaComponent>;
+describe('MinichatComponent', () => {
+  let component: MinichatComponent;
+  let fixture: ComponentFixture<MinichatComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GraficoDonaComponent ]
+      declarations: [ MinichatComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GraficoDonaComponent);
+    fixture = TestBed.createComponent(MinichatComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

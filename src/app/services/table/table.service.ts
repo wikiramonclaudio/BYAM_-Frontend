@@ -46,8 +46,7 @@ export class TableService {
     let url = URL_SERVICES + '/table'+ '?token=' + localStorage.getItem('token');    
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.post(url, params, { headers: headers })
-    .map((res: any)=>{
-      swal("Table registrado", " " + table.name, "success");
+    .map((res: any)=>{      
       return res.table;
     });
   }

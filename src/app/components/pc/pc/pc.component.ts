@@ -47,9 +47,9 @@ export class PcComponent implements OnInit {
     let test: any = this.route.snapshot.params;
     var options: any = {
       roomName: test.roomName,
-      width: '80%',
+      width: '85%',
       height: 600,
-      password: 'bartolez',
+      // password: 'bartolez',
       interfaceConfigOverwrite: {
         SHOW_WATERMARK_FOR_GUESTS: false,
         SHOW_JITSI_WATERMARK: false,
@@ -67,8 +67,9 @@ export class PcComponent implements OnInit {
         JITSI_WATERMARK_LINK: 'https://byam.cleverapps.io',
         // SHOW_POWERED_BY: false,SHOW_DEEP_LINKING_IMAGE: false,DEFAULT_BACKGROUND: '#000',
         // INVITATION_POWERED_BY: false,
-        MOBILE_APP_PROMO: true,
-        SHOW_CHROME_EXTENSION_BANNER: false
+        // MOBILE_APP_PROMO: true,
+        SHOW_CHROME_EXTENSION_BANNER: false,
+        OPEN_IN_MOBILE_BROWSER: true
       },
       configOverwrite: {
         enableNoAudioDetection: false,

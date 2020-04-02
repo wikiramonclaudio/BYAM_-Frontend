@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
 
   draggable = {
     // note that data is handled with JSON.stringify/JSON.parse
-    // only set simple data or POJO's as methods will be lost 
+    // only set simple data or POJO's as methods will be lost
     data: "myDragData",
     effectAllowed: "all",
     disable: false,
@@ -62,7 +62,7 @@ export class AppComponent implements OnInit {
 
     // this.peer.on('call', (call) => {
     //   console.log('CAALLLLL???', call);
-    //   swal('LLamada entrante', 'contestar??', {buttons: ['Rechazar', 'Aceptar']}).then((value) => {        
+    //   swal('LLamada entrante', 'contestar??', {buttons: ['Rechazar', 'Aceptar']}).then((value) => {
     //     if (value == true) {
     //       n.getUserMedia({ video: true, audio: true },  (stream) => {
     //         call.answer(stream);
@@ -77,7 +77,7 @@ export class AppComponent implements OnInit {
     //           }
     //           var closeCallBtn = document.getElementById('endcall');
     //           if(closeCallBtn){
-    //             closeCallBtn.addEventListener('click', (event)=>{                  
+    //             closeCallBtn.addEventListener('click', (event)=>{
     //               call.close();
     //               this.stopStreaming(stream);
     //             });
@@ -95,7 +95,7 @@ export class AppComponent implements OnInit {
   getUsers(){
     this.userService.getUsers(0).subscribe(
       res=>{
-        this.users = res.users;        
+        this.users = res.users;
       }
     )
   }
@@ -126,7 +126,7 @@ export class AppComponent implements OnInit {
     //   // no funciona cuando le paso el this.selectedUser(no le llega la llamada)
     //   var call = this.peer.call(this.selectedUser, stream);
     //     if(call){
-    //       call.on('stream', (remotestream)=> {        
+    //       call.on('stream', (remotestream)=> {
     //         const video: any = document.getElementById('myvideo');
     //         video.style.display = 'block';
     //         if ('srcObject' in video) {

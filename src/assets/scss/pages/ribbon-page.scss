@@ -1,10 +1,7 @@
-/*
-Template Name: Admin pro Admin
-Author: Wrappixel
-Email: niravjoshi87@gmail.com
-File: scss
+ /*
+BYAM SCSS
 */
-@import '../variable'; 
+@import '../variable';
 
 
 /*******************
@@ -15,13 +12,13 @@ ribbons page
 .ribbon-wrapper-bottom,
 .ribbon-wrapper-right-bottom {
     position: relative;
-    
+
     padding: 50px 15px 15px 15px;
 }
 .ribbon-vwrapper{
     padding: 15px 15px 15px 50px;
     position: relative;
-   
+
 }
 .ribbon-overflow {
     overflow: hidden;
@@ -29,7 +26,7 @@ ribbons page
 
 .ribbon-vwrapper-reverse {
     padding: 15px 50px 15px 15px;
-    
+
 }
 
 .ribbon-wrapper-bottom {
@@ -347,7 +344,7 @@ ribbons page
 
 .ribbon-danger {
     background: $danger;
-} 
+}
 
 .ribbon-bookmark.ribbon-danger:before {
     border-color: $danger;

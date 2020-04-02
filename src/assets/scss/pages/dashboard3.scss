@@ -1,8 +1,5 @@
-/*
-Template Name: Admin pro Admin
-Author: Wrappixel
-Email: niravjoshi87@gmail.com
-File: scss
+ /*
+BYAM SCSS
 */
 
 @import '../variable';
@@ -12,12 +9,12 @@ File: scss
 #sales-overview2{
     .ct-point{
         stroke-width:6px;
-        stroke:$info; 
+        stroke:$info;
     }
     .ct-grid{
         stroke-dasharray:0px;
         stroke:$border;
-        
+
     }
     .ct-area{
         fill-opacity:0;
@@ -37,27 +34,27 @@ File: scss
 .website-visitor {
     .ct-series-a .ct-area {
         fill-opacity: 0.2;
-        fill: url(#gradient); 
+        fill: url(#gradient);
         }
         .ct-series-a .ct-line, .ct-series-a .ct-point {
         stroke: $success;
-        stroke-width: 2px; 
+        stroke-width: 2px;
         }
         .ct-series-b .ct-area {
             fill: $info;
-            fill-opacity: 0.1; 
+            fill-opacity: 0.1;
         }
         .ct-series-b .ct-line, .ct-series-b .ct-point {
             stroke: $info;
-            stroke-width: 2px; 
+            stroke-width: 2px;
         }
         .ct-series-a .ct-point, .ct-series-b .ct-point {
-         stroke-width: 6px; 
+         stroke-width: 6px;
         }
-   } 
-  
+   }
+
   .c3-chart-arcs-title{
-    font-size:26px; 
+    font-size:26px;
     font-weight:600;
     color:$bodytext;
     font-family:$bodyfont;
@@ -81,4 +78,4 @@ File: scss
     .right-side-panel{
         display:none;
     }
-}    
+}

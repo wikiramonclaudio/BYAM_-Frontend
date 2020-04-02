@@ -1,10 +1,7 @@
-/*
-Template Name: Admin pro Admin
-Author: Wrappixel
-Email: niravjoshi87@gmail.com
-File: scss
+ /*
+BYAM SCSS
 */
-@import '../variable'; 
+@import '../variable';
 
 /*******************
 chat application Page
@@ -12,7 +9,7 @@ chat application Page
 
 .chat-main-box {
     position: relative;
-    
+
     overflow: hidden;
     .chat-left-aside {
         position: relative;
@@ -86,7 +83,7 @@ chat application Page
                 height: 80px;
                 padding-right: 180px;
                 &:focus {
-                    border-color: $border; 
+                    border-color: $border;
                 }
             }
             .custom-send {

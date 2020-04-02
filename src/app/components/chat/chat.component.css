@@ -1,4 +1,4 @@
-/* 
+/*
 .container {
   margin: 60px auto;
   background: #fff;
@@ -85,7 +85,7 @@ input:focus {
 
 .friend-drawer .text {
   margin-left: 12px;
-  width: 70%;
+  width: 82%;
 }
 
 .friend-drawer .text h6 {
@@ -194,17 +194,17 @@ hr {
 
 @media only screen and (min-width: 700px) {
   .chat-container {
-    max-height: 550px;
+    max-height: 650px;
     overflow: hidden;
   }
 
   .chat-container .border-right {
-    max-height: 550px;
+    max-height: 650px;
     overflow-y: auto;
   }
 
-  .chat-container .chat-panel {    
-    max-height: 500px;
+  .chat-container .chat-panel {
+    max-height: 580px;
     overflow-y: auto;
     overflow-x: hidden;
   }
@@ -222,7 +222,7 @@ hr {
 /* media queries para mobile */
 @media screen and (max-width: 700px) {
   .chat-container{
-      padding:0;    
+      padding:0;
   }
 }
 /* @keyframes show {

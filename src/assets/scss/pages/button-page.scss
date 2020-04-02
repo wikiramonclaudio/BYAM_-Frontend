@@ -1,8 +1,5 @@
-/*
-Template Name: Admin pro Admin
-Author: Wrappixel
-Email: niravjoshi87@gmail.com
-File: scss
+ /*
+BYAM SCSS
 */
 
 @import '../variable';
@@ -133,7 +130,7 @@ Buttons
 .btn-secondary.disabled{
     &:hover, &:focus, &:active{
         color:$bodytext!important;
-        background-color: $white; 
+        background-color: $white;
         border-color:$secondary;
         cursor:default;
     }
@@ -564,7 +561,7 @@ Buttons
 .btn-secondary.focus,
 .btn-secondary:focus,
 .show>.btn-secondary.dropdown-toggle{
-    
+
     color: $white;
 }
 
@@ -679,7 +676,7 @@ Buttons
 
 
 
-/*============================================================== 
+/*==============================================================
  Buttons page
  ============================================================== */
 

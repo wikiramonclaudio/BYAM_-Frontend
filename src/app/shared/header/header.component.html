@@ -4,12 +4,11 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark"
             href="javascript:void(0)"><span class="ti-menu"></span></a> </li>
-        <li class="nav-item"> <a class="nav-link  hidden-sm-down waves-effect waves-dark"
-            href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+        <li class="nav-item"> <a class="nav-link sidebartoggler hidden-sm-down waves-effect waves-dark" href="javascript:void(0)"><i
+              class="ti-menu"></i></a> </li>
         <li class="nav-item hidden-sm-down"></li>
       </ul>
       <ul class="navbar-nav my-lg-0">
-        <!-- ============================================================== -->
         <!-- Search -->
         <!-- ============================================================== -->
         <!-- <li class="nav-item hidden-xs-down search-box"> <a class="nav-link hidden-sm-down waves-effect waves-dark"
@@ -21,17 +20,17 @@
         </li> -->
 
         <li class="nav-item dropdown">
-            <!-- <span class="badge badge-pill badge-warning" style="font-size: 16px; padding: 8px; line-height: 20px; position: relative;">
+          <!-- <span class="badge badge-pill badge-warning" style="font-size: 16px; padding: 8px; line-height: 20px; position: relative;">
                 3
                 <i class="fa fa-bell"></i>
               </span> -->
-    
+
           <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             <span class="badge badge-pill badge-primary">{{userService.user.money}}€</span>
             <img [src]="userService.user.image | image" [alt]="user.name" alt="user" class="profile-pic" />
           </a>
-          
+
           <div class="dropdown-menu dropdown-menu-right animated flipInY">
             <ul class="dropdown-user">
               <li>
@@ -42,14 +41,15 @@
                   <div class="u-text">
                     <h4>{{ userService.user.name }}</h4>
                     <p class="text-muted">{{userService.user.email}}</p>
-                    <a routerLink="/profile" class="btn btn-rounded btn-danger btn-sm">{{translate.instant('main.see_profile')}}</a>                   
+                    <a routerLink="/profile"
+                      class="btn-primary btn">{{translate.instant('main.see_profile')}}</a>
                   </div>
                 </div>
               </li>
               <li role="separator" class="divider"></li>
               <li>
-                <div class="d-flex mt-2 ml-3">
-                  <a href="javascript:void(0)" class="p-0" style="cursor:pointer;" (click)="changeLanguage('es')"> 
+                <div class="d-flex justify-content-center">
+                  <a href="javascript:void(0)" class="p-0" style="cursor:pointer;" (click)="changeLanguage('es')">
                     <img src="./assets/images/espana.svg" width="30" alt="">
                   </a>
                   <a href="javascript:void(0)" class="p-0 ml-3" style="cursor:pointer;" (click)="changeLanguage('en')">
@@ -58,14 +58,17 @@
                 </div>
               </li>
               <li role="separator" class="divider"></li>
-              <li><a routerLink="/profile"><i class="ti-user mr-1"></i>{{translate.instant('main.see_profile')}}</a></li>
+              <li><a routerLink="/profile"><i class="ti-user mr-1"></i>{{translate.instant('main.see_profile')}}</a>
+              </li>
               <!-- <li><a href="#"><i class="ti-email"></i> {{translate.instant(menu.messages)}}</a></li> -->
               <li role="separator" class="divider"></li>
-              <li><a routerLink="/settings"><i class="ti-settings mr-1"></i> {{translate.instant('main.settings')}}</a></li>
+              <li><a routerLink="/settings"><i class="ti-settings mr-1"></i> {{translate.instant('main.settings')}}</a>
+              </li>
               <li role="separator" class="divider"></li>
-              <li><a routerLink="/chat" class="pointer"><i class="fa fa-phone mr-1"></i> Conversaciones</a></li>
+              <li><a routerLink="/chat" class="pointer"><i class="fa fa-comments mr-1"></i> Chat</a></li>
               <li role="separator" class="divider"></li>
-              <li><a (click)="userService.logout()" class="pointer"><i class="fa fa-power-off mr-1"></i> {{translate.instant('main.exit')}}</a></li>
+              <li><a (click)="userService.logout()" class="pointer"><i class="fa fa-power-off mr-1"></i>
+                  {{translate.instant('main.exit')}}</a></li>
             </ul>
           </div>
         </li>

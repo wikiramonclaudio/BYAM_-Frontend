@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 declare function initPlugins();
 @Component({
@@ -12,6 +13,10 @@ export class PagesComponent implements OnInit {
 
   ngOnInit() {
     initPlugins();
+  }
+
+  prepareRoute(outlet: RouterOutlet) {
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
 
 }
