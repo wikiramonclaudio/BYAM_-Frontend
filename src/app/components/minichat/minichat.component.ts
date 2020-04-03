@@ -77,7 +77,7 @@ export class MinichatComponent implements OnInit {
         })
           .then((willDelete) => {
             if (willDelete) {
-              let newRoom = {
+              const newRoom = {
                 user1: res.emiter._id,
                 user2: res.receiver._id,
                 lastcontent: 'Empecemos a hablar!'
@@ -107,7 +107,7 @@ export class MinichatComponent implements OnInit {
     this.websocketService.listen('privateChatMessage', {}).subscribe(
       (res: any) => {
         if (res.type && res.type == 'call') {
-          let msg: any = {
+          const msg: any = {
             owner: res.emiter,
             content: res.message,
             callDomain: res.callDomain,
@@ -139,7 +139,7 @@ export class MinichatComponent implements OnInit {
       (res: any) => {
         if (res.tableId == 'general' && res.onlineUsers) {
           this.users.forEach((user) => {
-            let userConnected = res.onlineUsers.find((el) => {
+            const userConnected = res.onlineUsers.find((el) => {
               return el.userId == user._id;
             });
             if (userConnected) {
@@ -157,7 +157,7 @@ export class MinichatComponent implements OnInit {
         if (res.user._id != this.userService.user._id && res.tableId == 'general') {
           this.users.forEach((user) => {
             user.connected = false;
-            let userConnected = res.onlineUsers.find((el) => {
+            const userConnected = res.onlineUsers.find((el) => {
               return el.userId == user._id;
             });
             if (userConnected && (userConnected._id != this.userService.user._id)) {
@@ -172,11 +172,14 @@ export class MinichatComponent implements OnInit {
     this.websocketService.listen('privateChatAlert', {}).subscribe(
       (res: any) => {
         if (res.emiter._id != this.selectedUser._id) {
-          let emiter = this.users.find((user) => {
+          const emiter = this.users.find((user) => {
             return res.emiter._id == user._id;
           });
           emiter.lastcontent = res.message;
           emiter.alerting = true;
+          if(!this.chatVisible){
+            $('#prime').addClass('alert-msg-button');
+          }
         }
       }
     );
@@ -197,7 +200,7 @@ export class MinichatComponent implements OnInit {
     );
   }
 
-  switchUserChat(user: any, index: any) {
+  switchUserChat(user: any) {
     this.hideChat(1);
     // this.websocketService.emit('leaveTable', { tableId: this.activeTable, user: this.userService.user });
     this.selectedUser = user;
@@ -258,7 +261,7 @@ export class MinichatComponent implements OnInit {
   }
 
   sendMessage() {
-    let msg = new Message(this.userService.user._id, this.activeTable, this.msg);
+    const msg = new Message(this.userService.user._id, this.activeTable, this.msg);
     if (this.msg.length > 0) {
       // enviar mensaje al servidor
       this.messageService.createMessage(msg).subscribe(
@@ -277,12 +280,12 @@ export class MinichatComponent implements OnInit {
   }
 
   sendCall() {
-    let msg = new Message(this.userService.user._id, this.activeTable, '123call');
+    const msg = new Message(this.userService.user._id, this.activeTable, '123call');
     // enviar mensaje al servidor
     this.messageService.createMessage(msg).subscribe(
       res => {
-        let domain = 'byam.cleverapps.io';
-        let options = {
+        const domain = 'byam.cleverapps.io';
+        const options = {
           roomName: this.userService.user._id + this.selectedUser._id,
           width: '80%',
           height: '80%',
@@ -384,6 +387,9 @@ export class MinichatComponent implements OnInit {
     $('.chat').toggleClass('is-visible');
     $('.fab').toggleClass('is-visible');
     this.chatVisible = !this.chatVisible;
+    if (this.chatVisible) {
+      $('#prime').removeClass('alert-msg-button');
+    }
   }
 
   // get full screen mode to chat window
@@ -401,7 +407,7 @@ export class MinichatComponent implements OnInit {
 
   // put scroll down to converse
   scrolDown() {
-    let chatPanel = document.querySelector('#chat_converse');
+    const chatPanel = document.querySelector('#chat_converse');
     chatPanel.scrollTop = chatPanel.scrollHeight;
     if ((window.innerWidth <= 768)) {
       window.scrollTo(0, document.body.scrollHeight);

@@ -29,7 +29,7 @@ ul li {
   position: relative;
   z-index: 998;
   overflow: hidden;
-  background: #42a5f5;
+  /* background: #42a5f5; */
 }
 
 .fab>i {
@@ -354,12 +354,12 @@ a {
 
 #fab_camera {
   float: left;
-  background: rgba(0, 0, 0, 0);
+  /* background: rgba(0, 0, 0, 0); */
 }
 
 #fab_send {
   float: right;
-  background: rgba(0, 0, 0, 0);
+  /* background: rgba(0, 0, 0, 0); */
 }
 
 .fab_field .fab {
@@ -372,11 +372,11 @@ a {
 .fab_field .fab>i {
   font-size: 1.6em;
   line-height: 35px;
-  color: #bbb;
+  /* color: #bbb; */
 }
 
 .fab_field .fab>i:hover {
-  color: #42a5f5;
+  color: #242A33;
 }
 
 .chat_conversion {}
@@ -384,7 +384,7 @@ a {
 .chat_converse {
   position: relative;
   background: #fff;
-  margin: 6px 0 0px 0;
+  /* margin: 6px 0 0px 0; */
   height: 300px;
   min-height: 0;
   font-size: 12px;
@@ -709,7 +709,7 @@ strong.chat_time {
   }
 
   .chat_field {
-    width: 65%;
+    /* width: 65%; */
   }
 }
 
@@ -721,7 +721,7 @@ strong.chat_time {
   }
 
   .chat_field {
-    width: 65%;
+    /* width: 65%; */
   }
 }
 
@@ -733,7 +733,7 @@ strong.chat_time {
   }
 
   .chat_field {
-    width: 65%;
+    /* width: 65%; */
   }
 }
 
@@ -829,3 +829,16 @@ strong.chat_time {
   background-color: #f4f6f9;
 }
 
+.alert-msg-button {
+  animation: pulse 1s infinite;
+  animation-iteration-count: infinite;
+}
+
+@keyframes pulse {
+  0% {
+    border:2px solid white;
+  }
+  100% {
+    border:2px solid rgb(25, 182, 64);
+  }
+}
