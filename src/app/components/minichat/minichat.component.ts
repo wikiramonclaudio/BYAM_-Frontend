@@ -106,21 +106,22 @@ export class MinichatComponent implements OnInit {
   subscribeToEvents() {
     this.websocketService.listen('privateChatMessage', {}).subscribe(
       (res: any) => {
+        var mensaje: any = {};
         if (res.type && res.type == 'call') {
-          const msg: any = {
+          mensaje = {
             owner: res.emiter,
             content: res.message,
             callDomain: res.callDomain,
             callOptions: res.callOptions
           };
         } else {
-          var msg: any = {
+          mensaje = {
             owner: res.emiter,
             content: res.message
           };
         }
-        if ((msg.owner._id == this.selectedUser._id) || msg.owner._id == this.userService.user._id) {
-          this.messages.push(msg);
+        if ((mensaje.owner._id == this.selectedUser._id) || mensaje.owner._id == this.userService.user._id) {
+          this.messages.push(mensaje);
           this.msg = '';
         }
         setTimeout(() => {

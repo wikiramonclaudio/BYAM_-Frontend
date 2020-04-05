@@ -8,7 +8,7 @@
         <span id="chat_head">{{selectedUser.name}}</span>
         <br>
         <!-- <span class="agent">Agent</span> -->
-        <span *ngIf="selectedUser.connected"  class="online">(Online)</span>
+        <span *ngIf="selectedUser.connected" class="online">(Online)</span>
         <span id="chat_fullscreen_loader" (click)="getFullScreenMode()" class="chat_fullscreen_loader"><i
             class="fullscreen zmdi zmdi-window-maximize"></i></span>
       </div>
@@ -24,33 +24,42 @@
             <span class="text-themecolor pl-2">{{user.name}}</span>
             <i class="fa fa-circle ml-2" style="color:#34c15c" *ngIf="user.connected == true"></i>
             <p class="text-muted private-msg-alert m-0 ml-3 p-0" [title]="user.lastcontent" style="font-size: 12px;"
-            [ngClass]="{'text-success': user.alerting}">{{user.lastcontent}}</p>
+              [ngClass]="{'text-success': user.alerting}">{{user.lastcontent}}</p>
           </li>
         </ul>
       </div>
     </div>
     <div id="chat_converse" class="chat_conversion chat_converse">
-      <a id="chat_second_screen" class="fab bg-theme"><i class="zmdi zmdi-arrow-left text-themecolor" (click)="hideChat(0)"></i></a>
-      <span class="chat_msg_item chat_msg_item_admin" *ngFor="let message of messages"
+      <a id="chat_second_screen" class="fab bg-theme"><i class="zmdi zmdi-arrow-left text-themecolor"
+          (click)="hideChat(0)"></i></a>
+      <div class="chat_msg_item chat_msg_item_admin" *ngFor="let message of messages"
         [ngClass]="{'chat_msg_item_user': userService.user._id == message.owner._id}">
         <div class="chat_avatar" *ngIf="userService.user._id != message.owner._id">
           <img *ngIf="userService.user._id != message.owner._id" [src]="message.owner.image | image" />
         </div>
-        {{message.content}}
-      </span>
-    </div>
-    <div class="fab_field d-flex- align-items-center">
-      <!-- <i id="chat_second_screen" class="fab bg-theme"><i class="zmdi zmdi-arrow-left" (click)="hideChat(0)"></i></a> -->
-      <a class="fab bg-theme" style="float:left" (click)="sendCall()"><i class="zmdi zmdi-comment-video" ></i></a>
-      <textarea id="chatSend" name="chat_message" placeholder="Send a message" class="chat_field chat_message"
-        (keyup.enter)="sendMessage()" [(ngModel)]="msg"></textarea>
-      <a id="fab_send" class="fab bg-theme" (click)="sendMessage()"><i class="zmdi zmdi-mail-send"></i></a>
-      <a id="fab_camera" class="fab bg-theme" *ngIf="selectedUser._id != userService.user._id" >
-        <i class="zmdi zmdi-arrow-left " [hidden]="selectedUser._id == userService.user._id"
-        (click)="hideChat(0)"></i>
-      </a>
-    </div>
+        <span *ngIf="message.content != '123call'" >{{message.content}}</span>
+        <div *ngIf=" message.content=='123call'" class="">
+          <div class="chat-bubble"
+            [ngClass]="{'chat-bubble--left': userService.user._id != message.owner._id, 'chat-bubble--right text-white': userService.user._id == message.owner._id}">
+            <a href="javascript:void(0);" [routerLink]="['/meet', message.callOptions]"
+              routerLinkActive="router-link-active" target="_blank">
+              <i class="fa fa-video-camera mr-2"></i>
+              <span>{{translate.instant('chat.video_call')}}</span>
+            </a>
+          </div>
+        </div>
+      </div>
   </div>
-  <a id="prime" (click)="toggleFab()" class="fab bg-theme text-white"><i
-      class="prime zmdi zmdi-comment-outline"></i></a>
+  <div class="fab_field d-flex- align-items-center">
+    <!-- <i id="chat_second_screen" class="fab bg-theme"><i class="zmdi zmdi-arrow-left" (click)="hideChat(0)"></i></a> -->
+    <a class="fab bg-theme" style="float:left" (click)="sendCall()"><i class="zmdi zmdi-comment-video"></i></a>
+    <textarea id="chatSend" name="chat_message" placeholder="Send a message" class="chat_field chat_message"
+      (keyup.enter)="sendMessage()" [(ngModel)]="msg"></textarea>
+    <a id="fab_send" class="fab bg-theme" (click)="sendMessage()"><i class="zmdi zmdi-mail-send"></i></a>
+    <a id="fab_camera" class="fab bg-theme" *ngIf="selectedUser._id != userService.user._id">
+      <i class="zmdi zmdi-arrow-left " [hidden]="selectedUser._id == userService.user._id" (click)="hideChat(0)"></i>
+    </a>
+  </div>
+</div>
+<a id="prime" (click)="toggleFab()" class="fab bg-theme text-white"><i class="prime zmdi zmdi-comment-outline"></i></a>
 </div>

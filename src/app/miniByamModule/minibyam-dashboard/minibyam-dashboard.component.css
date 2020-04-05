@@ -1,0 +1,17 @@
+.game-option-item{
+  margin-top: 20px;
+}
+
+.item-card{
+  border-radius: 50%;
+    background-color: transparent;
+    border: 3px solid rgba(255, 255, 255, 0.87);
+    box-shadow: 5px 5px 20px white;
+}
+
+.card-body{
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+}

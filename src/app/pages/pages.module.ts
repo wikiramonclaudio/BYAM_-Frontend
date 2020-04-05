@@ -1,6 +1,10 @@
 import { NgModule } from "@angular/core";
-import { SharedModule } from "../shared/shared.module";
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from "@angular/common";
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+import { HttpClient } from '@angular/common/http';
+import { SharedModule } from "../shared/shared.module";
 
 //module routes
 import { PAGES_ROUTES } from './pages.routes';
@@ -13,11 +17,10 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PipesModule } from "../pipes/pipes.module";
 import { ProfileComponent } from './profile/profile.component';
-import { CommonModule } from "@angular/common";
 import { UsersComponent } from './users/users.component';
 // import { UploadWindowComponent } from '../components/upload-window/upload-window.component';
 import { SearchComponent } from './search/search.component';
-import { ChatComponent } from '../components/chat/chat.component';
+// import { ChatComponent } from '../components/chat/chat.component';
 import { TableComponent } from './table/table/table.component';
 import { CreateTableComponent } from './create-table/create-table.component';
 import { CreateMatchComponent } from './table/create-match/create-match.component';
@@ -31,12 +34,10 @@ import { RankingComponent } from './ranking/ranking/ranking.component';
 import { PcComponent } from './../components/pc/pc/pc.component';
 
 // dates format
-import { registerLocaleData } from '@angular/common';
-import localeEs from '@angular/common/locales/es';
+
 import { InviteComponent } from './invite/invite/invite.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient } from '@angular/common/http';
 
 // ...other imports
 // import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
@@ -65,7 +66,7 @@ registerLocaleData(localeEs);
         ProfileComponent,
         UsersComponent,
         SearchComponent,
-        ChatComponent,
+        // ChatComponent,
         TableComponent,
         CreateTableComponent,
         CreateMatchComponent,
@@ -77,8 +78,7 @@ registerLocaleData(localeEs);
         NotificationsComponent,
         RankingComponent,
         InviteComponent,
-        PcComponent,
-        CalendarComponent
+        PcComponent
     ],
     exports: [
         DashboardComponent

@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-12">
     <div class="card">
-      <div class="card-body">
+      <div class="card-body animated slideInDown">
         <h4 class="card-title">{{translate.instant('main.themes')}}</h4>
         <hr>
         <div class="r-panel-body">
@@ -13,7 +13,7 @@
               <li><a #link3 (click)="changeColor('blue', link3)" data-theme="blue" class="selector blue-theme">4</a></li>
               <li><a #link4 (click)="changeColor('purple', link4)" data-theme="purple" class="selector purple-theme">5</a></li>
               <li><a #link5 (click)="changeColor('megna', link5)" data-theme="megna" class="selector megna-theme">6</a></li>
-              
+
               <li class="d-block m-t-30"><b>{{translate.instant('main.dark_sidebar')}}</b></li>
               <li><a #link6 (click)="changeColor('default-dark', link6)" data-theme="default-dark" class="selector default-dark-theme">7</a></li>
               <li><a #link7 (click)="changeColor('green-dark', link7)" data-theme="green-dark" class="selector green-dark-theme">8</a></li>
@@ -27,16 +27,16 @@
     </div>
   </div>
   <div class="col-12">
-    <div class="card">
+    <div class="card animated slideInUp">
       <div class="card-body">
         <h4 class="card-title">{{translate.instant('main.language')}}</h4>
         <hr>
         <div class="r-panel-body">
           <ul id="themecolors" class="m-t-20">
-              <li><b>{{translate.instant('main.choose_language')}}</b></li>          
+              <li><b>{{translate.instant('main.choose_language')}}</b></li>
               <li>
                 <div class="d-flex mt-2 ml-3">
-                  <a href="javascript:void(0)" class="p-0" style="cursor:pointer;" (click)="changeLanguage('es')"> 
+                  <a href="javascript:void(0)" class="p-0" style="cursor:pointer;" (click)="changeLanguage('es')">
                     <img src="./assets/images/espana.svg" width="30" alt="">
                   </a>
                   <a href="javascript:void(0)" class="p-0 ml-3" style="cursor:pointer;" (click)="changeLanguage('en')">

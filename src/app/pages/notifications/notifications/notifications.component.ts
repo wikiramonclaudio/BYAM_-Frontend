@@ -4,7 +4,6 @@ import { UserService } from 'src/app/services/service.index';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import swal from 'sweetalert';
 
-
 import { jqxKanbanComponent } from 'jqwidgets-ng/jqxkanban';
 
 @Component({
@@ -13,11 +12,16 @@ import { jqxKanbanComponent } from 'jqwidgets-ng/jqxkanban';
   styleUrls: ['./notifications.component.css']
 })
 export class NotificationsComponent implements OnInit {
+  constructor(
+    public userService: UserService,
+    // private notificationService: NotificationService
+  ) { }
 
   notification: NotificationCard = new NotificationCard(false, '', '');
   notifications: NotificationCard[] = [];
   users: any[] = [];
   userValues = [];
+  display = false;
 
   @ViewChild('myKanbanOne', { static: false }) myKanbanOne: jqxKanbanComponent;
   @ViewChild('myKanbanTwo', { static: false }) myKanbanTwo: jqxKanbanComponent;
@@ -30,15 +34,6 @@ export class NotificationsComponent implements OnInit {
       { name: 'color', map: 'hex', type: 'string' },
       { name: 'resourceId', type: 'number' }
     ];
-
-
-  getWidth(): any {
-    if (document.body.offsetWidth < 850) {
-      return '90%';
-    }
-    return '100%';
-    // return 850;
-  }
 
   source: any =
     {
@@ -80,6 +75,31 @@ export class NotificationsComponent implements OnInit {
       dataFields: this.fields
     };
   dataAdapter3: any = new jqx.dataAdapter(this.source3);
+  kanbanOneColumns: any[] =
+    [
+      { text: 'Backlog', dataField: 'new', maxItems: 10 }
+    ];
+  kanbanTwoColumns: any[] =
+    [
+      { text: 'Ready', dataField: 'ready', maxItems: 10 }
+    ];
+  kanbanThreeColumns: any[] =
+    [
+      { text: 'Backlog', dataField: 'new', maxItems: 5 },
+      { text: 'In Progress', dataField: 'work', maxItems: 5 },
+      { text: 'Done', dataField: 'done', maxItems: 5 }
+    ];
+  mainSplitterPanels: any[] = [{ size: 250, min: 100 }, { min: 250 }];
+  rightSplitterPanels: any[] = [{ min: 200, size: 350, collapsible: false }, { min: 200 }];
+
+
+  getWidth(): any {
+    if (document.body.offsetWidth < 850) {
+      return '90%';
+    }
+    return '100%';
+    // return 850;
+  }
   resourcesAdapterFunc = (): any => {
     let resourcesSource =
     {
@@ -108,10 +128,6 @@ export class NotificationsComponent implements OnInit {
     let resourcesDataAdapter = new jqx.dataAdapter(resourcesSource);
     return resourcesDataAdapter;
   }
-  kanbanOneColumns: any[] =
-    [
-      { text: 'Backlog', dataField: 'new', maxItems: 10 }
-    ];
   kanbanOneColumnRenderer: any = (element: any, collapsedElement: any, column: any): void => {
     if (this.myKanbanOne && element[0]) {
       let headerStatus = element[0].getElementsByClassName('jqx-kanban-column-header-status')[0];
@@ -119,10 +135,6 @@ export class NotificationsComponent implements OnInit {
       headerStatus.innerHTML = ' (' + columnItems + '/' + column.maxItems + ')';
     }
   }
-  kanbanTwoColumns: any[] =
-    [
-      { text: 'Ready', dataField: 'ready', maxItems: 10 }
-    ];
   kanbanTwoColumnRenderer: any = (element: any, collapsedElement: any, column: any): void => {
     if (this.myKanbanTwo && element[0]) {
       let headerStatus = element[0].getElementsByClassName('jqx-kanban-column-header-status')[0];
@@ -130,12 +142,6 @@ export class NotificationsComponent implements OnInit {
       headerStatus.innerHTML = ' (' + columnItems + '/' + column.maxItems + ')';
     }
   }
-  kanbanThreeColumns: any[] =
-    [
-      { text: 'Backlog', dataField: 'new', maxItems: 5 },
-      { text: 'In Progress', dataField: 'work', maxItems: 5 },
-      { text: 'Done', dataField: 'done', maxItems: 5 }
-    ];
   kanbanThreeColumnRenderer: any = (element: any, collapsedElement: any, column: any): void => {
     if (this.myKanbanThree && element[0]) {
       let columnItems = this.myKanbanThree.getColumnItems(column.dataField).length;
@@ -145,43 +151,37 @@ export class NotificationsComponent implements OnInit {
       collapsedHeaderStatus.innerHTML = ' (' + columnItems + '/' + column.maxItems + ')';
     }
   }
-  mainSplitterPanels: any[] = [{ size: 250, min: 100 }, { min: 250 }];
-  rightSplitterPanels: any[] = [{ min: 200, size: 350, collapsible: false }, { min: 200 }];
-  constructor(
-    public userService: UserService,
-    private notificationService: NotificationService
-  ) { }
 
   ngOnInit() {
-    this.userService.getUsers(0).subscribe(
-      res => {
-        this.users = res.users;
-        this.getNotifications();
-        for (let index = 0; index < this.users.length; index++) {
-          const element = this.users[index];
-          this.userValues[index] = this.users[0]._id;
-        };
-      }
-    )
+    // this.userService.getUsers(0).subscribe(
+    //   res => {
+    //     this.users = res.users;
+    //     this.getNotifications();
+    //     for (let index = 0; index < this.users.length; index++) {
+    //       const element = this.users[index];
+    //       this.userValues[index] = this.users[0]._id;
+    //     };
+    //   }
+    // )
   }
 
-  createNotification() {
-    console.log(this.notification);
-    this.notification.emiter = this.userService.user._id;
-    this.notificationService.createNotification(this.notification).subscribe(
-      res => {
-        console.log('Notificacion enviada', res);
-        // swal("Notificacion enviada correctamente", " ", "success");
-      }
-    )
-  }
+  // createNotification() {
+  //   console.log(this.notification);
+  //   this.notification.emiter = this.userService.user._id;
+  //   this.notificationService.createNotification(this.notification).subscribe(
+  //     res => {
+  //       console.log('Notificacion enviada', res);
+  //       // swal("Notificacion enviada correctamente", " ", "success");
+  //     }
+  //   )
+  // }
 
-  getNotifications() {
-    this.notificationService.getNotifications(this.userService.user._id).subscribe(
-      res => {
-        this.notifications = res.notifications;
-      }
-    )
-  }
+  // getNotifications() {
+  //   this.notificationService.getNotifications(this.userService.user._id).subscribe(
+  //     res => {
+  //       this.notifications = res.notifications;
+  //     }
+  //   )
+  // }
 
 }

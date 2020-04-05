@@ -29,7 +29,6 @@ import { TranslationComponent } from './translation/translation.component';
 import { MinichatComponent } from './components/minichat/minichat.component';
 import { PipesModule } from './pipes/pipes.module';
 // import { PcComponent } from './components/pc/pc/pc.component';
-
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);

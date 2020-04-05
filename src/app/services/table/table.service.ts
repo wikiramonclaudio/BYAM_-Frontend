@@ -18,66 +18,66 @@ export class TableService {
     public uploadService: UploadFileService
   ) { }
 
-  getTables(filters: any): Observable<any>{
-    let params = JSON.stringify(filters);
-    let url = URL_SERVICES + '/table';    
+  getTables(filters: any, from: any): Observable<any> {
+    const params = JSON.stringify(filters);
+    const url = URL_SERVICES + '/table?from=' + from;
     return this._http.get(url);
   }
 
-  getArchivedTables(filters: any): Observable<any>{
-    let params = JSON.stringify(filters);
-    let url = URL_SERVICES + '/table/archived';    
+  getArchivedTables(filters: any): Observable<any> {
+    const params = JSON.stringify(filters);
+    const url = URL_SERVICES + '/table/archived';
     return this._http.get(url);
   }
 
-  getTable(id: string): Observable<any>{
-    let url = URL_SERVICES + '/table/' + id;    
+  getTable(id: string): Observable<any> {
+    const url = URL_SERVICES + '/table/' + id;
     return this._http.get(url);
   }
 
-  deleteTable(id: string, token: string){
-    //PONER EL TOKEN
-    let url = URL_SERVICES + /table/ + id + '?token=' + localStorage.getItem('token');
+  deleteTable(id: string, token: string) {
+    // PONER EL TOKEN
+    const url = URL_SERVICES + /table/ + id + '?token=' + localStorage.getItem('token');
     return this._http.delete(url);
   }
 
   createTable(table: any) {
-    let params = JSON.stringify(table);
-    let url = URL_SERVICES + '/table'+ '?token=' + localStorage.getItem('token');    
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const params = JSON.stringify(table);
+    const url = URL_SERVICES + '/table' + '?token=' + localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.post(url, params, { headers: headers })
-    .map((res: any)=>{      
+    .map((res: any) => {
       return res.table;
     });
   }
 
-  searchTable(term: string){
-    let url = URL_SERVICES + '/search/collection/table/' + term;
+  searchTable(term: string) {
+    const url = URL_SERVICES + '/search/collection/table/' + term;
     return this._http.get(url).map(
-      (response: any)=>{        
+      (response: any) => {
         console.log(response);
         return response.table;
       }
-    )
+    );
   }
 
-  updateTable(table: any){
-    let params = JSON.stringify(table);
-    let url = URL_SERVICES + '/table/' + table._id;  
-    //revisar token
-    url += '?token=' + localStorage.getItem('token'); 
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this._http.put(url, table, { headers: headers });    
+  updateTable(table: any) {
+    const params = JSON.stringify(table);
+    let url = URL_SERVICES + '/table/' + table._id;
+    // revisar token
+    url += '?token=' + localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.put(url, table, { headers: headers });
   }
 
-  setTableWinner(table: any){
+  setTableWinner(table: any) {
     console.log('TABLE ENVIADA', table);
-    let params = JSON.stringify(table);
-    let url = URL_SERVICES + '/table/set-winner/' + table._id;  
-    //revisar token
-    url += '?token=' + localStorage.getItem('token'); 
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this._http.put(url, table, { headers: headers });    
+    const params = JSON.stringify(table);
+    let url = URL_SERVICES + '/table/set-winner/' + table._id;
+    // revisar token
+    url += '?token=' + localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.put(url, table, { headers: headers });
   }
 
 }

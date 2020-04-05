@@ -16,7 +16,7 @@ import { SearchComponent } from './search/search.component';
 import { TableComponent } from './table/table/table.component';
 import { CreateTableComponent } from './create-table/create-table.component';
 import { RankingComponent } from './ranking/ranking/ranking.component';
-import { ChatComponent } from '../components/chat/chat.component';
+// import { ChatComponent } from '../components/chat/chat.component';
 
 const pagesRoutes: Routes = [
     // {
@@ -45,8 +45,6 @@ const pagesRoutes: Routes = [
              { path : 'table/:id', component : TableComponent, data: { title: 'main.game_table', animation : 'Table' }},
              { path : 'invite', component : InviteComponent, data: { title: 'main.invite_friends'}},
              { path : '', redirectTo : '/dashboard', pathMatch : 'full', data: { title: 'main.main'}},
-
-             { path : 'chat', component : ChatComponent, data: { title: 'Chat'}},
              { path : 'calendar', component : CalendarComponent, data: { title: 'Calendar'}}
     //     ]
 

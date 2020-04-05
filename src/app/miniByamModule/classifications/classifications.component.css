@@ -1,0 +1,8 @@
+
+.ui-table-wrapper table, th, td{
+  background-color: rgb(92,99,122)!important;
+  color:white!important;
+  border-radius: 10px;
+  border:none!important;
+}
+

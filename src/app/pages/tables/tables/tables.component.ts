@@ -36,6 +36,7 @@ export class TablesComponent implements OnInit {
   initTables: Table[] = [];
   translate: TranslateService;
   searchFilter = '';
+  currentPage = 0;
   constructor(
     private tableService: TableService,
     private userService: UserService,
@@ -50,7 +51,7 @@ export class TablesComponent implements OnInit {
 
   // get all tables
   getTables() {
-    this.tableService.getTables({ published: false }).subscribe(
+    this.tableService.getTables({ published: false }, this.currentPage).subscribe(
       res => {
         this.initTables = res.tables;
         this.tables = res.tables;

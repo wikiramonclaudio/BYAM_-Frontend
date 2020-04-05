@@ -1,0 +1,42 @@
+
+<div class="container animated fadeIn ">
+  <div class="row">
+    <!-- <div class="col-sm-12">
+      <h2 class="text-center text-white" style="text-shadow:5px 5px 5px grey;">Formación</h2>
+    </div> -->
+    <div class="col-sm-12 text-center center-block mt-3">
+      <p-dropdown [options]="tactics" [(ngModel)]="tactic" name="tactic" (onChange)="changeTactic()"></p-dropdown>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-sm-12">
+      <p-pickList [source]="titulares" [target]="reservas" [responsive]="true" [dragdrop]="true" sourceHeader="Titulares"
+        targetHeader="Banquillo" (onMoveToTarget)="checkTitulares()"
+        (onMoveToSource)="checkTitulares()">
+        <ng-template let-player let-index pTemplate="item">
+          <div class="ui-helper-clearfix">
+            <a class="d-flex align-items-center justify-content-center">
+              <span class="badge mr-2 badge-primary"  >
+                <!-- [ngClass]="{'badge-primary': player.pos == 'Med', 'badge-warning': player.pos == 'Def', 'badget-secondary' : player.pos =='Del', 'badget-danger' : player.pos =='Por', 'badget-success' : player.pos =='Del'} " -->
+                {{player.pos}}
+              </span>
+              <span>{{player.name}}</span>
+              <span class="badge ml-2" [ngClass]="{'badge-success' : player.average > 67, 'badge-warning' : player.average > 59 && player.average < 68, 'badge-danger' : player.average < 60 }" >{{player.average}}</span>
+            </a>
+          </div>
+        </ng-template>
+      </p-pickList>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-sm-12">
+      <div class="d-flex justify-content-center align-items-center" *ngIf="!halfTime">
+        <a class="btn btn-rounded btn-secondary" [routerLink]="['/minibyam/minibyam-dashboard']">Volver</a>
+        <button class="btn btn-rounded btn-primary ml-2" (click)="playGame()">Jugar Partido</button>
+      </div>
+      <!-- <div class="d-flex justify-content-center align-items-center" *ngIf="halfTime">
+        <button class="btn btn-rounded btn-primary ml-2">Continuar</button>
+      </div> -->
+    </div>
+  </div>
+</div>

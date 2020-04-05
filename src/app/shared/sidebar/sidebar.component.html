@@ -9,7 +9,7 @@
           </a>
           <ul aria-expanded="false" class="collapse">
             <li><a routerLinkActive="active" routerLink="/profile">{{translate.instant('main.see_profile')}}</a></li>
-            <li><a [routerLink]="[ '/chat' ]" href="javascript:void()">{{translate.instant('main.messages')}}</a></li>
+            <!-- <li><a [routerLink]="[ '/chat' ]" href="javascript:void()">{{translate.instant('main.messages')}}</a></li> -->
             <li><a [routerLink]="[ '/settings' ]">{{translate.instant('main.settings')}}</a></li>
             <li><a (click)="userService.logout()" class="pointer">{{translate.instant('main.exit')}}</a></li>
           </ul>

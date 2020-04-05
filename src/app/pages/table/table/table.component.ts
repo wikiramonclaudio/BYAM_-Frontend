@@ -188,8 +188,7 @@ export class TableComponent implements OnInit, OnDestroy {
         } else {
           if (!this.table.closed) {
             this.getFullMatchesByTable(this.table._id);
-          }
-          else {
+          } else {
             this.getBetsByTable(this.tableSubscriptions[0].player, this.tableSubscriptions[0].player._id);
           }
         }
@@ -222,13 +221,12 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   checkSubscription() {
-    let subscribed = this.tableSubscriptions.find((sub) => {
+    const subscribed = this.tableSubscriptions.find((sub) => {
       return sub.player._id == this.userService.user._id;
     });
     if (subscribed && subscribed != null) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }
@@ -240,7 +238,7 @@ export class TableComponent implements OnInit, OnDestroy {
         this.tiebreakMatch = this.matchTypeRelations.find((el) => {
           return el.tiebreak == true;
         });
-        let finished = res.matchTypeRelation.filter((match) => {
+        const finished = res.matchTypeRelation.filter((match) => {
           return match.winnerchoice != null && match.winnerchoice != undefined;
         });
         this.checkAllFinished(this.matchTypeRelations);
@@ -281,7 +279,7 @@ export class TableComponent implements OnInit, OnDestroy {
       swal(this.translate.instant('table.alert_selection_title'), this.translate.instant('table.alert_selection_text'), 'error');
     } else {
       const newForecast = new Forecast(matchByTable.match._id, matchByTable.bettype._id, optionId, '');
-      let exists = this.forecasts.filter((el) => {
+      const exists = this.forecasts.filter((el) => {
         return matchByTable.match._id == el.match;
       }).length;
       if (exists == 0) {
@@ -301,7 +299,7 @@ export class TableComponent implements OnInit, OnDestroy {
 
   countDown(array?: any) {
 
-    let arrayFechas: any[] = [];
+    const arrayFechas: any[] = [];
     if (array) {
       array.forEach((element: any) => {
         arrayFechas.push(element.match.when);
@@ -312,26 +310,26 @@ export class TableComponent implements OnInit, OnDestroy {
       arrayFechas.push(element.match.when);
     });
 
-    let earliest = arrayFechas.reduce(function (pre, cur) {
+    const earliest = arrayFechas.reduce(function (pre, cur) {
       return Date.parse(pre) > Date.parse(cur) ? cur : pre;
     });
 
     // var latest = arrayFechas.reduce((m,v,i) => (v.ModDate > m.ModDate) && i ? v : m).ModDate;
 
     if (this.table.closed == false) {
-      let x = setInterval(() => {
-        let deadline: any = new Date(earliest).getTime();
+      const x = setInterval(() => {
+        const deadline: any = new Date(earliest).getTime();
         // console.log( new Date().getTimezoneOffset());
         // console.log(deadline + new Date().getTimezoneOffset());
-        let now = new Date().getTime();
+        const now = new Date().getTime();
         // console.log('now', now);
         // console.log(now + new Date().getTimezoneOffset());
-        let t = deadline - now;
-        let days: any = Math.floor(t / (1000 * 60 * 60 * 24));
-        let hours: any = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const t = deadline - now;
+        const days: any = Math.floor(t / (1000 * 60 * 60 * 24));
+        const hours: any = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         // hours -= 1;
-        let minutes: any = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
-        let seconds: any = Math.floor((t % (1000 * 60)) / 1000);
+        const minutes: any = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds: any = Math.floor((t % (1000 * 60)) / 1000);
         if (!document.getElementById('day')) {
           clearInterval(x);
           return;
@@ -357,7 +355,7 @@ export class TableComponent implements OnInit, OnDestroy {
 
   editTableName() {
     if (this.table.owner._id == this.userService.user._id) {
-      let el: any = { content: 'input', inputValue: this.table.name };
+      const el: any = { content: 'input', inputValue: this.table.name };
       swal('Cambiar nombre de la mesa:', el).then((value) => {
         if (value.length > 2) {
           this.table.name = value;
@@ -367,7 +365,7 @@ export class TableComponent implements OnInit, OnDestroy {
             }
           );
         }
-      }); ;
+      });
     }
   }
 
@@ -424,15 +422,14 @@ export class TableComponent implements OnInit, OnDestroy {
           );
         } else {
           let diferencia = 50;
-          let finalWinners = [];
+          const finalWinners = [];
           let finalWinner: any = {};
           const maxValue = 0;
-          let numero = winners[0].goalsResult;
+          const numero = winners[0].goalsResult;
           winners.forEach(player => {
             if (player.goalsResult == player.goals) {
               finalWinners.push(player);
-            }
-            else {
+            } else {
               if (Math.abs(player.goals - numero) < diferencia) {
                 finalWinner = player;
                 diferencia = Math.abs(player.goals - numero);

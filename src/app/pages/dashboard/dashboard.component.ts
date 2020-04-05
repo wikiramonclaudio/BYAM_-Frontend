@@ -10,20 +10,20 @@ import { Table } from 'src/app/models/table.model';
 })
 export class DashboardComponent implements OnInit {
   tables: Table[];
+  fromPage = 0;
   constructor(
-    private tableService: TableService,    
-    private userService: UserService    
+    private tableService: TableService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
-    this.getTables();       
+    this.getTables();
   }
 
-  getTables(){
-    this.tableService.getTables({}).subscribe(res=>{      
-      this.tables = res.tables;     
+  getTables() {
+    this.tableService.getTables({}, this.fromPage).subscribe(res => {
+      this.tables = res.tables;
     });
-    
   }
 
 }

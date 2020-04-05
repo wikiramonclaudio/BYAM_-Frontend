@@ -1,3 +1,5 @@
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+
 /* You can add global styles to this file, and also import other style files */
 
 #themecolors li{
@@ -164,4 +166,24 @@ video {
     font-weight: initial!important;
     margin:initial !important;
     /* margin: 40px 0 20px; */
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+
+@media screen and  (min-width: 768px){
+   /* ui picklist styles */
+   .ui-picklist.ui-picklist-responsive {
+    min-height: 400px!important;
+  }
+  
+  .ui-picklist.ui-picklist-responsive .ui-picklist-listwrapper {  
+    min-height: 400px!important;
+  }
+  
+  .ui-picklist.ui-picklist-responsive .ui-picklist-list {
+    min-height: 400px!important;
+  }
 }

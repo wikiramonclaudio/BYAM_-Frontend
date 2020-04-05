@@ -1,0 +1,13 @@
+
+
+.ui-picklist.ui-picklist-responsive {
+  height: 400px!important;
+}
+
+.ui-picklist.ui-picklist-responsive .ui-picklist-listwrapper {  
+  height: 400px!important;
+}
+
+.ui-picklist.ui-picklist-responsive .ui-picklist-list {
+  height: 400px!important;
+}

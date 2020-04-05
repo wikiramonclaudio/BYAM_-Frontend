@@ -1,0 +1,85 @@
+<div class="container animated fadeIn slow">
+  <div class="row">
+    <div class="col-sm-12 mt-4 pl-0 pr-0">
+      <div class="d-flex justify-content-center align-items-center game-container">
+        <!-- <h2 class="text-themecolor">Ajax de Palomeras</h2> -->
+        <div class="result-wrapper d-flex justify-content-center align-items-center game-container">
+          <span class="btn btn-rounded btn-info">{{goalsLocalTeam}}</span>
+          <span class="btn btn-rounded btn-info">{{goalsAwayTeam}}</span>
+        </div>
+        <!-- <h2 class="text-themecolor">Pimientos de Palomeras</h2> -->
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 mt-4">
+      <div class="d-flex justify-content-center align-items-center game-container">
+        <div class="localteam">
+          <h2 class="text-themecolor text-center mb-0 mt-2">Ajax de Palomeras </h2>
+          <ul class="pl-0">
+            <li *ngFor="let gameEvent of gameEvents" class="d-flex justify-content-center align-items-center mt-3">
+              <span class="badge">
+                {{gameEvent.minute}}'
+              </span>
+              <span class="badge badge-secondary" *ngIf="gameEvent.player">
+                {{gameEvent.player.name}}
+              </span>
+              <span class="badge" *ngIf="gameEvent.player">
+                {{gameEvent.type}}
+              </span>
+              <i *ngIf="gameEvent.type == 'amarilla'" class="fa fa-circle" style="color:yellow"></i>
+              <i *ngIf="gameEvent.type == 'roja'" class="fa fa-circle" style="color:red"></i>
+              <img src="assets/images/minibyam/gol.png" width="25" *ngIf="gameEvent.type == 'Gol'" class="" />
+            </li>
+          </ul>
+        </div>
+        <div class="awayteam">
+          <h2 class="text-themecolor text-center mb-0 mt-2">Pimientos de Palomeras</h2>
+          <ul class="pl-0">
+            <li *ngFor="let gameEvent of awayGameEvents"
+              class="d-flex justify-content-center align-items-center mt-3 animated fadeIn">
+              <span class="badge animated fadeIn">
+                {{gameEvent.minute}}'
+              </span>
+              <span class="badge badge-secondary" *ngIf="gameEvent.player">
+                {{gameEvent.player.name}}
+              </span>
+              <span class="badge animated fadeIn" *ngIf="gameEvent.player">
+                {{gameEvent.type}}
+              </span>
+              <i *ngIf="gameEvent.type == 'amarilla'" class="fa fa-circle" style="color:yellow"></i>
+              <i *ngIf="gameEvent.type == 'roja'" class="fa fa-circle" style="color:red"></i>
+              <img src="assets/images/minibyam/gol.png" width="25" *ngIf="gameEvent.type == 'Gol'" class="" />
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row d-flex justify-content-center align-items-center" *ngIf="manOfTheMatch != null">
+    <div class="col-sm-12 mt-4 text-center d-flex justify-content-center align-items-center">
+      <div class="mvp-wrapper animated fadeIn d-flex justify-content-center align-items-center flex-column">
+        <h3 style="margin-left: 20px!important;">MVP</h3>
+        <b style="margin-left: 20px!important;"> {{manOfTheMatch.name}}</b>
+        <span class="badge badge-primary" style="margin-left: 20px!important;">
+          {{manOfTheMatch.pos}}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 mt-4 text-center">
+      <button class="btn btn-rounded" [disabled]="finished" (click)="displayChangesWindow = !displayChangesWindow" >Sustituciones</button>
+      <button class="btn btn-rounded btn-primary" [disabled]="!firstHalfFinished || finished"
+        (click)="initGame(true)">Segunda parte</button>
+      <button class="btn btn-rounded btn-secondary ml-3" [routerLink]="['/minibyam/minibyam-dashboard']"
+        *ngIf="finished">
+        Continuar
+      </button>
+    </div>
+  </div>
+</div>
+
+<p-dialog header="Sustituciones" [(visible)]="displayChangesWindow" [position]="'top'">
+  <app-formation [halfTime]='true'></app-formation>
+</p-dialog>

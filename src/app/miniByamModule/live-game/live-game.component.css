@@ -1,0 +1,51 @@
+/* @media screen and (min-width: 761px) { */
+
+  .localteam,
+  .awayteam {
+    width: 40%;
+    height: 60vh;
+    background: white;
+  }
+  .awayteam{
+    border-left: 1px solid #e1e1e1;
+  }
+/* } */
+
+@media screen and (max-width: 760px) {
+
+  h2{
+    font-size: 12px;
+  }
+  .localteam,
+  .awayteam {
+    width: 50%;
+    height: 60vh;
+    background: white;
+  }
+  /* .localteam,
+  .awayteam {
+    width: 100vw;
+    height: 60vh;
+    background: white;
+  }
+
+  .game-container {
+    flex-direction: column;
+  } */
+
+}
+
+.mvp-wrapper{
+    background-image: url('../../../assets/images/minibyam/mvp-bg2.png');
+    width: 290px;
+    height: 150px;
+    background-repeat: no-repeat;
+    background-size: 90px;
+    background-position: 8px 23px;
+    border-radius: 50%;
+    background-color: #fff;
+    padding: 20px;
+    border: 3px solid #5e6e5e;
+    margin-top: -200px;
+    box-shadow: 5px 5px 100px #ffee00;
+}

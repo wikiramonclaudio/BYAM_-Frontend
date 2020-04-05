@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-sm-12">
-    <div class="card">
+    <div class="card animated fadeIn">
       <div class="card-body d-flex flex-wrap align-items-center justify-content-center">
         <!-- <h4 class="card-title text-center">Partidas en juego</h4> -->
         <a href="javascript:void(0)" [routerLink]="['/add-table']" class="btn btn-success">
@@ -24,7 +24,7 @@
     </div>
   </div>
   <div class="col-sm-12 col-md-6 col-lg-4" *ngFor="let table of tables">
-    <div class="card" *ngIf="table && table._id">
+    <div class="card animated zoomIn" *ngIf="table && table._id">
       <div class="card-body">
         <a href="javascript:void(0)" [routerLink]="['/table', table._id]" class="d-flex">
           <img style="width: 22px;

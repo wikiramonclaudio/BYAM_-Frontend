@@ -21,7 +21,7 @@ const appRoutes: Routes = [
       path: 'minibyam',
       component: NotificationsComponent,
       canActivate: [LoginGuardGuard],
-      loadChildren: () => import('./miniByamModule/mini-byam-module-routing.module').then(m => m.MiniByamRoutingModule)
+      loadChildren: () => import('./miniByamModule/mini-byam-module.module').then(m => m.MiniByamModule)
     },
     { path : '**', component : NopagefoundComponent }
 
