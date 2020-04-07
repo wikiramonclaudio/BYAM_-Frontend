@@ -917,6 +917,9 @@ Layouts
 
 .single-column .page-wrapper {
   margin-left: 0px;
+  background-image: url('../images/minibyam/bg-stadium.png');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .fix-width {

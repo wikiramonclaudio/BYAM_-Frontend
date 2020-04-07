@@ -1,7 +1,7 @@
 <!-- Main wrapper - style you can find in pages.scss -->
 <!-- ============================================================== -->
-<section id="wrapper" class="login-register login-sidebar" style="background-image:url(./assets/images/background/stadium.jpg);">
-  <div class="login-box card">
+<section id="wrapper" class="login-register login-sidebar animated fadeIn" style="background-image:url(./assets/images/background/stadium.jpg);">
+  <div class="login-box card animated zoomIn">
     <div class="card-body p-0">
       <form ngNativeValidate #f="ngForm" class="form-horizontal form-material col-sm-12" id="loginform" action="index.html" (ngSubmit)="login(f)">
         <a href="javascript:void(0)" class="text-center db">
@@ -9,12 +9,12 @@
           <img src="./assets/images/BYAM.svg" alt="Home" /></a>
         <div class="form-group m-t-40">
           <div class="col-xs-12">
-            <input class="form-control text-center" [ngModel]="email" name="email" type="email" required placeholder="Correo electrónico">
+            <input class="form-control text-center" autocomplete="off" [ngModel]="email" name="email" type="email" required placeholder="Correo electrónico">
           </div>
         </div>
         <div class="form-group">
           <div class="col-xs-12">
-            <input class="form-control text-center"  ngModel name="password" type="password" required placeholder="Password">
+            <input class="form-control text-center" autocomplete="off" ngModel name="password" type="password" required placeholder="Password">
           </div>
         </div>
         <!-- <div class="form-group row">
@@ -41,7 +41,7 @@
                 <button type="button" id="google-btn" class="btn btn-danger"
                  title="Iniciar sesión con Google">
                    <i aria-hidden="true" class="fa fa-google-plus"></i>
-                </button> 
+                </button>
             </div>
           </div>
         </div>

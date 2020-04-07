@@ -50,8 +50,8 @@ export class LiveGameComponent implements OnInit {
   }
 
   initGame(secondHalf: boolean = false) {
-    console.log('SECONDHALF???', secondHalf);
-    const duration = 47;
+    // PASAR TODO ESTO AL BACKEND
+    const duration = Math.floor(Math.random() * (50 - 45) + 45);
     const numberGoals = Math.floor(Math.random() * (3 - 0) + 0);
     const yellowCardsNumber = Math.floor(Math.random() * (3 - 0) + 0);
     const redCardsNumber = Math.floor(Math.random() * (1 - 0) + 0);
@@ -70,7 +70,6 @@ export class LiveGameComponent implements OnInit {
     // equipo local
     for (let i = 0; i < numberGoals; i++) {
       const eventTime = (secondHalf == true) ? Math.floor(Math.random() * ((duration + 47) - 48) + 48) : Math.floor(Math.random() * (duration - 1) + 1);
-      console.log('MINUTO DEL GOL', eventTime);
       const randomPLayer = Math.floor(Math.random() * (this.gamePlayers.length - 1) + 1);
       const eventPlayer = this.gamePlayers[randomPLayer];
       this.gameEvents.push(

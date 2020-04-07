@@ -19,7 +19,7 @@ export class PcComponent implements OnInit {
   // callButtonDisabled = true;
   // hangupButtonDisabled = true;
 
-  // startTime; 
+  // startTime;
   // localStream;
   // pc1;
   // pc2;
@@ -35,7 +35,7 @@ export class PcComponent implements OnInit {
   }
 
   ngOnInit() {
-    var domain = "meet.jit.si";
+
     // var options = {
     //     roomName: "Embed",
     //     width: 700,
@@ -43,13 +43,12 @@ export class PcComponent implements OnInit {
     //     parentNode: document.querySelector('#meet')
     // }
     // var api = new JitsiMeetExternalAPI(domain, options);
-
+    var domain = "meet.jit.si";
     let test: any = this.route.snapshot.params;
     var options: any = {
       roomName: test.roomName,
       width: '85%',
       height: 600,
-      // password: 'bartolez',
       interfaceConfigOverwrite: {
         SHOW_WATERMARK_FOR_GUESTS: false,
         SHOW_JITSI_WATERMARK: false,
@@ -92,9 +91,8 @@ export class PcComponent implements OnInit {
       options.parentNode = document.querySelector('#meet');
       var api = new JitsiMeetExternalAPI(domain, options);
       api.addEventListener('readyToClose', function () {
-        $('iframe').hide();      
+        $('iframe').hide();
       });
-
     }, 300);
 
   }

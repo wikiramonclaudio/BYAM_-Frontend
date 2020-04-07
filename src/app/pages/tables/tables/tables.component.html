@@ -1,18 +1,18 @@
 <div class="row">
   <div class="col-sm-12">
-    <div class="card animated fadeIn">
-      <div class="card-body d-flex flex-wrap align-items-center justify-content-center">
+    <div class="animated fadeIn">
+      <div class="card-body d-flex flex-wrap align-items-center justify-content-center pt-0">
         <!-- <h4 class="card-title text-center">Partidas en juego</h4> -->
-        <a href="javascript:void(0)" [routerLink]="['/add-table']" class="btn btn-success">
+        <a href="javascript:void(0)" [routerLink]="['/add-table']" class="btn animated fadeIn btn-success">
           <i class="fa fa-plus"></i>
         </a>
-        <a href="javascript:void(0)" class="ml-2 btn bg-theme text-white" (click)="getMyTables()">
+        <a href="javascript:void(0)" class="ml-2 btn animated fadeIn bg-theme text-white" (click)="getMyTables()">
           {{ translate.instant('main.my_games') }}
         </a>
-        <a href="javascript:void(0)" class="ml-2 btn bg-theme text-white" (click)="getTables()">
+        <a href="javascript:void(0)" class="ml-2 btn animated fadeIn bg-theme text-white" (click)="getTables()">
           {{ translate.instant('main.all') }}
         </a>
-        <div class="d-flex justify-content-center align-items-baseline search-table-box">
+        <div class="d-flex justify-content-center animated fadeIn align-items-baseline search-table-box">
           <i class="fa fa-search ml-2 mr-2 text-muted"></i>
           <span class="ui-float-label">
             <input id="float-input" type="text" size="30" name="filterSearch" (keyup)="filterTables()"

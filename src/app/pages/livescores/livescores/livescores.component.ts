@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/services/service.index';
 import { Component, OnInit, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
@@ -10,7 +11,10 @@ import { DOCUMENT } from '@angular/common';
 export class LivescoresComponent implements OnInit {
   // 1 spain, 2-england, 3-Italy
   selectedCountry: any = 1;
-  constructor(@Inject(DOCUMENT) private document: any) {
+  constructor(
+    @Inject(DOCUMENT) private document: any,
+    private userService: UserService
+    ) {
 
   }
 

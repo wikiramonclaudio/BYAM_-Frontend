@@ -164,7 +164,8 @@ export class FormationComponent implements OnInit {
 
   ngOnInit(): void {
     // const wrapper: any = document.querySelector('.bg-minibyam-home');
-    $('.bg-minibyam-home').css('background-image', 'url(assets/images/minibyam/vestuario.jpg)');
+    if(!this.halfTime)
+      $('.bg-minibyam-home').css('background-image', 'url(assets/images/minibyam/vestuario.jpg)');
     this.titulares = this.players.sort(function (a, b) {
       if (a.sequence > b.sequence) {
         return 1;
@@ -320,6 +321,15 @@ export class FormationComponent implements OnInit {
     }else{
       this.router.navigate(['/minibyam/livegame']);
     }
+  }
+
+  getPlayers(){
+     // OBTENER JUGADORES ITALIA
+    // this.userService.getJurorores().subscribe(
+    //   (res:any)=>{
+    //     console.log('YEYEYE', res);
+    //   }
+    // )
   }
 
 }

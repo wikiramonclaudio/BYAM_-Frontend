@@ -188,4 +188,9 @@ export class UserService {
     return this._http.post(url, params, { headers: headers });
   }
 
+  getJurorores(){
+    let url = URL_SERVICES + '/jurorores';
+    return this._http.get(url);
+  }
+
 }

@@ -1,4 +1,4 @@
-<aside class="left-sidebar">
+<aside class="left-sidebar animated zoomIn">
   <div class="scroll-sidebar">
     <nav class="sidebar-nav">
       <ul id="sidebarnav">
@@ -7,15 +7,15 @@
             <img [src]="user.image | image" alt="user" />
             <span class="hide-menu">{{ user.name }} </span>
           </a>
-          <ul aria-expanded="false" class="collapse">
-            <li><a routerLinkActive="active" routerLink="/profile">{{translate.instant('main.see_profile')}}</a></li>
-            <!-- <li><a [routerLink]="[ '/chat' ]" href="javascript:void()">{{translate.instant('main.messages')}}</a></li> -->
-            <li><a [routerLink]="[ '/settings' ]">{{translate.instant('main.settings')}}</a></li>
-            <li><a (click)="userService.logout()" class="pointer">{{translate.instant('main.exit')}}</a></li>
+          <ul aria-expanded="false" class="collapse animated">
+            <li class="animated"><a (click)="hideMiniSidebar()"  routerLinkActive="active" routerLink="/profile">{{translate.instant('main.see_profile')}}</a></li>
+            <!-- <li class="animated"><a (click)="hideMiniSidebar()"  [routerLink]="[ '/chat' ]" href="javascript:void()">{{translate.instant('main.messages')}}</a></li> -->
+            <li class="animated"><a (click)="hideMiniSidebar()"  [routerLink]="[ '/settings' ]">{{translate.instant('main.settings')}}</a></li>
+            <li class="animated"><a (click)="userService.logout()" class="pointer">{{translate.instant('main.exit')}}</a></li>
           </ul>
         </li>
         <li class="nav-devider"></li>
-        <li *ngFor="let menu of userService.menu">
+        <li class="animated" *ngFor="let menu of userService.menu">
           <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
             <i class="{{menu.icon}}"></i>
             <span class="hide-menu">{{translate.instant(menu.title)}}
@@ -24,7 +24,7 @@
             </span>
           </a>
           <ul aria-expanded="false" class="collapse">
-            <li *ngFor="let submenu of menu.submenu">
+            <li *ngFor="let submenu of menu.submenu" (click)="hideMiniSidebar()" >
               <a [routerLinkActive]="" [ngClass]="rla.isActive?'active':''" #rla="routerLinkActive"
                 [routerLink]="[ submenu.url ]">
                 {{translate.instant(submenu.title)}}

@@ -15,6 +15,7 @@ export class MinibyamDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     $('.bg-minibyam-home').css('background-image', 'url(assets/images/minibyam/bg-stadium.png)');
+    $('.bg-minibyam-home').addClass('animated fadeIn');
   }
 
 }
