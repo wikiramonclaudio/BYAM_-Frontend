@@ -38,6 +38,7 @@
     "core-js": "^2.6.11",
     "jqwidgets-ng": "^9.0.0",
     "ng2-charts": "^2.0.0-beta.21",
+    "ngx-bootstrap": "^5.6.1",
     "ngx-socket-io": "^3.0.1",
     "primeicons": "^2.0.0",
     "primeng": "^9.0.3",

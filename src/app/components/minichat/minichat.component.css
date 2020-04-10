@@ -268,10 +268,13 @@ a {
 }
 
 .chat_field.chat_message {
-  height: 30px;
+  height: 25px;
   resize: none;
   font-size: 13px;
   font-weight: 400;
+  overflow: hidden;
+  vertical-align: middle;
+  line-height: 25px;
 }
 
 .chat_category {
@@ -697,7 +700,7 @@ strong.chat_time {
 
 @media only screen and (min-width: 300px) {
   .chat {
-    width: 250px;
+    width: 290px;
   }
 }
 
@@ -821,11 +824,12 @@ strong.chat_time {
   color: #bbb;
 }
 
-.user-item-list{
+.user-item-list {
   border-top: 1px solid #e1e1e1;
   border-bottom: 1px solid #e1e1e1;
 }
-.user-item-list:hover{
+
+.user-item-list:hover {
   background-color: #f4f6f9;
 }
 
@@ -836,9 +840,10 @@ strong.chat_time {
 
 @keyframes pulse {
   0% {
-    border:2px solid white;
+    border: 2px solid white;
   }
+
   100% {
-    border:2px solid rgb(25, 182, 64);
+    border: 2px solid rgb(25, 182, 64);
   }
 }

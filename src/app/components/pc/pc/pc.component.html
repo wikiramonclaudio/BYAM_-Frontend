@@ -7,3 +7,18 @@
 </div> -->
 
 <div id="meet"></div>
+
+<div class="container" *ngIf="closedCall == true" >
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="d-flex justify-content-center align-items-center">
+          <button class="btn btn-rounded btn-primary" (click)="rejoin()" >
+            Volver a la llamada
+          </button>
+          <button class="btn btn-rounded btn-secondary" (click)="salir()" >
+            Salir
+          </button>
+      </div>
+    </div>
+  </div>
+</div>

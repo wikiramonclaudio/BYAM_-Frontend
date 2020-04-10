@@ -27,6 +27,8 @@ export class PcComponent implements OnInit {
   //   offerToReceiveAudio: 1,
   //   offerToReceiveVideo: 1
   // };
+
+  closedCall: boolean;
   constructor(
     private route: ActivatedRoute,
     private router: Router
@@ -43,6 +45,7 @@ export class PcComponent implements OnInit {
     //     parentNode: document.querySelector('#meet')
     // }
     // var api = new JitsiMeetExternalAPI(domain, options);
+
     var domain = "meet.jit.si";
     let test: any = this.route.snapshot.params;
     var options: any = {
@@ -90,11 +93,20 @@ export class PcComponent implements OnInit {
     setTimeout(() => {
       options.parentNode = document.querySelector('#meet');
       var api = new JitsiMeetExternalAPI(domain, options);
-      api.addEventListener('readyToClose', function () {
+      api.addEventListener('readyToClose',  () => {
         $('iframe').hide();
+        this.closedCall = true;
       });
     }, 300);
 
+  }
+
+  rejoin(){
+    this.ngOnInit();
+  }
+
+  salir(){
+    window.close();
   }
 
   // getName(pc) {

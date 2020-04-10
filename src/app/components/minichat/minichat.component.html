@@ -30,7 +30,7 @@
       </div>
     </div>
     <div id="chat_converse" class="chat_conversion chat_converse">
-      <a id="chat_second_screen" class="fab bg-theme"><i class="zmdi zmdi-arrow-left text-themecolor"
+      <a id="chat_second_screen" class="fab bg-theme"><i class="zmdi zmdi-arrow-left text-white"
           (click)="hideChat(0)"></i></a>
       <div class="chat_msg_item chat_msg_item_admin" *ngFor="let message of messages"
         [ngClass]="{'chat_msg_item_user': userService.user._id == message.owner._id}">

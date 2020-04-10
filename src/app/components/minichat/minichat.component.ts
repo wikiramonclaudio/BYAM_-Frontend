@@ -44,24 +44,6 @@ export class MinichatComponent implements OnInit {
 
   ngOnInit(): void {
     this.hideChat(0);
-
-    // $('#chat_first_screen').click(function (e) {
-    //   this.hideChat(1);
-    // });
-
-    // $('#chat_second_screen').click(function (e) {
-    //   this.hideChat(2);
-    // });
-
-    // $('#chat_third_screen').click(function (e) {
-    //   this.hideChat(3);
-    // });
-
-    // $('#chat_fourth_screen').click(function (e) {
-    //   this.hideChat(1);
-    // });
-
-
     this.translate = this.translationService.getTranslateService();
     this.getUsers();
     this.subscribeToEvents();

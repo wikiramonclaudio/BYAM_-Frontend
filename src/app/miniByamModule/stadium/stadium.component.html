@@ -1,10 +1,75 @@
-<div class="container-fluid">
+<div class="container-fluid bg-white">
   <div class="row">
     <div class="col-sm-12 col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <!-- <div class="d-flex pl-0 justify-content-center align-items-center flex-column">
+            <a class="btn mt-2 btn-rounded bg-theme text-white">Taquilla</a>
+            <a class="btn mt-2 btn-rounded bg-theme text-white">Remodelaciones</a>
+            <a class="btn mt-2 btn-rounded bg-theme text-white">Merchandising</a>
+            <a class="btn mt-2 btn-rounded bg-theme text-white">Vallas</a>
+          </div> -->
+          <accordion [isAnimated]="true">
+            <accordion-group heading="Taquilla">
+              <div class="d-flex justify-content-center align-items-center flex-column">
+                <span class="mb-2">Precio de las entradas</span>
+                <div class="d-flex justify-content-center align-items-center">
+                  <button class="btn btn-rounded btn-primary" (click)="changeTicketPrice(-5)">
+                    <i class="fa fa-minus"></i>
+                  </button>
+                  <span class="alert alert-default mb-0">
+                    {{ticketPrice}} Euros
+                  </span>
+                  <button class="btn btn-rounded btn-primary" (click)="changeTicketPrice(5)">
+                    <i class="fa fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+            </accordion-group>
+            <accordion-group heading="Remodelaciones">
+              <p-table [value]="remodelings">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Remodelación</th>
+                    <th>Mejora</th>
+                    <th>Precio total</th>
+                    <!-- <th>Precio</th>
+                    <th>Color</th> -->
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-remodeling>
+                  <tr>
+                    <td>{{remodeling.name}}</td>
+                    <td>{{remodeling.newValue}}</td>
+                    <td>{{remodeling.price}}€</td>
+                    <!-- <td>{{car.brand}}</td>
+                    <td>{{car.color}}</td> -->
+                  </tr>
+                </ng-template>
+              </p-table>
 
+            </accordion-group>
+            <accordion-group heading="Merchandising">
+              <p>Some content</p>
+            </accordion-group>
+            <accordion-group heading="Vallas">
+              <p>Some content</p>
+            </accordion-group>
+          </accordion>
+        </div>
+      </div>
     </div>
     <div class="col-sm-12 col-md-6">
-
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex flex-column align-items-center justify-content-center">
+            <h3 class="mb-3">Estadio Juegos del Pediterraneo</h3>
+            <img src="../../../assets/images/minibyam/estadio.jpg"
+              style="max-width: 100%;border-radius: 50%;border: 3px solid orange;">
+            <h4>Capacidad: 5700 Espectadores</h4>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

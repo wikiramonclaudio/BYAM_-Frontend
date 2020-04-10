@@ -20,6 +20,10 @@ import { ClassificationsComponent } from './classifications/classifications.comp
 import {TableModule} from 'primeng/table';
 // import {DataViewModule} from 'primeng/dataview';
 import {DialogModule} from 'primeng/dialog';
+import { jqxExpanderModule } from 'jqwidgets-ng/jqxexpander';
+
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+
 @NgModule({
   declarations: [
   MainComponent,
@@ -38,7 +42,9 @@ import {DialogModule} from 'primeng/dialog';
     DropdownModule,
     MINIBYAM_ROUTES,
     TableModule,
-    DialogModule
+    DialogModule,
+    jqxExpanderModule,
+    AccordionModule.forRoot()
     // DataViewModule
   ],
   providers: [
