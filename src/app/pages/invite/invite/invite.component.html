@@ -1,25 +1,25 @@
 <div class="row">
   <div class="col-sm-12 col-md-6 col-lg-4">
-    <h4 class="card-title">Invitar por email<i class="fa fa-envelope ml-2 text-danger"></i></h4>
+    <h4 class="card-title mb-2">Email<i class="fa fa-envelope fa-2x ml-2 text-themecolor"></i></h4>
     <div class="card">
       <div class="card-body">
         <form ngNativeValidate (ngSubmit)="sendInvitation()" class="form-horizontal form-material">
           <div class="form-group ">
             <div class="col-xs-12">
-              <input class="form-control" type="email" required placeholder="Email de tu amigo"
+              <input autocomplete="off" class="form-control" type="email" required placeholder="Email de tu amigo"
                 [(ngModel)]="invitation.to" name="to">
             </div>
           </div>
           <div class="form-group ">
             <div class="col-xs-12">
-              <input class="form-control" type="text" required placeholder="Nombre de tu amigo."
+              <input autocomplete="off" class="form-control" type="text" required placeholder="Nombre de tu amigo."
                 [(ngModel)]="invitation.name" name="name">
             </div>
           </div>
           <!-- <div class="form-group ">
           <div class="col-xs-12">
             <textarea class="form-control" required [(ngModel)]="invitation.body" style="height: 110px;" name="body">
-              Hola amigo, estoy jugando en BYAM juegos y apuestas con mis amigos, lo estamos pasando muy bien. UNETE, te va a encantar!. https://byam.cleverapps.io      
+              Hola amigo, estoy jugando en BYAM juegos y apuestas con mis amigos, lo estamos pasando muy bien. UNETE, te va a encantar!. https://byam.cleverapps.io
               </textarea>
           </div>
         </div> -->
@@ -33,15 +33,15 @@
 
 
   <div class="col-sm-12 col-md-6 col-lg-4">
-    <h4 class="card-title">Invitar por whatsapp<i class="fa fa-whatsapp ml-2 text-success"></i></h4>
+    <h4 class="card-title mb-2">Whatsapp<i class="fa fa-whatsapp fa-2x ml-2 text-success"></i></h4>
     <div class="card">
-      <div class="card-body"> 
+      <div class="card-body">
           <!-- <input type="text" name="text" required [(ngModel)]="text"> -->
         <a class="btn btn-success" href="https://api.whatsapp.com/send?text=Hola, estoy jugando en la aplicación BYAM con mis amigos, lo pasamos muy bien te invito a unirte, te va a encantar! https://byam.cleverapps.io" target="_blank">
           <i class="fa fa-whatsapp"></i>
           Invitar por whatsapp
         </a>
-        
+
       </div>
     </div>
   </div>

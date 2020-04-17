@@ -10,32 +10,24 @@ import { TranslationService } from 'src/app/services/translation/translation.ser
 })
 export class AccountSettingsComponent implements OnInit {
   translate: TranslateService;
-  constructor(    
+  activeTheme;
+  constructor(
     public _settingsService: SettingsService,
     public translationService: TranslationService
-  ) {  }
+  ) {
+    this.activeTheme = JSON.parse(localStorage.getItem('settings')).theme || 'default';
+  }
 
   ngOnInit() {
     this.translate = this.translationService.getTranslateService();
   }
 
-  changeColor(theme: string, link: any){    
-    this.checkApply(link);    
+  changeColor(theme: string, link: any){
     this._settingsService.applyTheme(theme);
+    this.activeTheme = theme;
   }
-
-  checkApply(link){
-    let selectores: any = document.getElementsByClassName('selector');
-    for (let selector of selectores) {
-      selector.classList.remove('working');
-    }
-    link.classList.add('working');
-
-  }
-
   addChecked(){
     let selectores: any = document.getElementsByClassName('selector');
-
     let tema = this._settingsService.settings;
     for (let selector of selectores) {
      if(selector.getAttribute('data-theme') == tema){
@@ -44,7 +36,7 @@ export class AccountSettingsComponent implements OnInit {
      }
     }
   }
-  
+
   changeLanguage(lang:string){
     this.translationService.changeLanguage(lang);
   }
