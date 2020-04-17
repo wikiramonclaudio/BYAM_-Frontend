@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { URL_SERVICES } from 'src/app/config/config';
 
 @Injectable({
   providedIn: 'root'
@@ -6,7 +8,9 @@ import { Injectable } from '@angular/core';
 export class MinibyamTeamsService {
 
   teams: any[] = [];
-  constructor() {
+  constructor(
+    private _http: HttpClient
+  ) {
     this.teams = [
       {
         key: 'barcelona',
@@ -263,6 +267,11 @@ export class MinibyamTeamsService {
    }
 
   getTeams(){
+    let url = URL_SERVICES + '/minibyam/team';
+    return this._http.get(url);
+  }
+
+  getFakeTeams(){
     return this.teams;
   }
 }

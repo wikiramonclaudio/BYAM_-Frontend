@@ -19,7 +19,7 @@ export class ClassificationsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.teams = this.teamsService.getTeams();
+    this.teams = this.teamsService.getFakeTeams();
     this.players = this.playerService.getPlayers();
     this.players = this.players.filter((player)=>{
       return player.pos != 'Def' && player.pos != 'Por';

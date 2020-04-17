@@ -15,7 +15,7 @@
     <div class="col-sm-12 mt-4">
       <div class="d-flex justify-content-center align-items-center game-container">
         <div class="localteam">
-          <h2 class="text-themecolor text-center mb-0 mt-2">Ajax de Palomeras </h2>
+          <h2 class="text-themecolor text-center mb-0 mt-2"> {{match.localteam.name}} </h2>
           <ul class="pl-0">
             <li *ngFor="let gameEvent of gameEvents" class="d-flex justify-content-center align-items-center mt-3">
               <span class="badge">
@@ -34,7 +34,7 @@
           </ul>
         </div>
         <div class="awayteam">
-          <h2 class="text-themecolor text-center mb-0 mt-2">Pimientos de Palomeras</h2>
+          <h2 class="text-themecolor text-center mb-0 mt-2">{{match.awayteam.name}}</h2>
           <ul class="pl-0">
             <li *ngFor="let gameEvent of awayGameEvents"
               class="d-flex justify-content-center align-items-center mt-3 animated fadeIn">
@@ -62,7 +62,7 @@
         <h3 style="margin-left: 20px!important;">MVP</h3>
         <b style="margin-left: 20px!important;"> {{manOfTheMatch.name}}</b>
         <span class="badge badge-primary" style="margin-left: 20px!important;">
-          {{manOfTheMatch.pos}}
+          {{manOfTheMatch.position}}
         </span>
       </div>
     </div>

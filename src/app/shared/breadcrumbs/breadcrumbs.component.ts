@@ -22,7 +22,7 @@ export class BreadcrumbsComponent implements OnInit {
   ) {
     this.getRouteData()
       .subscribe(
-        data => {          
+        data => {
           this.sectionTitle = data.title;
           this.title.setTitle('BYAM - Settings');
 

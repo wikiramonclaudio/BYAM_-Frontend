@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { URL_SERVICES } from 'src/app/config/config';
 
 @Injectable({
   providedIn: 'root'
@@ -199,11 +201,18 @@ export class PlayerService {
     },
   ];
   totalPlayers = [];
-  constructor() {
+  constructor(
+    private _http: HttpClient
+  ) {
     this.totalPlayers = this.players.concat(this.selectedplayers);
   }
 
   getPlayers(){
     return this.totalPlayers;
+  }
+
+  getTeamPlayers(teamId:string){
+    let url = URL_SERVICES + '/minibyam/player/' + teamId;
+    return this._http.get(url);
   }
 }

@@ -16,12 +16,12 @@
         <ng-template let-player let-index pTemplate="item">
           <div class="ui-helper-clearfix">
             <a class="d-flex align-items-center justify-content-center">
-              <span class="badge mr-2 badge-primary"  >
+              <span class="badge mr-2 badge-primary" *ngIf="player.position"  >
                 <!-- [ngClass]="{'badge-primary': player.pos == 'Med', 'badge-warning': player.pos == 'Def', 'badget-secondary' : player.pos =='Del', 'badget-danger' : player.pos =='Por', 'badget-success' : player.pos =='Del'} " -->
-                {{player.pos}}
+                {{player.position}}
               </span>
               <span>{{player.name}}</span>
-              <span class="badge ml-2" [ngClass]="{'badge-success' : player.average > 67, 'badge-warning' : player.average > 59 && player.average < 68, 'badge-danger' : player.average < 60 }" >{{player.average}}</span>
+              <span class="badge ml-2" [ngClass]="{'badge-success' : player.level > 67, 'badge-warning' : player.level > 59 && player.level < 68, 'badge-danger' : player.level < 60 }" >{{player.level}}</span>
             </a>
           </div>
         </ng-template>
