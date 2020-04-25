@@ -7,20 +7,20 @@
         <div class="r-panel-body">
           <ul id="themecolors" class="m-t-20">
               <li><b>{{translate.instant('main.light_sidebar')}}</b></li>
-              <li><a [ngClass]="{ 'working': activeTheme == 'default'}" link20 (click)="changeColor('default', link20)" data-theme="default" class="selector default-theme">1</a></li>
-              <li><a [ngClass]="{ 'working': activeTheme == 'green'}" link1 (click)="changeColor('green', link1)" data-theme="green" class="selector green-theme">2</a></li>
-              <li><a [ngClass]="{ 'working': activeTheme == 'red'}" link2 (click)="changeColor('red', link2)" data-theme="red" class="selector red-theme">3</a></li>
-              <li><a [ngClass]="{ 'working': activeTheme == 'blue'}" link3 (click)="changeColor('blue', link3)" data-theme="blue" class="selector blue-theme">4</a></li>
-              <li><a [ngClass]="{ 'working': activeTheme == 'purple'}" link4 (click)="changeColor('purple', link4)" data-theme="purple" class="selector purple-theme">5</a></li>
-              <li><a [ngClass]="{ 'working': activeTheme == 'megna'}" link5 (click)="changeColor('megna', link5)" data-theme="megna" class="selector megna-theme">6</a></li>
+              <li><a [ngClass]="{ 'working': activeTheme == 'default'}" (click)="changeColor('default')" data-theme="default" class="selector default-theme">1</a></li>
+              <li><a [ngClass]="{ 'working': activeTheme == 'green'}" (click)="changeColor('green')" data-theme="green" class="selector green-theme">2</a></li>
+              <li><a [ngClass]="{ 'working': activeTheme == 'red'}" (click)="changeColor('red')" data-theme="red" class="selector red-theme">3</a></li>
+              <li><a [ngClass]="{ 'working': activeTheme == 'blue'}" (click)="changeColor('blue')" data-theme="blue" class="selector blue-theme">4</a></li>
+              <li><a [ngClass]="{ 'working': activeTheme == 'purple'}" (click)="changeColor('purple')" data-theme="purple" class="selector purple-theme">5</a></li>
+              <li><a [ngClass]="{ 'working': activeTheme == 'megna'}" (click)="changeColor('megna')" data-theme="megna" class="selector megna-theme">6</a></li>
 
               <li class="d-block m-t-30"><b>{{translate.instant('main.dark_sidebar')}}</b></li>
-              <li><a [ngClass]="{ 'working': activeTheme == 'default-dark'}" link6 (click)="changeColor('default-dark', link6)" data-theme="default-dark" class="selector default-dark-theme">7</a></li>
-              <li><a [ngClass]="{ 'working': activeTheme == 'green-dark'}" link7 (click)="changeColor('green-dark', link7)" data-theme="green-dark" class="selector green-dark-theme">8</a></li>
-              <li><a [ngClass]="{ 'working': activeTheme == 'red-dark'}" link8 (click)="changeColor('red-dark', link8)" data-theme="red-dark" class="selector red-dark-theme">9</a></li>
-              <li><a [ngClass]="{ 'working': activeTheme == 'blue-dark'}" link9 (click)="changeColor('blue-dark', link9)" data-theme="blue-dark" class="selector blue-dark-theme working">10</a></li>
-              <li><a [ngClass]="{ 'working': activeTheme == 'purple-dark'}" link10 (click)="changeColor('purple-dark', link10)" data-theme="purple-dark" class="selector purple-dark-theme">11</a></li>
-              <li><a [ngClass]="{ 'working': activeTheme == 'megna-dark'}" link11 (click)="changeColor('megna-dark', link11)" data-theme="megna-dark" class="selector megna-dark-theme">12</a></li>
+              <li><a [ngClass]="{ 'working': activeTheme == 'default-dark'}" (click)="changeColor('default-dark')" data-theme="default-dark" class="selector default-dark-theme">7</a></li>
+              <li><a [ngClass]="{ 'working': activeTheme == 'green-dark'}" (click)="changeColor('green-dark')" data-theme="green-dark" class="selector green-dark-theme">8</a></li>
+              <li><a [ngClass]="{ 'working': activeTheme == 'red-dark'}" (click)="changeColor('red-dark')" data-theme="red-dark" class="selector red-dark-theme">9</a></li>
+              <li><a [ngClass]="{ 'working': activeTheme == 'blue-dark'}" (click)="changeColor('blue-dark')" data-theme="blue-dark" class="selector blue-dark-theme working">10</a></li>
+              <li><a [ngClass]="{ 'working': activeTheme == 'purple-dark'}" (click)="changeColor('purple-dark')" data-theme="purple-dark" class="selector purple-dark-theme">11</a></li>
+              <li><a [ngClass]="{ 'working': activeTheme == 'megna-dark'}" (click)="changeColor('megna-dark')" data-theme="megna-dark" class="selector megna-dark-theme">12</a></li>
           </ul>
         </div>
       </div>

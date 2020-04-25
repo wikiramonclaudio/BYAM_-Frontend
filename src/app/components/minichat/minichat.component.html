@@ -52,7 +52,7 @@
   </div>
   <div class="fab_field d-flex- align-items-center">
     <!-- <i id="chat_second_screen" class="fab bg-theme"><i class="zmdi zmdi-arrow-left" (click)="hideChat(0)"></i></a> -->
-    <a class="fab bg-theme" style="float:left" (click)="sendCall()"><i class="zmdi zmdi-comment-video"></i></a>
+    <a class="fab bg-theme" style="float:left" [hidden]="selectedUser._id == userService.user._id" (click)="sendCall()"><i class="zmdi zmdi-comment-video"></i></a>
     <textarea id="chatSend" name="chat_message" placeholder="Send a message" class="chat_field chat_message"
       (keyup.enter)="sendMessage()" [(ngModel)]="msg"></textarea>
     <a id="fab_send" class="fab bg-theme" (click)="sendMessage()"><i class="zmdi zmdi-mail-send"></i></a>

@@ -22,7 +22,7 @@ export class AccountSettingsComponent implements OnInit {
     this.translate = this.translationService.getTranslateService();
   }
 
-  changeColor(theme: string, link: any){
+  changeColor(theme: string){
     this._settingsService.applyTheme(theme);
     this.activeTheme = theme;
   }

@@ -40,7 +40,7 @@ export class MinichatComponent implements OnInit {
     public translationService: TranslationService
   ) {
     // this.selectedUser = this.userService.user;
-   }
+  }
 
   ngOnInit(): void {
     this.hideChat(0);
@@ -102,7 +102,7 @@ export class MinichatComponent implements OnInit {
             content: res.message
           };
         }
-        if ((mensaje.owner._id == this.selectedUser._id) || mensaje.owner._id == this.userService.user._id) {
+        if ((mensaje.owner._id == this.selectedUser._id)) {
           this.messages.push(mensaje);
           this.msg = '';
         }
@@ -160,7 +160,7 @@ export class MinichatComponent implements OnInit {
           });
           emiter.lastcontent = res.message;
           emiter.alerting = true;
-          if(!this.chatVisible){
+          if (!this.chatVisible) {
             $('#prime').addClass('alert-msg-button');
           }
         }
@@ -255,6 +255,15 @@ export class MinichatComponent implements OnInit {
             tableId: this.activeTable,
             message: this.msg
           });
+          console.log('mensaje enviado', res);
+          let mensaje = {
+            owner: this.userService.user,
+            content: this.msg
+          };
+          if ((mensaje.owner._id == this.userService.user._id)) {
+            this.messages.push(mensaje);
+            this.msg = '';
+          }
         }
       );
     } else {

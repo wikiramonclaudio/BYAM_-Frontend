@@ -74,6 +74,7 @@ export class PcComponent implements OnInit {
         OPEN_IN_MOBILE_BROWSER: true
       },
       configOverwrite: {
+        disableInviteFunctions: false,
         enableNoAudioDetection: false,
         enableNoisyMicDetection: false,
         enableWelcomePage: false,
@@ -92,20 +93,26 @@ export class PcComponent implements OnInit {
     // options.parentNode = document.querySelector('#meet');
     setTimeout(() => {
       options.parentNode = document.querySelector('#meet');
-      var api = new JitsiMeetExternalAPI(domain, options);
-      api.addEventListener('readyToClose',  () => {
+      const api = new JitsiMeetExternalAPI(domain, options);
+      api.addEventListener('readyToClose', () => {
         $('iframe').hide();
         this.closedCall = true;
       });
+
+      // api.invite([ {email: 'makarenosh@gmail.com', number: 615077406}]).then(() => {
+      //   console.log('INVITADO');
+      // }).catch(() => {
+      //   console.log('ERROROLO');
+      // });
     }, 300);
 
   }
 
-  rejoin(){
+  rejoin() {
     this.ngOnInit();
   }
 
-  salir(){
+  salir() {
     window.close();
   }
 

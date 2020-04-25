@@ -18,67 +18,67 @@ export class BetTypeService {
     public uploadService: UploadFileService
   ) { }
 
-  getBetTypes(): Observable<any>{
-    let url = URL_SERVICES + '/bet-type';    
+  getBetTypes(): Observable<any> {
+    const url = URL_SERVICES + '/bet-type';
     return this._http.get(url);
   }
 
-  getBetType(id: string): Observable<any>{
-    let url = URL_SERVICES + '/bet-type/' + id;    
+  getBetType(id: string): Observable<any> {
+    const url = URL_SERVICES + '/bet-type/' + id;
     return this._http.get(url);
   }
 
-  deleteBetType(id: string, token: string){
-    //PONER EL TOKEN
-    let url = URL_SERVICES + '/bet-type/' + id + '?token=' + localStorage.getItem('token');
+  deleteBetType(id: string, token: string) {
+    // PONER EL TOKEN
+    const url = URL_SERVICES + '/bet-type/' + id + '?token=' + localStorage.getItem('token');
     return this._http.delete(url);
   }
 
   createBetType(betType: any) {
-    let params = JSON.stringify(betType);
-    let url = URL_SERVICES + '/bet-type'+ '?token=' + localStorage.getItem('token');    
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const params = JSON.stringify(betType);
+    const url = URL_SERVICES + '/bet-type' + '?token=' + localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.post(url, params, { headers: headers })
-    .map((res: any)=>{
-      swal("BetType registrado", " " + betType.name, "success");
+    .map((res: any) => {
+      swal('BetType registrado', ' ' + betType.name, 'success');
       return res.betType;
     });
   }
 
-  searchBetType(term: string){
-    let url = URL_SERVICES + '/search/collection/betType/' + term;
+  searchBetType(term: string) {
+    const url = URL_SERVICES + '/search/collection/betType/' + term;
     return this._http.get(url).map(
-      (response: any)=>{        
+      (response: any) => {
         console.log(response);
         return response.betType;
       }
-    )
+    );
   }
 
-  updateBetType(betType: any){
-    let params = JSON.stringify(betType);
-    let url = URL_SERVICES + '/bet-type/' + betType._id;  
-    //revisar token
-    url += '?token=' + localStorage.getItem('token'); 
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this._http.put(url, betType, { headers: headers });    
+  updateBetType(betType: any) {
+    const params = JSON.stringify(betType);
+    let url = URL_SERVICES + '/bet-type/' + betType._id;
+    // revisar token
+    url += '?token=' + localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.put(url, betType, { headers: headers });
   }
 
 
   // BET TYPES OPTIONS..(TO PUT IN ANOTHER FILE??) SERVICE
   createBetTypeOption(betTypeOption: any) {
-    let params = JSON.stringify(betTypeOption);
-    let url = URL_SERVICES + '/bet-type-option'+ '?token=' + localStorage.getItem('token');    
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const params = JSON.stringify(betTypeOption);
+    const url = URL_SERVICES + '/bet-type-option' + '?token=' + localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.post(url, params, { headers: headers })
-    .map((res: any)=>{
-      swal("BetType registrado", " " + betTypeOption.name, "success");
+    .map((res: any) => {
+      swal('BetType registrado', ' ' + betTypeOption.name, 'success');
       return res;
     });
   }
 
-  getBetOptions(): Observable<any>{
-    let url = URL_SERVICES + '/bet-type-option';    
+  getBetOptions(): Observable<any> {
+    const url = URL_SERVICES + '/bet-type-option';
     return this._http.get(url);
   }
 }
