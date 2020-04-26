@@ -205,7 +205,6 @@ export class MinichatComponent implements OnInit {
                   receiver: this.selectedUser
                 };
                 this.websocketService.emit('inviteRoom', socketData);
-                // this.searchElement.nativeElement.focus();
               }
             });
 
@@ -217,7 +216,7 @@ export class MinichatComponent implements OnInit {
               this.initSockets(res.chatrooms._id);
               setTimeout(() => {
                 this.scrolDown();
-                // this.searchElement.nativeElement.focus();
+                document.getElementById('chatSend').focus();
               }, 0);
             }
           );
@@ -255,7 +254,6 @@ export class MinichatComponent implements OnInit {
             tableId: this.activeTable,
             message: this.msg
           });
-          console.log('mensaje enviado', res);
           let mensaje = {
             owner: this.userService.user,
             content: this.msg
@@ -327,6 +325,14 @@ export class MinichatComponent implements OnInit {
           callDomain: domain,
           callOptions: options
         });
+        let mensaje = {
+          owner: this.userService.user,
+          content: '123call'
+        };
+        if ((mensaje.owner._id == this.userService.user._id)) {
+          this.messages.push(mensaje);
+          this.msg = '';
+        }
       }
     );
   }

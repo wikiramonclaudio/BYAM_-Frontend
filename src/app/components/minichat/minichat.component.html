@@ -24,7 +24,10 @@
             <span class="text-themecolor pl-2">{{user.name}}</span>
             <i class="fa fa-circle ml-2" style="color:#34c15c" *ngIf="user.connected == true"></i>
             <p class="text-muted private-msg-alert m-0 ml-3 p-0" [title]="user.lastcontent" style="font-size: 12px;"
-              [ngClass]="{'text-success': user.alerting}">{{user.lastcontent}}</p>
+              [ngClass]="{'text-success': user.alerting}">
+              <span *ngIf="user.lastcontent != '123call'" >{{user.lastcontent}}</span>
+              <span *ngIf="user.lastcontent == '123call'" >Video call</span>
+            </p>
           </li>
         </ul>
       </div>
@@ -53,9 +56,9 @@
   <div class="fab_field d-flex- align-items-center">
     <!-- <i id="chat_second_screen" class="fab bg-theme"><i class="zmdi zmdi-arrow-left" (click)="hideChat(0)"></i></a> -->
     <a class="fab bg-theme" style="float:left" [hidden]="selectedUser._id == userService.user._id" (click)="sendCall()"><i class="zmdi zmdi-comment-video"></i></a>
-    <textarea id="chatSend" name="chat_message" placeholder="Send a message" class="chat_field chat_message"
-      (keyup.enter)="sendMessage()" [(ngModel)]="msg"></textarea>
-    <a id="fab_send" class="fab bg-theme" (click)="sendMessage()"><i class="zmdi zmdi-mail-send"></i></a>
+    <textarea id="chatSend" name="chat_message bg-white" placeholder="Send a message" class="chat_field chat_message"
+      (keyup.enter)="sendMessage()" [(ngModel)]="msg" [hidden]="selectedUser._id == userService.user._id"></textarea>
+    <a id="fab_send" class="fab bg-theme" [hidden]="selectedUser._id == userService.user._id" (click)="sendMessage()"><i class="zmdi zmdi-mail-send"></i></a>
     <a id="fab_camera" class="fab bg-theme" *ngIf="selectedUser._id != userService.user._id">
       <i class="zmdi zmdi-arrow-left " [hidden]="selectedUser._id == userService.user._id" (click)="hideChat(0)"></i>
     </a>
