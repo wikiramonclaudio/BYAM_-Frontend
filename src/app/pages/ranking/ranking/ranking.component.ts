@@ -11,12 +11,12 @@ export class RankingComponent implements OnInit {
 
   users: User [];
   constructor(
-    public userService:UserService
+    public userService: UserService
   ) { }
 
   ngOnInit() {
     this.userService.getRanking().subscribe(
-      (res:any)=>{        
+      (res: any) => {
         this.users = res.users;
       }
     );

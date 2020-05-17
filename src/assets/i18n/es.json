@@ -54,8 +54,8 @@
     "main.seconds" : "Segundos",
     "main.write_message" : "Escribe tu mensje",
     "main.mandatory_field" : "Campo obligatorio",
-    "main.select_bet_type" : "Selecciona el tipo de apuesta",    
-    "main.special_match" : "Partido especial (desempate)",    
+    "main.select_bet_type" : "Selecciona el tipo de apuesta",
+    "main.special_match" : "Partido especial (desempate)",
     "main.matches_added" : "Partidos añadidos",
     "main.themes" : "Temas",
     "main.light_sidebar" : "Con sidebar claro",
@@ -74,5 +74,13 @@
     "profile.update_profile_image": "Actualizar imagen de perfil",
     "chat.search_here" : "Busca aquí",
     "chat.video_call": "Video llamada",
-    "chat.type_here": "Escribe tu mensaje aquí..."
+    "chat.type_here": "Escribe tu mensaje aquí...",
+    "dashboard.next_games" : "Próximas partidas",
+    "dashboard.create_new_game" : "Crear nueva mesa",
+    "dashboard.top_winners" : "Top ganadores",
+    "dashboard.see_whole_ranking" : "Ver ranking completo",
+    "dashboard.overview" : "Resumen",
+    "dashboard.wins" : "Victorias",
+    "dashboard.money" : "Saldo"
+
 }

@@ -9,7 +9,7 @@ import { User } from '../models/user.model';
 import swal from 'sweetalert';
 declare function initPlugins();
 
-//google
+// google
 declare const gapi: any;
 declare const auth2: any;
 
@@ -34,16 +34,16 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     initPlugins();
-    this.email = localStorage.getItem('email') || '';  
-    if(this.email.length > 0){
+    this.email = localStorage.getItem('email') || '';
+    if (this.email.length > 0) {
       this.recuerdame = true;
-    } 
+    }
     this.googleInit();
   }
 
   /* Init google sign in */
-  googleInit(){
-    gapi.load('auth2', ()=>{
+  googleInit() {
+    gapi.load('auth2', () => {
       this.auth2 = gapi.auth2.init({
         client_id: '888275063073-3frfcc1jmgi9uijnkv79s9a1c6cukqt0.apps.googleusercontent.com',
         cookiepolicy: 'single_host_origin',
@@ -54,41 +54,41 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  attachSignIn(element: any){
-    this.auth2.attachClickHandler(element, {}, (googleUser) =>{
-      let profile = googleUser.getBasicProfile();      
-      let token = googleUser.getAuthResponse().id_token;
-      
+  attachSignIn(element: any) {
+    this.auth2.attachClickHandler(element, {}, (googleUser) => {
+      const profile = googleUser.getBasicProfile();
+      const token = googleUser.getAuthResponse().id_token;
+
       this.userService.googleLogin(token).subscribe(
-        (response: any)=>{                    
+        (response: any) => {
           window.location.href = '#/dashboard';
           // $('google-btn').popover('destroy');
         },
-        error=>{
+        error => {
           console.log(error);
         }
-      )
+      );
     });
   }
 
-  login(form: NgForm){
-    let user = new User(
-       null, 
+  login(form: NgForm) {
+    const user = new User(
+       null,
        form.value.email,
        form.value.password
-    );    
+    );
     this.userService.login(user, form.value.recuerdame).subscribe(
-      (response: any)=>{                     
-        this.router.navigate(['/tables']);
+      (response: any) => {
+        this.router.navigate(['/dashboard']);
         setTimeout(() => {
           // this.peerService.initPeer();
         }, 1000);
       },
-      error=>{
-        swal('Usuario no encontrado, inténtalo otra vez!', user.email, 'error'); 
+      error => {
+        swal('Usuario no encontrado, inténtalo otra vez!', user.email, 'error');
         console.log(error);
       }
-    )    
+    );
   }
 
 

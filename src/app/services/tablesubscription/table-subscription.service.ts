@@ -21,58 +21,58 @@ export class SubscriptionTableService {
   ) { }
 
   getSubscriptionTables(): Observable<any> {
-    let url = URL_SERVICES + '/table-subscription';
+    const url = URL_SERVICES + '/table-subscription';
     return this._http.get(url);
   }
 
   getSubscriptionsByTable(id: string): Observable<any> {
-    let url = URL_SERVICES + '/table-subscription/' + id;
+    const url = URL_SERVICES + '/table-subscription/' + id;
     return this._http.get(url);
   }
 
   getSubscriptionsByUser(id: string): Observable<any> {
-    let url = URL_SERVICES + '/table-subscription/user/' + id;
+    const url = URL_SERVICES + '/table-subscription/user/' + id;
     return this._http.get(url);
   }
 
   deleteSubscriptionTable(id: string, token: string) {
-    //PONER EL TOKEN
-    let url = URL_SERVICES + '/table-subscription/' + id + '?token=' + localStorage.getItem('token');
+    // PONER EL TOKEN
+    const url = URL_SERVICES + '/table-subscription/' + id + '?token=' + localStorage.getItem('token');
     return this._http.delete(url);
   }
 
   createSubscriptionTable(tablesubscription: any, amount?: number) {
-    let params = JSON.stringify(tablesubscription);
-    let url = URL_SERVICES + '/table-subscription' + '?token=' + localStorage.getItem('token');
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const params = JSON.stringify(tablesubscription);
+    const url = URL_SERVICES + '/table-subscription' + '?token=' + localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.post(url, params, { headers: headers })
-      .map((res: any) => {        
+      .map((res: any) => {
         this.userService.user.money = this.userService.user.money - amount;
         this.userService.updateUser(this.userService.user).subscribe(
           res => {
-            console.log('OK USUARIO CON - ', amount + ' en su cuenta')
+            console.log('OK USUARIO CON - ', amount + ' en su cuenta');
           }
-        )
+        );
         return res.tablesubscription;
       });
-   
+
   }
 
   searchSubscriptionTable(term: string) {
-    let url = URL_SERVICES + '/search/collection/tablesubscription/' + term;
+    const url = URL_SERVICES + '/search/collection/tablesubscription/' + term;
     return this._http.get(url).map(
       (response: any) => {
         return response.tablesubscription;
       }
-    )
+    );
   }
 
   updateSubscriptionTable(tablesubscription: any) {
-    let params = JSON.stringify(tablesubscription);
+    const params = JSON.stringify(tablesubscription);
     let url = URL_SERVICES + '/table-subscription/' + tablesubscription._id;
-    //revisar token
+    // revisar token
     url += '?token=' + localStorage.getItem('token');
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.put(url, tablesubscription, { headers: headers });
   }
 }

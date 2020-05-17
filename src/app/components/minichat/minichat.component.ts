@@ -327,7 +327,8 @@ export class MinichatComponent implements OnInit {
         });
         let mensaje = {
           owner: this.userService.user,
-          content: '123call'
+          content: '123call',
+          callOptions: options
         };
         if ((mensaje.owner._id == this.userService.user._id)) {
           this.messages.push(mensaje);

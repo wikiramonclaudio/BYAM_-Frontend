@@ -46,9 +46,9 @@ export class TableService {
     const url = URL_SERVICES + '/table' + '?token=' + localStorage.getItem('token');
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.post(url, params, { headers: headers })
-    .map((res: any) => {
-      return res.table;
-    });
+      .map((res: any) => {
+        return res.table;
+      });
   }
 
   searchTable(term: string) {
@@ -79,5 +79,12 @@ export class TableService {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.put(url, table, { headers: headers });
   }
+
+  // getLast 3 tables to dashboard view
+  getLastTables() {
+    const url = URL_SERVICES + '/table/lasttables';
+    return this._http.get(url);
+  }
+
 
 }

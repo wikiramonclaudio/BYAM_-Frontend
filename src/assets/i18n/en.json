@@ -73,5 +73,13 @@
     "profile.update_profile_image": "Update profile image",
     "chat.search_here" : "Search here",
     "chat.video_call": "Video call",
-    "chat.type_here": "Type your message here..."
+    "chat.type_here": "Type your message here...",
+
+    "dashboard.next_games" : "Next games",
+    "dashboard.create_new_game" : "Create new game",
+    "dashboard.top_winners" : "Top winners",
+    "dashboard.see_whole_ranking" : "See full ranking",
+    "dashboard.overview" : "Overview",
+    "dashboard.wins" : "Wins",
+    "dashboard.money" : "Money"
 }

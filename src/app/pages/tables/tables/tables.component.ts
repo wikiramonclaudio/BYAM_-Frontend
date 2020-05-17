@@ -5,8 +5,6 @@ import { SubscriptionTableService } from 'src/app/services/tablesubscription/tab
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslationService } from 'src/app/services/translation/translation.service';
-import {InputTextModule} from 'primeng/inputtext';
-import { fadeAnimation } from 'src/app/services/common/animations';
 import {
   trigger,
   state,
@@ -32,7 +30,7 @@ import {
   ]
 })
 export class TablesComponent implements OnInit {
-  tables: Table[] = [];
+  tables: any[] = [];
   initTables: Table[] = [];
   translate: TranslateService;
   searchFilter = '';

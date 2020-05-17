@@ -5,9 +5,11 @@ import { UserService } from 'src/app/services/service.index';
 import swal from 'sweetalert';
 import { TranslationService } from 'src/app/services/translation/translation.service';
 import { TranslateService } from '@ngx-translate/core';
+declare var $;
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css'],
   styles: []
 })
 export class ProfileComponent implements OnInit {
@@ -15,6 +17,7 @@ export class ProfileComponent implements OnInit {
   user: User = new User('', '', '', '', 0);
   fileToUpload: File;
   provisionalImg: any;
+  profileId;
   constructor(
     public userService: UserService,
     public route: ActivatedRoute,
@@ -25,15 +28,16 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.translate = this.translationService.getTranslateService();
-    let profileId = this.route.snapshot.paramMap.get('id');
-    if (!profileId)
+    const profileId = this.route.snapshot.paramMap.get('id');
+    this.profileId = profileId;
+    if (!profileId) {
       this.user = this.userService.user;
-    else {
+    } else {
       this.userService.getUser(profileId).subscribe(
         res => {
           this.user = res.user;
         }
-      )
+      );
     }
   }
 
@@ -58,8 +62,8 @@ export class ProfileComponent implements OnInit {
 
 
     this.fileToUpload = file;
-    let reader = new FileReader();
-    let urlTemp = reader.readAsDataURL(file);
+    const reader = new FileReader();
+    const urlTemp = reader.readAsDataURL(file);
 
     reader.onloadend = () => this.provisionalImg = reader.result;
 
@@ -67,6 +71,13 @@ export class ProfileComponent implements OnInit {
 
   updateImage() {
     this.userService.changeImg(this.fileToUpload, this.user._id);
+  }
+
+  activeImageSelector() {
+    if (this.userService.user._id == this.profileId) {
+      $('.input-img-selector').click();
+    }
+
   }
 
 }

@@ -20,6 +20,8 @@ export class CreateMatchComponent implements OnInit {
   club: any;
   league: any;
   translate: TranslateService;
+  sport = 'futbol';
+  tennisTournament = '';
   constructor(
     private matchService: MatchService,
     public translationService: TranslationService,
@@ -33,19 +35,22 @@ export class CreateMatchComponent implements OnInit {
 
   createMatch() {
     this.match.where = 'SEGOVIA';
+    if (this.sport == 'tenis') {
+      this.match.tournament == this.tennisTournament;
+    }
     if (this.match.localteam != this.match.awayteam) {
       this.matchService.createMatch(this.match).subscribe(
         res => {
-          // console.log('Creado nuevo partido', res);        
-          this.match.localteam='';
-          this.match.awayteam='';
+          // console.log('Creado nuevo partido', res);
+          this.match.localteam = '';
+          this.match.awayteam = '';
           this.match.when = '';
         }
-      )
-    }
-    else {
+      );
+    } else {
       swal('Error', 'El equipo local no puede coincidir con el equipo visitante, revisa la selección de equipos', 'error');
     }
+
   }
 
   getLeagues() {
@@ -54,30 +59,30 @@ export class CreateMatchComponent implements OnInit {
         this.leagues = res.leagues;
         if (res.length > 0) {
           this.league = res.leagues[0];
-          this.clubs = this.league.clubs
+          this.clubs = this.league.clubs;
         }
         $('select').each(function () {
-          var $this = $(this), numberOfOptions = $(this).children('option').length;
+          const $this = $(this), numberOfOptions = $(this).children('option').length;
 
           $this.addClass('select-hidden');
           $this.wrap('<div class="select"></div>');
           $this.after('<div class="select-styled"></div>');
 
-          var $styledSelect = $this.next('div.select-styled');
+          const $styledSelect = $this.next('div.select-styled');
           $styledSelect.text($this.children('option').eq(0).text());
 
-          var $list = $('<ul />', {
+          const $list = $('<ul />', {
             'class': 'select-options'
           }).insertAfter($styledSelect);
 
-          for (var i = 0; i < numberOfOptions; i++) {
+          for (let i = 0; i < numberOfOptions; i++) {
             $('<li />', {
               text: $this.children('option').eq(i).text(),
               rel: $this.children('option').eq(i).val()
             }).appendTo($list);
           }
 
-          var $listItems = $list.children('li');
+          const $listItems = $list.children('li');
 
           $styledSelect.click(function (e) {
             e.stopPropagation();
@@ -92,7 +97,6 @@ export class CreateMatchComponent implements OnInit {
             $styledSelect.text($(this).text()).removeClass('active');
             $this.val($(this).attr('rel'));
             $list.hide();
-            //console.log($this.val());
           });
 
           $(document).click(function () {

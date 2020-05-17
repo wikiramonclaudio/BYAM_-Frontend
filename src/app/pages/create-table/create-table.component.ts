@@ -1,4 +1,3 @@
-import { BetType } from './../../models/bettype.model';
 import { MatchTypeRelationService } from './../../services/matchTypeRelation/match-type-relation.service';
 import { BetTypeService } from './../../services/bettype/bet-type.service';
 import { Router } from '@angular/router';
@@ -15,7 +14,6 @@ import { SubscriptionTableService } from 'src/app/services/tablesubscription/tab
 import swal from 'sweetalert';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslationService } from 'src/app/services/translation/translation.service';
-import {PickListModule} from 'primeng/picklist';
 @Component({
   selector: 'app-create-table',
   templateUrl: './create-table.component.html',
@@ -120,10 +118,8 @@ export class CreateTableComponent implements OnInit {
       }
       item.table = tableId;
     });
-    console.log('matches with bet type', this.matchesWithBetType);
     this.matchTypeRelService.createManyMatchTypeRelations(this.matchesWithBetType).subscribe(
       res => {
-        console.log('Guardados OK los match type relations');
         this.router.navigate(['/table', this.table._id]);
       }
     );
@@ -133,10 +129,10 @@ export class CreateTableComponent implements OnInit {
   saveMatch(event: any, betType: any, tableId: string) {
     const match = event.items[0];
     const matches = event.items;
-    // match.selected = true;
 
     matches.forEach(match => {
-      let exists = this.matchesWithBetType.find((item) => {
+      match.tiebreak = false;
+      const exists = this.matchesWithBetType.find((item) => {
         return item.match == match._id;
       });
       const newMatchTypeRelation = {
@@ -146,15 +142,16 @@ export class CreateTableComponent implements OnInit {
       if (!exists) {
         this.matchesWithBetType.push(newMatchTypeRelation);
       } else {
-        // swal('Partido añadido', 'Este partido ya está añadido', 'warning');
+        swal('Partido añadido', 'Este partido ya está añadido', 'warning');
       }
     });
+    this.tiebreakMatch = match._id;
   }
 
   removeSelectedMatchTypeRelation(event) {
     // quitar de los this.matchesWithBetType
     event.items.forEach((item) => {
-      let exists = this.matchesWithBetType.find((item) => {
+      const exists = this.matchesWithBetType.find((item) => {
         return item.match == item._id;
       });
       this.matchesWithBetType = this.matchesWithBetType.filter((matchWithBet) => {
@@ -176,10 +173,6 @@ export class CreateTableComponent implements OnInit {
 
   // check selected tiebrekmatch
   checkTieBreakSelection() {
-    // let choices = this.matches.filter((el)=>{
-    //   return el.tiebreak == true;
-    // });
-    // return choices.length == 1;
     if (this.tiebreakMatch) {
       return true;
     } else {

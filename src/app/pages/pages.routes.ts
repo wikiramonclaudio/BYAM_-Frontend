@@ -1,3 +1,4 @@
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { PcComponent } from './../components/pc/pc/pc.component';
 import { InviteComponent } from './invite/invite/invite.component';
@@ -24,7 +25,7 @@ const pagesRoutes: Routes = [
     //     component : PagesComponent,
     //     canActivate: [LoginGuardGuard],
     //     children : [
-            { path : 'dashboard', canActivate: [LoginGuardGuard, ChecktokenGuard], component : TablesComponent, data: { title: 'Home'}},
+            { path : 'dashboard', canActivate: [LoginGuardGuard, ChecktokenGuard], component : DashboardComponent, data: { title: 'Home'}},
             { path : 'profile', canActivate: [LoginGuardGuard, ChecktokenGuard], component : ProfileComponent, data: { title: 'main.see_profile'}},
             { path : 'profile/:id', canActivate: [LoginGuardGuard, ChecktokenGuard], component : ProfileComponent, data: { title: 'main.see_profile'}},
             { path : 'search/:term', canActivate: [LoginGuardGuard, ChecktokenGuard], component : SearchComponent, data: { title: 'Buscador'}},

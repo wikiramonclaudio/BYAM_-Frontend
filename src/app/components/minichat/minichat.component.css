@@ -159,6 +159,7 @@ ul li {
   opacity: 1;
   -webkit-animation: zoomIn .2s cubic-bezier(.42, 0, .58, 1);
   animation: zoomIn .2s cubic-bezier(.42, 0, .58, 1);
+  background: white;
 }
 
 .is-hide {
@@ -846,4 +847,8 @@ strong.chat_time {
   100% {
     border: 2px solid rgb(25, 182, 64);
   }
+}
+
+.toggle-chat-btn {
+  border: 3px solid #fff;
 }

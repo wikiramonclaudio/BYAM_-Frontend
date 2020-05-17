@@ -1,0 +1,9 @@
+.provisional-img, .user-img {
+  width: 150px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.provisional-img, .user-img:hover {
+    border: 5px solid rgb(145, 145, 250);
+}

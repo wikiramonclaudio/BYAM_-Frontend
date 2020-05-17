@@ -168,10 +168,6 @@ video {
     /* margin: 40px 0 20px; */
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-
 
 /* @media screen and (min-width: 768px){ */
    /* ui picklist styles */
@@ -187,3 +183,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     min-height: 400px!important;
   }
 /* } */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.card-no-border .card {
+  border-radius: 25px;
+  box-shadow: 6px 6px 10px #cdc7c7;
+}

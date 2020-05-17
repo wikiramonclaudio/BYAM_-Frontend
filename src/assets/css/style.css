@@ -1670,8 +1670,9 @@ Notify
 *******************/
 .page-titles {
   background: #f4f6f9;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   padding: 0px;
+  border-bottom: 1px solid #e9e2e1;
 }
 
 .page-titles h3 {

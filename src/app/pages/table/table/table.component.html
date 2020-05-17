@@ -31,8 +31,6 @@
               *ngIf="table.chat && checkSubscription()">
               <i class="fa fa-comments fa-2x" (click)="activateInputField()"></i>
             </span>
-            <!-- <span class="fa fa-soccer-ball-o ml-3" *ngIf="table.type == 'Futbol'"></span> -->
-            <!-- <img class="ml-3" src="./assets/images/basketball.png" *ngIf="table.type == 'Baloncesto'" width="38"> -->
           </div>
         </div>
         <hr>
@@ -53,13 +51,13 @@
           <i class="fa fa-lock ml-2"></i>
         </div>
         <div class="badge badge-info d-flex mb-2 p-2" *ngIf="table.winner">
-          <i class="fa fa-trophy mr-2"></i>
+          <i class="fa fa-trophy mr-2">&nbsp;</i>
           <b>{{table.winner.name}}</b>&nbsp; {{ translate.instant('main.someone_win') }}
           {{table.activeusers * table.betamount}}€
         </div>
         <div class="d-flex align-items-center justify-content-center">
           <ul class="table-users-list d-flex flex-column pl-0" style="list-style:none;">
-            <li *ngFor="let subscription of tableSubscriptions" class="mt-2 animated rollIn">
+            <li *ngFor="let subscription of tableSubscriptions" class="mt-2 animated">
               <a href="javascript:void(0)" (click)="getBetsByTable(subscription.player,subscription.player._id)">
                 <img [src]="subscription.player.image | image" alt="" width="30" class="mr-2 rounded-circle">
                 <span
@@ -72,9 +70,6 @@
             <span class="ml-2">{{totalAmount}}€</span>
           </h3>
         </div>
-        <!-- <button class="btn secondary" (click)="checkWinner()" *ngIf="allMatchesFinished == true && !table.winner">
-          Revisar ganador
-        </button> -->
       </div>
     </div>
   </div>
@@ -87,89 +82,39 @@
           <div class="panel panel-default" *ngFor="let matchByTable of matchTypeRelations; let i=index">
             <div class="panel-heading" *ngIf="!matchByTable.winnerchoice">
               <h4 class="panel-title card-title text-center match-title">
-                <a >
-                  <span>{{matchByTable.match.localteam}}</span>
-                  <span class="ml-2">VS</span>
-                  <span class="ml-2">{{matchByTable.match.awayteam}}</span>
-                  <br>
-                  <!-- <span class="ml-2"
-                    style="font-size: 13px; color: #ccc2c2;">{{matchByTable.match.when | date: 'short' : 'UTC' : 'es'}}</span> -->
-                  <span class="ml-2"
-                    style="font-size: 13px; color: #ccc2c2;">{{matchByTable.match.when | date: 'short' : 'es'}}</span>
-                  <br>
-                  <p-dropdown optionLabel="name" [name]="name"
-                    [options]="[{name: '-', label : '-'},matchByTable.bettype.option1, matchByTable.bettype.option2,matchByTable.bettype.option3]"
-                    [(ngModel)]="matchByTable.choice" (onChange)="toggleOption(matchByTable, 1, $event.value._id)">
-                  </p-dropdown>
-                  <div *ngIf="matchByTable.tiebreak">
-                    <form ngNativeValidate class="form-horizontal form-material">
-                      <h5><span class="badge badge-info pl-2 pr-2 mt-2" style="white-space: pre-wrap;">
-                          Pronóstico desempate (Num goles partido). Cuando haya más de un ganador se
-                          revisará este pronóstico para desempatar.
-                        </span></h5>
-                      <span style="font-size: 14px;">Num total goles partido (Desempates)</span>
-                      <div class="form-group d-flex">
-                        <input class="form-control text-center" type="number" required placeholder="0"
-                          [(ngModel)]="goalsTotal" name="subject">
-                      </div>
-                    </form>
-                  </div>
-                </a>
+                <span>{{matchByTable.match.localteam}}</span>
+                <span class="ml-2">VS</span>
+                <span class="ml-2">{{matchByTable.match.awayteam}}</span>
+                <br>
+                <span class="ml-2"
+                  style="font-size: 13px; color: #ccc2c2;">{{matchByTable.match.when | date: 'short' : 'es'}}</span>
+                <br>
+                <p-dropdown optionLabel="name" [name]="'name'"
+                  [options]="[{name: '-', label : '-'},matchByTable.bettype.option1, matchByTable.bettype.option2,matchByTable.bettype.option3]"
+                  [(ngModel)]="matchByTable.choice" (onChange)="toggleOption(matchByTable, 1, $event.value._id)">
+                </p-dropdown>
+                <div *ngIf="matchByTable.tiebreak">
+                  <form ngNativeValidate class="form-horizontal form-material">
+                    <h5><span class="badge badge-info pl-2 pr-2 mt-2" style="white-space: pre-wrap;">
+                        Pronóstico desempate (Num goles partido). Cuando haya más de un ganador se
+                        revisará este pronóstico para desempatar.
+                      </span></h5>
+                    <span style="font-size: 14px;">Num total goles partido (Desempates)</span>
+                    <div class="form-group d-flex">
+                      <input class="form-control text-center" type="number" required placeholder="0"
+                        [(ngModel)]="goalsTotal" name="subject">
+                    </div>
+                  </form>
+                </div>
               </h4>
             </div>
-            <!-- <div [id]="matchByTable._id" class="panel-collapse collapse">
-              <span class="text-center">{{matchByTable.bettype.name}}</span>
-              <br>
-              <div class="list-group">
-                <a href="javascript:void(0)" class="list-group-item list-group-item-action"
-                  [ngClass]="{'list-group-item-success': matchByTable.bettype.option1.selected}"
-                  (click)="toggleOption(matchByTable, 1, matchByTable.bettype.option1._id)">
-                  {{matchByTable.bettype.option1.name}}
-                </a>
-                <a href="javascript:void(0)" class="list-group-item list-group-item-action"
-                  [ngClass]="{'list-group-item-success': matchByTable.bettype.option2.selected}"
-                  (click)="toggleOption(matchByTable, 2, matchByTable.bettype.option2._id)">
-                  {{matchByTable.bettype.option2.name}}
-                </a>
-                <a href="javascript:void(0)" class="list-group-item list-group-item-action"
-                  *ngIf="matchByTable.bettype.option3"
-                  [ngClass]="{'list-group-item-success': matchByTable.bettype.option3.selected}"
-                  (click)="toggleOption(matchByTable, 3, matchByTable.bettype.option3._id)">
-                  {{matchByTable.bettype.option3.name}}
-                </a>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <p-dropdown optionLabel="name" [name]="name" [options]="[matchByTable.bettype.option1, matchByTable.bettype.option2,matchByTable.bettype.option3]" [(ngModel)]="selectedCity1" (onChange)="toggleOption(matchByTable, 1, $event.value._id)"></p-dropdown>
-              </div>
-              <br>
-              <div *ngIf="matchByTable.tiebreak">
-                <form ngNativeValidate class="form-horizontal form-material">
-                  <h5><span class="badge badge-info pl-2 pr-2 mt-2" style="white-space: pre-wrap;">
-                      Pronóstico desempate (Num goles partido). Cuando haya más de un ganador se
-                      revisará este pronóstico para desempatar.
-                    </span></h5>
-                  <span style="font-size: 14px;">Num total goles partido (Desempates)</span>
-                  <div class="form-group d-flex">
-                    <input class="form-control text-center" type="number" required placeholder="0"
-                      [(ngModel)]="goalsTotal" name="subject">
-                  </div>
-                </form>
-              </div>
-            </div> -->
             <hr>
           </div>
-          <!-- <form ngNativeValidate class="form-horizontal form-material">
-            <div class="form-group ">
-              <div class="col-xs-12">
-                <input class="form-control" type="number" required placeholder="Numero total de goles" [(ngModel)]="goalsTotal"
-                  name="subject">
-              </div>
-            </div>
-          </form> -->
         </div>
-        <button class="btn btn-secondary" *ngIf="!checkSubscription() && table.closed == false">
+        <button class="btn btn-secondary" (click)="subscribeToTable()"
+          *ngIf="!checkSubscription() && table.closed == false" [disabled]="userService.user.money < table.betamount">
           <i class="fa fa-plus mr-1"></i>
-          <span (click)="subscribeToTable()">{{translate.instant('main.join_to_table')}}</span>
+          <span>{{translate.instant('main.join_to_table')}}</span>
         </button>
       </div>
     </div>
@@ -188,11 +133,9 @@
         <div class="panel-group">
           <div class="panel panel-default" *ngFor="let matchByTable of myForecasts; let i=index">
             <div class="panel-heading">
-              <h4 class="panel-title card-title text-center match-title">
-                <a data-toggle="collapse" [href]="'#'+matchByTable._id">
+              <h4 class="panel-title card-title text-center match-title d-flex flex-column">
+                <div>
                   <span>{{matchByTable.match.localteam}}</span>
-                  <!-- <span class="text-success ml-1"
-                    *ngIf="matchByTable.bet.tiebreakmatch == matchByTable.match._id">{{matchByTable.bet.goalslocalteam}}</span> -->
                   <span class="ml-2">VS</span>
                   <span class="ml-2">{{matchByTable.match.awayteam}}</span>
                   <span class="badge badge-info ml-1"
@@ -205,35 +148,14 @@
                     *ngIf="matchByTable.winnerchoice != null && matchByTable.choice._id == matchByTable.winnerchoice"><span></span></span>
                   <span class="badge badge-danger fa fa-times ml-2" style="font-size: 13px;"
                     *ngIf="matchByTable.winnerchoice != null && matchByTable.choice._id != matchByTable.winnerchoice"><span></span></span>
-                </a>
+                </div>
+                <span class="text-themecolor"
+                  *ngIf="matchByTable.bettype.option1._id == matchByTable.choice._id">{{matchByTable.bettype.option1.name}}</span>
+                <span class="text-themecolor"
+                  *ngIf="matchByTable.bettype.option2._id == matchByTable.choice._id">{{matchByTable.bettype.option2.name}}</span>
+                <span class="text-themecolor"
+                  *ngIf="matchByTable.bettype.option3._id == matchByTable.choice._id">{{matchByTable.bettype.option3.name}}</span>
               </h4>
-            </div>
-            <div [id]="matchByTable._id" class="panel-collapse collapse">
-              <span class="text-center">{{matchByTable.bettype.name}}</span>
-              <br>
-              <!-- {{matchByTable | json}} -->
-              <div class="list-group">
-                <a href="javascript:void(0)" class="list-group-item list-group-item-action"
-                  [ngClass]="{'list-group-item-success': matchByTable.bettype.option1._id == matchByTable.choice._id}"
-                  (click)="toggleOption(matchByTable, 1, matchByTable.bettype.option1._id)">
-                  <span>{{matchByTable.bettype.option1.name}}</span>
-                  <i class="fa fa-check ml-2" *ngIf="matchByTable.bettype.option1._id == matchByTable.winnerchoice"></i>
-                </a>
-                <a href="javascript:void(0)" class="list-group-item list-group-item-action"
-                  [ngClass]="{'list-group-item-success': matchByTable.bettype.option2._id == matchByTable.choice._id}"
-                  (click)="toggleOption(matchByTable, 2, matchByTable.bettype.option2._id)">
-                  {{matchByTable.bettype.option2.name}}
-                  <i class="fa fa-check ml-2" *ngIf="matchByTable.bettype.option2._id == matchByTable.winnerchoice"></i>
-                </a>
-                <a href="javascript:void(0)" class="list-group-item list-group-item-action"
-                  *ngIf="matchByTable.bettype.option3"
-                  [ngClass]="{'list-group-item-success' : matchByTable.bettype.option3._id == matchByTable.choice._id}"
-                  (click)="toggleOption(matchByTable, 3, matchByTable.bettype.option3._id)">
-                  {{matchByTable.bettype.option3.name}}
-                  <i class="fa fa-check ml-2"
-                    *ngIf="matchByTable.bettype.option3 && matchByTable.bettype.option3._id == matchByTable.winnerchoice"></i>
-                </a>
-              </div>
             </div>
             <hr>
           </div>
@@ -247,10 +169,6 @@
 <div class="modal animate" id="chatModal">
   <div class="modal-dialog chat-modal">
     <div class="modal-content chat-modal-content">
-      <!-- <div class="modal-header">
-        <h4 class="modal-title">Chat partida {{table.name}}</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div> -->
       <div class="modal-body p-2 chat-modal-body">
         <div class="card m-0">
           <div class="d-flex pl-0">
@@ -275,7 +193,8 @@
                   <small class="">{{ translate.instant('main.no_messages') }}</small>
                 </li>
               </div>
-              <form (ngSubmit)="enviar()" class="d-flex mt-2">
+              <!-- (ngSubmit)="enviar()" -->
+              <form class="d-flex mt-2">
                 <input type="text" id="textField" [(ngModel)]="texto" class="p-0 form-control chat-input" name="texto"
                   placeholder="{{ translate.instant('main.write_message')}}" autofocus autocomplete="off"
                   style="border:none;">
@@ -295,3 +214,4 @@
       </div>
     </div>
   </div>
+</div>

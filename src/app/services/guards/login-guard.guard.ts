@@ -11,15 +11,15 @@ export class LoginGuardGuard implements CanActivate {
   constructor(
     public userService: UserService,
     public router: Router
-  ){
+  ) {
 
   }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-      if(this.userService.isLogged()){        
+      if(this.userService.isLogged()) {
         return true;
-      }else{
+      } else {
         console.log('bloquedado por el guard');
         this.router.navigate(['/login']);
         return false;

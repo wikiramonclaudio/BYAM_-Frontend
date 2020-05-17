@@ -8,10 +8,11 @@ export class User {
         //no mandatory fields
         public image?: string,
         public money?: number,
+        public wins?: number,
         public role?: string,
         public google?: boolean,
         public _id?: string,
         public connected?: boolean
-    ){        
+    ){
     }
 }

@@ -1,5 +1,5 @@
+// import { Message } from './../../../models/message.model';
 import { TranslationService } from './../../../services/translation/translation.service';
-import { Message } from './../../../models/message.model';
 import { MessageService } from './../../../services/message/message.service';
 import { SubscriptionTableService } from './../../../services/tablesubscription/table-subscription.service';
 import { ForecastService } from './../../../services/forecast/forecast.service';
@@ -16,7 +16,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Table } from 'src/app/models/table.model';
 import { User } from 'src/app/models/user.model';
 import { Match } from 'src/app/models/match.model';
-import { MatchTypeRelation } from 'src/app/models/matchtyperelation';
 import { Bet } from 'src/app/models/bet.model';
 import swal from 'sweetalert';
 import { WebsocketService } from 'src/app/services/websocket.service';
@@ -39,7 +38,7 @@ export class TableComponent implements OnInit, OnDestroy {
   matchesByTable: MatchByTable[] = [];
   matches: Match[] = [];
   selectedMatches: Match[];
-  matchTypeRelations: MatchTypeRelation[] = [];
+  matchTypeRelations: any[] = [];
   forecasts: Forecast[] = [];
   bet: Bet = new Bet('', '');
   myForecasts: any[] = [];
@@ -69,12 +68,10 @@ export class TableComponent implements OnInit, OnDestroy {
     public websocketService: WebsocketService,
     public messageService: MessageService,
     public translationService: TranslationService
-    // private translate: TranslateService
   ) { }
 
   ngOnInit() {
     const tableId = this.route.snapshot.paramMap.get('id');
-    // this.translate.setDefaultLang('en');
     this.translate = this.translationService.getTranslateService();
     this.tableService.getTable(tableId).subscribe(
       res => {
@@ -88,19 +85,6 @@ export class TableComponent implements OnInit, OnDestroy {
         this.textField = document.getElementById('textField');
       }
     );
-  }
-
-  ngOnDestroy(): void {
-    // Called once, before the instance is destroyed.
-    // Add 'implements OnDestroy' to the class.
-    // console.log('SE ABANDONA EL SOCKET');
-    // this.websocketService.emit('leaveTable', {tableId: this.table._id, user: this.userService.user});
-  }
-
-  ngAfterContentInit() {
-    // console.log('ngAfterContentInit');
-    // if (this.checkSubscription())
-    //   this.subscribeToSocket();
   }
 
   addForecastTobet() {
@@ -157,7 +141,7 @@ export class TableComponent implements OnInit, OnDestroy {
       this.websocketService.listen('newTableMessage', {}).subscribe(
         (res: any) => {
           console.log(res);
-          const newMsg = { owner: res.user, table: this.table._id, content: res.text};
+          const newMsg = { owner: res.user, table: this.table._id, content: res.text };
           this.mensajes.push(newMsg);
           setTimeout(() => {
             // scroll siempre abajo
@@ -166,13 +150,13 @@ export class TableComponent implements OnInit, OnDestroy {
           // console.log('params', params);
         }
       );
-    //   this.websocketService.listen('chat:typing', function(data){
-    //     console.log('someone is typing', data);
-    //     var actions = document.getElementById('actions-text');
-    //     actions.innerHTML = `<p>
-    //         <em>${data}</em> is typing a message...
-    //     </p>`
-    // });
+      //   this.websocketService.listen('chat:typing', function(data){
+      //     console.log('someone is typing', data);
+      //     var actions = document.getElementById('actions-text');
+      //     actions.innerHTML = `<p>
+      //         <em>${data}</em> is typing a message...
+      //     </p>`
+      // });
       this.websocketService.emit('joinInTable', { user: this.userService.user, tableId: this.table._id });
     }
   }
@@ -314,20 +298,13 @@ export class TableComponent implements OnInit, OnDestroy {
       return Date.parse(pre) > Date.parse(cur) ? cur : pre;
     });
 
-    // var latest = arrayFechas.reduce((m,v,i) => (v.ModDate > m.ModDate) && i ? v : m).ModDate;
-
     if (this.table.closed == false) {
       const x = setInterval(() => {
         const deadline: any = new Date(earliest).getTime();
-        // console.log( new Date().getTimezoneOffset());
-        // console.log(deadline + new Date().getTimezoneOffset());
         const now = new Date().getTime();
-        // console.log('now', now);
-        // console.log(now + new Date().getTimezoneOffset());
         const t = deadline - now;
         const days: any = Math.floor(t / (1000 * 60 * 60 * 24));
         const hours: any = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        // hours -= 1;
         const minutes: any = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
         const seconds: any = Math.floor((t % (1000 * 60)) / 1000);
         if (!document.getElementById('day')) {
@@ -493,39 +470,7 @@ export class TableComponent implements OnInit, OnDestroy {
     }
   }
 
-  enviar() {
-    if (this.texto.trim().length == 0) {
-      return;
-    }
-    this.websocketService.emit('RoomMessage', { user: this.userService.user, text: this.texto, tableId: this.table._id });
-    const newMsg = new Message(this.userService.user._id, this.table._id, this.texto);
-    this.messageService.createMessage(newMsg).subscribe(
-      res => {
-        console.log('Mensajolo guardado', res);
-      }
-    );
-    this.texto = '';
-    this.textField.focus();
-  }
-
-  // @HostListener('window:focus', ['$event'])
-  // onFocus(event: any): void {
-  //     console.log('FOCUSSSSS');
-  // }
-
-  // @HostListener('window:blur', ['$event'])
-  // onBlur(event: any): void {
-  //     console.log('ON BLURRR DEJAR EL FOCUS');
-
-  // }
-
   activateInputField() {
-    // setTimeout(() => {
-    //   this.textField.focus();
-    //   this.textField.addEventListener('keypress', (e)=>{
-    //     this.websocketService.emit('chat:typing', this.userService.user.name);
-    //   });
-    // }, 500);
     this.messageService.getMessagesByTable(this.table._id).subscribe(
       (res: any) => {
         this.mensajes = res.messages;
@@ -533,4 +478,34 @@ export class TableComponent implements OnInit, OnDestroy {
       }
     );
   }
+
+  // enviar() {
+  //   if (this.texto.trim().length == 0) {
+  //     return;
+  //   }
+  //   this.websocketService.emit('RoomMessage', { user: this.userService.user, text: this.texto, tableId: this.table._id });
+  //   const newMsg = new Message(this.userService.user._id, this.table._id, this.texto);
+  //   this.messageService.createMessage(newMsg).subscribe(
+  //     res => {
+  //       console.log('Mensajolo guardado', res);
+  //     }
+  //   );
+  //   this.texto = '';
+  //   this.textField.focus();
+  // }
+
+
+  ngOnDestroy(): void {
+  // Called once, before the instance is destroyed.
+  // Add 'implements OnDestroy' to the class.
+  // console.log('SE ABANDONA EL SOCKET');
+  // this.websocketService.emit('leaveTable', {tableId: this.table._id, user: this.userService.user});
+  }
+
+  // ngAfterContentInit() {
+  // console.log('ngAfterContentInit');
+  // if (this.checkSubscription())
+  //   this.subscribeToSocket();
+  // }
+
 }

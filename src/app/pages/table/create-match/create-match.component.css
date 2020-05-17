@@ -1,5 +1,13 @@
-@media screen and  (min-width: 768px){
-    select{
-        min-width: 330px!important;
-    }
+@media screen and (min-width: 768px) {
+  select {
+    min-width: 330px !important;
+  }
+}
+
+.add-match-wrapper textarea {
+  height: 25px;
+}
+
+.ui-lightbox-content.ui-lightbox-loading+a {
+  display: block !important;
 }
