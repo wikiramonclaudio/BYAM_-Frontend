@@ -24,6 +24,7 @@ Login register and recover password Page
   .login-box {
     min-width: 300px;;
     max-width: 400px;
+    box-shadow: none!important;
     margin: 0 auto; }
     .login-box .footer {
       width: 100%;

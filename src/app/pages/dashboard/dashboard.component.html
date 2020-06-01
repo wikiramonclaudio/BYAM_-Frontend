@@ -5,7 +5,7 @@
         {{translate.instant('dashboard.next_games')}}
       </h3>
       <a class="ml-3" [routerLink]="[ '/add-table']" class="text-themecolor dashboard-button-link">
-        <i class="text-themecolor fa fa-plus mr-2"></i>
+        <!-- <i class="text-themecolor fa fa-plus mr-2"></i> -->
         <span class="text-themecolor">{{translate.instant('dashboard.create_new_game')}}</span>
       </a>
     </div>
@@ -13,7 +13,7 @@
 </div>
 <div class="row mt-1">
   <div class="col-sm-12 col-md-6 col-lg-4" *ngFor="let table of lastTables">
-    <div class="card animated zoomIn" *ngIf="table && table._id">
+    <div class="card animated fadeIn" *ngIf="table && table._id">
       <div class="card-body">
         <a href="javascript:void(0)" [routerLink]="['/table', table._id]" class="d-flex">
           <img style="width: 22px;
@@ -49,7 +49,7 @@
         {{translate.instant('dashboard.top_winners')}}
       </h3>
       <a class="ml-3" [routerLink]="[ '/ranking']" class="text-themecolor dashboard-button-link">
-        <i class="text-themecolor fa fa-eye mr-2"></i>
+        <!-- <i class="text-themecolor fa fa-eye mr-2"></i> -->
         <span class="text-themecolor">{{translate.instant('dashboard.see_whole_ranking')}}</span>
       </a>
     </div>
@@ -57,7 +57,7 @@
 </div>
 <div class="row mt-2">
   <div class="col-md-2" *ngFor="let user of topWinners; let i = index;">
-    <div class="card main-card animated zoomIn fast active-user-card pt-0">
+    <div class="card main-card animated fadeIn fast active-user-card pt-0">
       <mat-card-content class="card-body d-flex justify-content-center align-items-center flex-column">
         <div class="d-flex flex-column justify-content-center align-items-center most-active-user-card"
           [routerLink]="['/profile', user._id]">
@@ -84,7 +84,7 @@
 </div>
 <div class="row mt-2">
   <div class="col-lg-3 col-md-6">
-    <div class="card main-card animated zoomIn fast">
+    <div class="card main-card animated fadeIn fast">
       <mat-card-content class="card-body slow d-flex justify-content-center align-items-center flex-column">
         <div class="d-flex justify-content-center align-items-center">
           <mat-icon color="primary" class="mat-18 mr-1 header-card-icon">supervised_user_circle</mat-icon>
@@ -101,7 +101,7 @@
     </div>
   </div>
   <div class="col-lg-3 col-md-6">
-    <div class="card main-card animated zoomIn fast">
+    <div class="card main-card animated fadeIn fast">
       <mat-card-content class="card-body slow d-flex justify-content-center align-items-center flex-column">
         <div class="d-flex justify-content-center align-items-center">
           <mat-icon class="mat-18 mr-1 header-card-icon text-themecolor">emoji_events</mat-icon>
@@ -118,7 +118,7 @@
     </div>
   </div>
   <div class="col-lg-3 col-md-6">
-    <div class="card main-card animated zoomIn fast">
+    <div class="card main-card animated fadeIn fast">
       <mat-card-content class="card-body slow d-flex justify-content-center align-items-center flex-column">
         <div class="d-flex justify-content-center align-items-center">
           <mat-icon color="warn" class="mat-18 mr-1 header-card-icon">thumb_up</mat-icon>
@@ -135,7 +135,7 @@
     </div>
   </div>
   <div class="col-lg-3 col-md-6">
-    <div class="card main-card animated zoomIn fast">
+    <div class="card main-card animated fadeIn fast">
       <mat-card-content class="card-body slow d-flex justify-content-center align-items-center flex-column">
         <div class="d-flex justify-content-center align-items-center">
           <mat-icon color="primary" class="mat-18 mr-1 header-card-icon">euro_symbol</mat-icon>

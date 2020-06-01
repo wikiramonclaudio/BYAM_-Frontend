@@ -1,0 +1,21 @@
+.header-logo {
+  background-image: url(../../../assets/images/logo1.png);
+  margin-top: 2px;
+  width: 60px;
+  height: 60px;
+  background-size: 58px;
+  transition: 0.2s all;
+  border-radius: 50%;
+  background-position-y: 4px;
+  background-position-x: center;
+  background-repeat: no-repeat;
+  /* background-color: #fff;
+  border: 2px solid grey; */
+}
+
+.header-logo:hover {
+  cursor: pointer;
+  /* opacity:0.8; */
+  /* background-color: rgb(235, 235, 235); */
+  /* border: 2px solid white; */
+}

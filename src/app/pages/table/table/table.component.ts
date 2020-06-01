@@ -98,7 +98,6 @@ export class TableComponent implements OnInit, OnDestroy {
 
   subscribeToTable() {
     if ((this.getSelectedForecastCount() == this.matchTypeRelations.length) && this.goalsTotal >= 0) {
-      // let totalgoals = this.goalsLocalTeam + this.goalsAwayTeam;
       this.subscribeToTableService.createSubscriptionTable(this.subscription, this.table.betamount).subscribe(
         res => {
           const newBet = new Bet(this.table._id, this.userService.user._id, null, null, this.goalsTotal, this.tiebreakMatch.match._id);
