@@ -24,7 +24,7 @@ export class BreadcrumbsComponent implements OnInit {
       .subscribe(
         data => {
           this.sectionTitle = data.title;
-          this.title.setTitle('BYAM - Settings');
+          this.title.setTitle(`BYAM - ${this.sectionTitle}`);
 
           const metaTag: MetaDefinition = {
             name: 'description',
@@ -33,7 +33,7 @@ export class BreadcrumbsComponent implements OnInit {
 
           this.meta.updateTag(metaTag);
         }
-      )
+      );
   }
 
   ngOnInit() {

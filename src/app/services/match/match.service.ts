@@ -18,76 +18,77 @@ export class MatchService {
     public uploadService: UploadFileService
   ) { }
 
-  getMatches(): Observable<any>{
-    let url = URL_SERVICES + '/match';    
+  getMatches(): Observable<any> {
+    const url = URL_SERVICES + '/match';
     return this._http.get(url);
   }
 
-  getFinishedMatches(): Observable<any>{
-    let url = URL_SERVICES + '/match/finished';    
+  getFinishedMatches(): Observable<any> {
+    const url = URL_SERVICES + '/match/finished';
     return this._http.get(url);
   }
 
-  getMatch(id: string): Observable<any>{
-    let url = URL_SERVICES + '/match/' + id;    
+  getMatch(id: string): Observable<any> {
+    const url = URL_SERVICES + '/match/' + id;
     return this._http.get(url);
   }
 
-  deleteMatch(id: string, token: string){
-    //PONER EL TOKEN
-    let url = URL_SERVICES + /match/ + id + '?token=' + localStorage.getItem('token');
+  deleteMatch(id: string, token: string) {
+    // PONER EL TOKEN
+    const url = URL_SERVICES + /match/ + id + '?token=' + localStorage.getItem('token');
     return this._http.delete(url);
   }
 
   createMatch(match: any) {
-    let params = JSON.stringify(match);
-    let url = URL_SERVICES + '/match'+ '?token=' + localStorage.getItem('token');    
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const params = JSON.stringify(match);
+    const url = URL_SERVICES + '/match' + '?token=' + localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.post(url, params, { headers: headers })
-    .map((res: any)=>{
-      swal("Partido registrado", " " + "El partido está ya disponible para añadirlo en las mesas de juego.", "success");
+    .map((res: any) => {
+      swal('Partido registrado', ' ' + 'El partido está ya disponible para añadirlo en las mesas de juego.', 'success');
       return res.match;
     });
   }
 
 
   createManyMatches(matches: any) {
-    let params = JSON.stringify(matches);
-    let url = URL_SERVICES + '/matchesbytable/several'+ '?token=' + localStorage.getItem('token');    
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const params = JSON.stringify(matches);
+    const url = URL_SERVICES + '/matchesbytable/several' + '?token=' + localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.post(url, params, { headers: headers })
-    .map((res: any)=>{
+    .map((res: any) => {
+      console.log('CREATE MANY MATCHES RESLT', res);
       // swal("Match registrado", " " + match.name, "success");
       return res;
     });
   }
 
-  searchMatch(term: string){
-    let url = URL_SERVICES + '/search/collection/match/' + term;
+  searchMatch(term: string) {
+    const url = URL_SERVICES + '/search/collection/match/' + term;
     return this._http.get(url).map(
-      (response: any)=>{        
+      (response: any) => {
         console.log(response);
         return response.match;
       }
-    )
+    );
   }
 
-  updateMatch(match: any){
-    let params = JSON.stringify(match);
-    let url = URL_SERVICES + '/match/' + match._id;  
-    //revisar token
-    url += '?token=' + localStorage.getItem('token'); 
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this._http.put(url, match, { headers: headers });    
+  updateMatch(match: any) {
+    const params = JSON.stringify(match);
+    let url = URL_SERVICES + '/match/' + match._id;
+    // revisar token
+    url += '?token=' + localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.put(url, match, { headers: headers });
   }
 
-  getMatchesByTable(tableId: string){
-    let url = URL_SERVICES + '/matchesbytable/' + tableId;    
+  getMatchesByTable(tableId: string) {
+    const url = URL_SERVICES + '/matchesbytable/' + tableId;
     return this._http.get(url);
   }
 
-  getSpanishMatches(){
-    let url = URL_SERVICES + '/matches';    
+  getSpanishMatches() {
+    const url = URL_SERVICES + '/matches';
     return this._http.get(url);
   }
 }

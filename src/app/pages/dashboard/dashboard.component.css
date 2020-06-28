@@ -16,3 +16,6 @@
   padding: 10px;
   border-radius: 10px;
 }
+.dashboard-user-card .mat-card-content {
+  height: 170px;
+}

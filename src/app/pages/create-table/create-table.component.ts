@@ -112,13 +112,25 @@ export class CreateTableComponent implements OnInit {
 
   // Save matches by table
   saveMatchesTypeRelation(tableId: string) {
+    const arrayFechas = [];
     this.matchesWithBetType.forEach((item) => {
+      arrayFechas.push(item.matchdate);
       if (item.match == this.tiebreakMatch) {
         item.tiebreak = true;
       }
+      delete item.matchdate;
       item.table = tableId;
     });
-    this.matchTypeRelService.createManyMatchTypeRelations(this.matchesWithBetType).subscribe(
+     const earliest = arrayFechas.reduce(function (pre, cur) {
+        return Date.parse(pre) > Date.parse(cur) ? cur : pre;
+    });
+
+    const params = {
+      closeTableDate: earliest,
+      matchesWithBetType: this.matchesWithBetType,
+      tableId: tableId
+    };
+    this.matchTypeRelService.createManyMatchTypeRelations(params).subscribe(
       res => {
         this.router.navigate(['/table', this.table._id]);
       }
@@ -137,7 +149,8 @@ export class CreateTableComponent implements OnInit {
       });
       const newMatchTypeRelation = {
         match: match._id,
-        bettype: this.betTypes[0]._id
+        bettype: this.betTypes[0]._id,
+        matchdate: match.when
       };
       if (!exists) {
         this.matchesWithBetType.push(newMatchTypeRelation);

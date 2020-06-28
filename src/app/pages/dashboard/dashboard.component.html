@@ -57,7 +57,7 @@
 </div>
 <div class="row mt-2">
   <div class="col-md-2" *ngFor="let user of topWinners; let i = index;">
-    <div class="card main-card animated fadeIn fast active-user-card pt-0">
+    <div class="card main-card animated fadeIn fast active-user-card pt-0 dashboard-user-card">
       <mat-card-content class="card-body d-flex justify-content-center align-items-center flex-column">
         <div class="d-flex flex-column justify-content-center align-items-center most-active-user-card"
           [routerLink]="['/profile', user._id]">

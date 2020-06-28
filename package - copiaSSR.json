@@ -12,6 +12,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "dev:ssr": "ng run adminpro:serve-ssr",
+    "serve:ssr": "node dist/adminpro/server/main.js",
+    "build:ssr": "ng build --prod && ng run adminpro:server:production",
     "prerender": "ng run adminpro:prerender"
   },
   "private": true,

@@ -17,22 +17,22 @@ export class SettingsService {
     this.loadSettings();
    }
 
-  saveSettings(){    
+  saveSettings() {
     localStorage.setItem('settings', JSON.stringify(this.settings));
   }
 
-  loadSettings(){
-    if(localStorage.getItem('settings')){      
+  loadSettings() {
+    if (localStorage.getItem('settings')) {
       this.settings = JSON.parse(localStorage.getItem('settings'));
       this.applyTheme(this.settings.theme);
-    }else{      
+    } else {
       this.applyTheme(this.settings.theme);
     }
   }
 
-  applyTheme(theme: string){
-    let url = `assets/css/colors/${theme}.css`;
-    
+  applyTheme(theme: string) {
+    const url = `assets/css/colors/${theme}.css`;
+
     document.getElementById('tema').setAttribute('href', url);
 
     this.settings.theme = theme;
@@ -42,6 +42,6 @@ export class SettingsService {
 }
 
 interface Settings {
-  themeUrl : string,
-  theme: string
+  themeUrl: string;
+  theme: string;
 }

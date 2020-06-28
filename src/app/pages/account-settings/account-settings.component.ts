@@ -22,22 +22,22 @@ export class AccountSettingsComponent implements OnInit {
     this.translate = this.translationService.getTranslateService();
   }
 
-  changeColor(theme: string){
+  changeColor(theme: string) {
     this._settingsService.applyTheme(theme);
     this.activeTheme = theme;
   }
-  addChecked(){
-    let selectores: any = document.getElementsByClassName('selector');
-    let tema = this._settingsService.settings;
-    for (let selector of selectores) {
-     if(selector.getAttribute('data-theme') == tema){
+  addChecked() {
+    const selectores: any = document.getElementsByClassName('selector');
+    const tema = this._settingsService.settings;
+    for (const selector of selectores) {
+     if (selector.getAttribute('data-theme') == tema) {
       selector.classList.add('working');
       break;
      }
     }
   }
 
-  changeLanguage(lang:string){
+  changeLanguage(lang: string) {
     this.translationService.changeLanguage(lang);
   }
 

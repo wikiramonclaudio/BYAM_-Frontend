@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "byam": {
+    "adminpro": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/byam/browser",
+            "outputPath": "dist/adminpro/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -54,18 +54,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "byam:build"
+            "browserTarget": "adminpro:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "byam:build:production"
+              "browserTarget": "adminpro:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "byam:build"
+            "browserTarget": "adminpro:build"
           }
         },
         "test": {
@@ -104,7 +104,7 @@
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "dist/byam/server",
+            "outputPath": "dist/adminpro/server",
             "main": "server.ts",
             "tsConfig": "src/tsconfig.server.json"
           },
@@ -125,21 +125,21 @@
         "serve-ssr": {
           "builder": "@nguniversal/builders:ssr-dev-server",
           "options": {
-            "browserTarget": "byam:build",
-            "serverTarget": "byam:server"
+            "browserTarget": "adminpro:build",
+            "serverTarget": "adminpro:server"
           },
           "configurations": {
             "production": {
-              "browserTarget": "byam:build:production",
-              "serverTarget": "byam:server:production"
+              "browserTarget": "adminpro:build:production",
+              "serverTarget": "adminpro:server:production"
             }
           }
         },
         "prerender": {
           "builder": "@nguniversal/builders:prerender",
           "options": {
-            "browserTarget": "byam:build:production",
-            "serverTarget": "byam:server:production",
+            "browserTarget": "adminpro:build:production",
+            "serverTarget": "adminpro:server:production",
             "routes": [
               "/"
             ]
@@ -150,7 +150,7 @@
         }
       }
     },
-    "byam-e2e": {
+    "adminpro-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "targets": {
@@ -158,11 +158,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "byam:serve"
+            "devServerTarget": "adminpro:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "byam:serve:production"
+              "devServerTarget": "adminpro:serve:production"
             }
           }
         },
@@ -178,7 +178,7 @@
       }
     }
   },
-  "defaultProject": "byam",
+  "defaultProject": "adminpro",
   "cli": {
     "defaultCollection": "@nativescript/schematics"
   }
