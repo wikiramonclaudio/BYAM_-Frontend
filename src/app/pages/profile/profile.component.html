@@ -2,7 +2,10 @@
   <div class="col-lg-7">
     <div class="card animated fadeIn">
       <div class="card-body">
-        <h4 class="card-title">{{translate.instant('profile.user_profile')}}</h4>
+        <h4 class="card-title">
+          <!-- {{translate.instant('profile.user_profile')}} -->
+          &nbsp;
+        </h4>
         <!-- <h5 class="card-subtitle">{{user.name}}</h5> -->
         <form ngNativeValidate #f="ngForm" (ngSubmit)="save( f.value )" class="form p-t-20">
           <div class="form-group">

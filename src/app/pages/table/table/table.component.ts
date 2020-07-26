@@ -70,6 +70,10 @@ export class TableComponent implements OnInit, OnDestroy {
     public translationService: TranslationService
   ) { }
 
+  ngOnDestroy(): void {
+
+  }
+
   ngOnInit() {
     const tableId = this.route.snapshot.paramMap.get('id');
     this.translate = this.translationService.getTranslateService();
@@ -478,33 +482,5 @@ export class TableComponent implements OnInit, OnDestroy {
     );
   }
 
-  // enviar() {
-  //   if (this.texto.trim().length == 0) {
-  //     return;
-  //   }
-  //   this.websocketService.emit('RoomMessage', { user: this.userService.user, text: this.texto, tableId: this.table._id });
-  //   const newMsg = new Message(this.userService.user._id, this.table._id, this.texto);
-  //   this.messageService.createMessage(newMsg).subscribe(
-  //     res => {
-  //       console.log('Mensajolo guardado', res);
-  //     }
-  //   );
-  //   this.texto = '';
-  //   this.textField.focus();
-  // }
-
-
-  ngOnDestroy(): void {
-  // Called once, before the instance is destroyed.
-  // Add 'implements OnDestroy' to the class.
-  // console.log('SE ABANDONA EL SOCKET');
-  // this.websocketService.emit('leaveTable', {tableId: this.table._id, user: this.userService.user});
-  }
-
-  // ngAfterContentInit() {
-  // console.log('ngAfterContentInit');
-  // if (this.checkSubscription())
-  //   this.subscribeToSocket();
-  // }
 
 }

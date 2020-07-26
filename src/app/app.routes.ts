@@ -1,3 +1,4 @@
+import { LoggedGuard } from './services/guards/logged.guard';
 import { NotificationsComponent } from './pages/notifications/notifications/notifications.component';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -8,7 +9,7 @@ import { PagesComponent } from './pages/pages.component';
 import { LoginGuardGuard } from './services/service.index';
 
 const appRoutes: Routes = [
-    { path : 'login', component : LoginComponent },
+    { path : 'login', component : LoginComponent, canActivate: [LoggedGuard] },
     { path : 'register', component : RegisterComponent },
     // lazyload
     {

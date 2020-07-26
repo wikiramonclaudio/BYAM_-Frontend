@@ -17,3 +17,10 @@
   /* background-color: rgb(235, 235, 235); */
   /* border: 2px solid white; */
 }
+
+
+.byam-title {
+  margin-top: 16px;
+  font-family: cursive;
+  text-shadow: 2px 2px 2px white;
+}

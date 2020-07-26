@@ -55,7 +55,6 @@ export class TableService {
     const url = URL_SERVICES + '/search/collection/table/' + term;
     return this._http.get(url).map(
       (response: any) => {
-        console.log(response);
         return response.table;
       }
     );
