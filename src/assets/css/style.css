@@ -1309,6 +1309,7 @@ BYAM SCSS
  Topbar
 *******************/
 .fix-header .topbar {
+  top:0;
   position: fixed;
   width: 100%;
   -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);

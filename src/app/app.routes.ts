@@ -9,7 +9,11 @@ import { PagesComponent } from './pages/pages.component';
 import { LoginGuardGuard } from './services/service.index';
 
 const appRoutes: Routes = [
-    { path : 'login', component : LoginComponent, canActivate: [LoggedGuard] },
+    {
+      path : 'login',
+      component : LoginComponent
+      // canActivate: [LoggedGuard]
+    },
     { path : 'register', component : RegisterComponent },
     // lazyload
     {

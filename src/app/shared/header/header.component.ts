@@ -33,9 +33,4 @@ export class HeaderComponent implements OnInit {
     this.translationService.changeLanguage(lang);
   }
 
-  showCallsPanel(){
-    var jQueryVideocontainer = $('.video-container');
-    jQueryVideocontainer.toggle();
-  }
-
 }

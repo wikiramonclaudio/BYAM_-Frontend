@@ -44,7 +44,6 @@
         <br><br>
         <button (click)="updateImage()" [disabled]="!fileToUpload" [hidden]="this.userService.user._id != profileId" type="submit"
           class="btn btn-block bg-theme text-white waves-effect waves-light float-right bg-theme text-white">
-          <!-- <i class="fa fa-save"></i> -->
           {{translate.instant('profile.update_profile_image')}}</button>
       </div>
     </div>

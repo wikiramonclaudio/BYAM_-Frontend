@@ -27,7 +27,6 @@ export class BetService {
   }
 
   deleteBet(id: string, token: string) {
-    // PONER EL TOKEN
     const url = URL_SERVICES + '/bet/' + id + '?token=' + localStorage.getItem('token');
     return this._http.delete(url);
   }

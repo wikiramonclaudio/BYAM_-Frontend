@@ -4,43 +4,66 @@ BYAM SCSS
  /*
 BYAM SCSS
 */
-/*Theme Colors*/
-/*bootstrap Color*/
-/*Light colors*/
-/*Normal Color*/
-/*Extra Variable*/
-/*******************
+ /*Theme Colors*/
+ /*bootstrap Color*/
+ /*Light colors*/
+ /*Normal Color*/
+ /*Extra Variable*/
+ /*******************
 Login register and recover password Page
 ******************/
-.login-register {
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    height: 100%;
-    width: 100%;
-    padding: 10% 0;
-    position: fixed; }
+ .login-register {
+   background-size: cover;
+   background-repeat: no-repeat;
+   background-position: center center;
+   height: 100%;
+   width: 100%;
+   padding: 10% 0;
+   position: fixed;
+ }
 
-  .login-box {
-    min-width: 300px;;
-    max-width: 400px;
-    box-shadow: none!important;
-    margin: 0 auto; }
-    .login-box .footer {
-      width: 100%;
-      left: 0px;
-      right: 0px; }
-    .login-box .social {
-      display: block;
-      margin-bottom: 30px; }
+ .login-box {
+   min-width: 300px;
+   ;
+   max-width: 400px;
+   box-shadow: none !important;
+   margin: 0 auto;
+ }
 
-  #recoverform {
-    display: none; }
+ .login-box .footer {
+   width: 100%;
+   left: 0px;
+   right: 0px;
+ }
 
-  .login-sidebar {
-    padding: 0px;
-    margin-top: 0px; }
-    .login-sidebar .login-box {
-      right: 0px;
-      position: absolute;
-      height: 100%; }
+ .login-box .social {
+   display: block;
+   margin-bottom: 30px;
+ }
+
+ #recoverform {
+   display: none;
+ }
+
+ .login-sidebar {
+   padding: 0px;
+   margin-top: 0px;
+ }
+
+ .login-sidebar .login-box {
+   right: 0px;
+   position: absolute;
+   height: 100%;
+ }
+
+ .login-byam-content {
+   margin-top: 30px;
+ }
+
+ .login-byam-content .byam-login {
+   margin-top: 20px;
+   color: rgb(63 81 105);
+   text-shadow: 1px 1px 2px rgb(243, 238, 238);
+   font-family: 'Aclonica', sans-serif;
+   font-size: 46px;
+ }
