@@ -60,9 +60,10 @@ export class CreateMatchComponent implements OnInit {
         this.leagues = res.leagues;
         if (res.length > 0) {
           this.league = res.leagues[0];
-          console.log('League', this.league);
           this.clubs = this.league.clubs;
         }
+        this.match.localteam = '';
+        this.match.awayteam = '';
         $('select').each(function () {
           const $this = $(this), numberOfOptions = $(this).children('option').length;
 

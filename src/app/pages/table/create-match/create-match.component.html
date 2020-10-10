@@ -4,12 +4,26 @@
       <div class="card-body">
         <form ngNativeValidate (ngSubmit)="createMatch()" class="form-horizontal">
           <div class="d-flex flex-column justify-content-center align-items-center">
-            <mat-radio-group aria-label="Selecciona un deporte" [(ngModel)]="sport" name="sport" [color]="'primary'"
+            <!-- <mat-radio-group aria-label="Selecciona un deporte" [(ngModel)]="sport" name="sport" [color]="'primary'"
               class="mb-3">
-              <mat-radio-button value="futbol" [checked]="true">Fútbol</mat-radio-button>
+              <mat-radio-button value="Football" [checked]="true">Fútbol</mat-radio-button>
               <mat-radio-button class="ml-3" value="Tennis">Tennis</mat-radio-button>
-            </mat-radio-group>
-            <div class="form-group col-md-12" *ngIf="sport == 'futbol' || sport!='Tennis'">
+            </mat-radio-group> -->
+            <!-- <mat-form-field class="example-full-width" *ngIf="sport == 'Tennis'">
+              <mat-label>Torneo</mat-label>
+              <textarea matInput placeholder="Torneo" name="torneo" required [(ngModel)]="tennisTournament"></textarea>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" *ngIf="sport == 'Tennis'">
+              <mat-label>Jugador 1</mat-label>
+              <textarea matInput placeholder="Jugador 1" [(ngModel)]="match.localteam" name="localteam"
+                required></textarea>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" *ngIf="sport == 'Tennis'" class="mb-3">
+              <mat-label>Jugador 2</mat-label>
+              <textarea matInput placeholder="Jugador 2" [(ngModel)]="match.awayteam" name="awayteam"
+                required></textarea>
+            </mat-form-field> -->
+            <div class="form-group col-md-12" *ngIf="true">
               <div class="">
                 <label for="">{{translate.instant('main.tournament')}} -
                   {{translate.instant('main.local_team')}}</label>
@@ -25,7 +39,7 @@
                 </select>
               </div>
             </div>
-            <div class="form-group col-md-12" *ngIf="sport == 'futbol' || sport!='Tennis'">
+            <div class="form-group col-md-12" *ngIf="true">
               <div class="">
                 <label for="">{{translate.instant('main.tournament')}} - {{translate.instant('main.away_team')}}</label>
                 <select name="competicion" id="competition" [(ngModel)]="league"
@@ -35,28 +49,13 @@
                     {{league.name}}</option>
                 </select>
               </div>
-              <div class="" *ngIf="league">
+              <div *ngIf="league">
                 <select name="club" [(ngModel)]="match.awayteam" class="select-styled select bg-theme text-white">
                   <option class="bg-theme text-white" *ngFor="let club of clubs" [value]="club.name">{{club.name}}
                   </option>
                 </select>
               </div>
             </div>
-
-            <mat-form-field class="example-full-width" *ngIf="sport == 'Tennis'">
-              <mat-label>Torneo</mat-label>
-              <textarea matInput placeholder="Torneo" name="torneo" required [(ngModel)]="tennisTournament"></textarea>
-            </mat-form-field>
-            <mat-form-field class="example-full-width" *ngIf="sport == 'Tennis'">
-              <mat-label>Jugador 1</mat-label>
-              <textarea matInput placeholder="Jugador 1" [(ngModel)]="match.localteam" name="localteam"
-                required></textarea>
-            </mat-form-field>
-            <mat-form-field class="example-full-width" *ngIf="sport == 'Tennis'" class="mb-3">
-              <mat-label>Jugador 2</mat-label>
-              <textarea matInput placeholder="Jugador 2" [(ngModel)]="match.awayteam" name="awayteam"
-                required></textarea>
-            </mat-form-field>
           </div>
           <div class="form-group">
             <div class="col-xs-12 col-md-8 justify-content-center">
