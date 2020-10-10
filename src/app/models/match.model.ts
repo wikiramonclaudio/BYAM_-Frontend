@@ -11,7 +11,8 @@ export class Match {
         public selected?: boolean,
         public goals?: string,
         public localteamgoals?: string,
-        public awayteamgoals?: string
+        public awayteamgoals?: string,
+        public sport?: string
     ) {
     }
-}  
+}

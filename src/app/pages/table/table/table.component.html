@@ -89,10 +89,18 @@
                 <span class="ml-2"
                   style="font-size: 13px; color: #ccc2c2;">{{matchByTable.match.when | date: 'short' : 'es'}}</span>
                 <br>
-                <p-dropdown optionLabel="name" [name]="'name'"
-                  [options]="[{name: '-', label : '-'},matchByTable.bettype.option1, matchByTable.bettype.option2,matchByTable.bettype.option3]"
-                  [(ngModel)]="matchByTable.choice" (onChange)="toggleOption(matchByTable, 1, $event.value._id)">
-                </p-dropdown>
+                <div *ngIf="matchByTable.match.sport == 'Tennis'">
+                  <p-dropdown optionLabel="name" [name]="'name'"
+                    [options]="[{name: '-', label : '-'},matchByTable.bettype.option1,matchByTable.bettype.option3]"
+                    [(ngModel)]="matchByTable.choice" (onChange)="toggleOption(matchByTable, 1, $event.value._id)">
+                  </p-dropdown>
+                </div>
+                <div *ngIf="matchByTable.match.sport != 'Tennis'">
+                  <p-dropdown optionLabel="name" [name]="'name'"
+                    [options]="[{name: '-', label : '-'},matchByTable.bettype.option1, matchByTable.bettype.option2,matchByTable.bettype.option3]"
+                    [(ngModel)]="matchByTable.choice" (onChange)="toggleOption(matchByTable, 1, $event.value._id)">
+                  </p-dropdown>
+                </div>
                 <div *ngIf="matchByTable.tiebreak">
                   <form ngNativeValidate class="form-horizontal form-material">
                     <h5><span class="badge badge-info pl-2 pr-2 mt-2" style="white-space: pre-wrap;">
@@ -182,7 +190,6 @@
               </li>
             </ul>
             <ul class="flex-2 pl-2" style="width: 100%;">
-              <!-- <li *ngFor="let subscription of tableSubscriptions">{{subscription.player.name}} </li> -->
               <div id="chat-mensajes" style="height: 230px;overflow-y: auto; border-left: 1px solid #e1e1e1;">
                 <li *ngFor="let mensaje of mensajes" class="list-group-item p-2 d-flex flex-column"
                   style="border: none;">

@@ -20,7 +20,7 @@ export class CreateMatchComponent implements OnInit {
   club: any;
   league: any;
   translate: TranslateService;
-  sport = 'futbol';
+  sport = '';
   tennisTournament = '';
   constructor(
     private matchService: MatchService,
@@ -35,7 +35,8 @@ export class CreateMatchComponent implements OnInit {
 
   createMatch() {
     this.match.where = 'SEGOVIA';
-    if (this.sport == 'tenis') {
+    if (this.sport == 'Tennis') {
+      this.match.sport = 'Tennis';
       this.match.tournament == this.tennisTournament;
     }
     if (this.match.localteam != this.match.awayteam) {
@@ -59,6 +60,7 @@ export class CreateMatchComponent implements OnInit {
         this.leagues = res.leagues;
         if (res.length > 0) {
           this.league = res.leagues[0];
+          console.log('League', this.league);
           this.clubs = this.league.clubs;
         }
         $('select').each(function () {
@@ -110,6 +112,8 @@ export class CreateMatchComponent implements OnInit {
   }
 
   changeLeague(league: any) {
+    this.match.sport = JSON.parse(league).sport;
+    this.sport = JSON.parse(league).sport;
     this.clubs = JSON.parse(this.league).clubs;
     this.match.tournament = this.league.name;
   }

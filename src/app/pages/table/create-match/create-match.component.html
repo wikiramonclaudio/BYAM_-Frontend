@@ -7,9 +7,9 @@
             <mat-radio-group aria-label="Selecciona un deporte" [(ngModel)]="sport" name="sport" [color]="'primary'"
               class="mb-3">
               <mat-radio-button value="futbol" [checked]="true">Fútbol</mat-radio-button>
-              <mat-radio-button class="ml-3" value="tenis">Tenis</mat-radio-button>
+              <mat-radio-button class="ml-3" value="Tennis">Tennis</mat-radio-button>
             </mat-radio-group>
-            <div class="form-group col-md-12" *ngIf="sport == 'futbol'">
+            <div class="form-group col-md-12" *ngIf="sport == 'futbol' || sport!='Tennis'">
               <div class="">
                 <label for="">{{translate.instant('main.tournament')}} -
                   {{translate.instant('main.local_team')}}</label>
@@ -25,7 +25,7 @@
                 </select>
               </div>
             </div>
-            <div class="form-group col-md-12" *ngIf="sport == 'futbol'">
+            <div class="form-group col-md-12" *ngIf="sport == 'futbol' || sport!='Tennis'">
               <div class="">
                 <label for="">{{translate.instant('main.tournament')}} - {{translate.instant('main.away_team')}}</label>
                 <select name="competicion" id="competition" [(ngModel)]="league"
@@ -43,16 +43,16 @@
               </div>
             </div>
 
-            <mat-form-field class="example-full-width" *ngIf="sport == 'tenis'">
+            <mat-form-field class="example-full-width" *ngIf="sport == 'Tennis'">
               <mat-label>Torneo</mat-label>
               <textarea matInput placeholder="Torneo" name="torneo" required [(ngModel)]="tennisTournament"></textarea>
             </mat-form-field>
-            <mat-form-field class="example-full-width" *ngIf="sport == 'tenis'">
+            <mat-form-field class="example-full-width" *ngIf="sport == 'Tennis'">
               <mat-label>Jugador 1</mat-label>
               <textarea matInput placeholder="Jugador 1" [(ngModel)]="match.localteam" name="localteam"
                 required></textarea>
             </mat-form-field>
-            <mat-form-field class="example-full-width" *ngIf="sport == 'tenis'" class="mb-3">
+            <mat-form-field class="example-full-width" *ngIf="sport == 'Tennis'" class="mb-3">
               <mat-label>Jugador 2</mat-label>
               <textarea matInput placeholder="Jugador 2" [(ngModel)]="match.awayteam" name="awayteam"
                 required></textarea>
