@@ -14,10 +14,12 @@ import { SubscriptionTableService } from 'src/app/services/tablesubscription/tab
 import swal from 'sweetalert';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslationService } from 'src/app/services/translation/translation.service';
+import {SelectItem} from 'primeng/api';
+
 @Component({
   selector: 'app-create-table',
   templateUrl: './create-table.component.html',
-  styleUrls: ['./create-table.component.css']
+  styleUrls: ['./create-table.component.scss']
 })
 export class CreateTableComponent implements OnInit {
   public tableForm: FormGroup;
@@ -33,6 +35,7 @@ export class CreateTableComponent implements OnInit {
   submitted = false;
   tiebreakMatch: any;
   translate: TranslateService;
+
   constructor(
     private router: Router,
     private tableService: TableService,
@@ -42,7 +45,7 @@ export class CreateTableComponent implements OnInit {
     private matchTypeRelService: MatchTypeRelationService,
     public tableSubscriptionService: SubscriptionTableService,
     public translationService: TranslationService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.translate = this.translationService.getTranslateService();
@@ -82,7 +85,17 @@ export class CreateTableComponent implements OnInit {
   getMatches() {
     this.matchService.getMatches().subscribe(
       res => {
-        this.matches = res.matches;
+        // this.matches = res.matches;
+        // multiselect Prime list
+        let formatedMatches = [];
+        res.matches.forEach((match, index, array) => {
+          const newMatch = {
+            label: match.localteam + ' vs ' + match.awayteam,
+            value: match
+          };
+          formatedMatches.push(newMatch);
+        });
+        this.matches = formatedMatches;
         this.getBetTypes();
       }
     );
@@ -113,6 +126,20 @@ export class CreateTableComponent implements OnInit {
   // Save matches by table
   saveMatchesTypeRelation(tableId: string) {
     const arrayFechas = [];
+
+    console.log(this.selectedMatches);
+    this.matchesWithBetType = [];
+    this.selectedMatches.forEach((item: any, index, array) => {
+      console.log(item);
+      const newMatchTypeRelation = {
+        match: item._id,
+        bettype: this.betTypes[0]._id,
+        matchdate: item.when
+      };
+
+      this.matchesWithBetType.push(newMatchTypeRelation);
+    });
+    this.tiebreakMatch = this.matchesWithBetType[0].match;
     this.matchesWithBetType.forEach((item) => {
       arrayFechas.push(item.matchdate);
       if (item.match == this.tiebreakMatch) {
@@ -138,55 +165,55 @@ export class CreateTableComponent implements OnInit {
   }
 
   // Add match to selected matches (To save them on this table)
-  saveMatch(event: any, betType: any, tableId: string) {
-    const match = event.items[0];
-    const matches = event.items;
+  // saveMatch(event: any, betType: any, tableId: string) {
+  //   const match = event.items[0];
+  //   const matches = event.items;
 
-    matches.forEach(match => {
-      match.tiebreak = false;
-      const exists = this.matchesWithBetType.find((item) => {
-        return item.match == match._id;
-      });
-      const newMatchTypeRelation = {
-        match: match._id,
-        bettype: this.betTypes[0]._id,
-        matchdate: match.when
-      };
-      if (!exists) {
-        this.matchesWithBetType.push(newMatchTypeRelation);
-      } else {
-        swal('Partido añadido', 'Este partido ya está añadido', 'warning');
-      }
-    });
-    this.tiebreakMatch = match._id;
-  }
+  //   matches.forEach(match => {
+  //     match.tiebreak = false;
+  //     const exists = this.matchesWithBetType.find((item) => {
+  //       return item.match == match._id;
+  //     });
+  //     const newMatchTypeRelation = {
+  //       match: match._id,
+  //       bettype: this.betTypes[0]._id,
+  //       matchdate: match.when
+  //     };
+  //     if (!exists) {
+  //       this.matchesWithBetType.push(newMatchTypeRelation);
+  //     } else {
+  //       swal('Partido añadido', 'Este partido ya está añadido', 'warning');
+  //     }
+  //   });
+  //   this.tiebreakMatch = match._id;
+  // }
 
-  removeSelectedMatchTypeRelation(event) {
-    // quitar de los this.matchesWithBetType
-    event.items.forEach((item) => {
-      const exists = this.matchesWithBetType.find((item) => {
-        return item.match == item._id;
-      });
-      this.matchesWithBetType = this.matchesWithBetType.filter((matchWithBet) => {
-        return !exists;
-      });
-    });
+  // removeSelectedMatchTypeRelation(event) {
+  //   // quitar de los this.matchesWithBetType
+  //   event.items.forEach((item) => {
+  //     const exists = this.matchesWithBetType.find((item) => {
+  //       return item.match == item._id;
+  //     });
+  //     this.matchesWithBetType = this.matchesWithBetType.filter((matchWithBet) => {
+  //       return !exists;
+  //     });
+  //   });
 
-  }
+  // }
 
   // check selected tiebrekmatch (Draws)
-  setTieBreak(event) {
-    const match = event.items[0];
-    this.matches.forEach((ma) => {
-      ma.tiebreak = false;
-    });
-    this.tiebreakMatch = match._id;
-    match.tiebreak = !match.tiebreak;
-  }
+  // setTieBreak(event) {
+  //   const match = event.items[0];
+  //   this.matches.forEach((ma) => {
+  //     ma.tiebreak = false;
+  //   });
+  //   this.tiebreakMatch = match._id;
+  //   match.tiebreak = !match.tiebreak;
+  // }
 
   // check selected tiebrekmatch
   checkTieBreakSelection() {
-    if (this.tiebreakMatch) {
+    if (!this.tiebreakMatch) {
       return true;
     } else {
       return false;
@@ -194,8 +221,8 @@ export class CreateTableComponent implements OnInit {
   }
 
   // Deselect selected match
-  deselectMatch(match: any, matches: any []) {
-    match.selected = false;
-  }
+  // deselectMatch(match: any, matches: any []) {
+  //   match.selected = false;
+  // }
 
 }

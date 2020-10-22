@@ -18,29 +18,30 @@ export class MatchTypeRelationService {
     public uploadService: UploadFileService
   ) { }
 
-  getMatchTypeRelations(): Observable<any>{
-    let url = URL_SERVICES + '/match-type-relation';    
+  getMatchTypeRelations(toCheck: any): Observable<any> {
+    // let url = URL_SERVICES + '/match-type-relation/' + toCheck;
+    const url = URL_SERVICES + '/match-type-relation/';
     return this._http.get(url);
   }
 
-  getMatchTypeRelation(id: string): Observable<any>{
-    let url = URL_SERVICES + '/match-type-relation/' + id;    
+  getMatchTypeRelation(id: string): Observable<any> {
+    const url = URL_SERVICES + '/match-type-relation/' + id;
     return this._http.get(url);
   }
 
-  deleteMatchTypeRelation(id: string, token: string){
-    //PONER EL TOKEN
-    let url = URL_SERVICES + '/match-type-relation/' + id + '?token=' + localStorage.getItem('token');
+  deleteMatchTypeRelation(id: string, token: string) {
+    // PONER EL TOKEN
+    const url = URL_SERVICES + '/match-type-relation/' + id + '?token=' + localStorage.getItem('token');
     return this._http.delete(url);
   }
 
   createMatchTypeRelation(matchTypeRelation: any) {
-    let params = JSON.stringify(matchTypeRelation);
-    let url = URL_SERVICES + '/match-type-relation'+ '?token=' + localStorage.getItem('token');    
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const params = JSON.stringify(matchTypeRelation);
+    const url = URL_SERVICES + '/match-type-relation' + '?token=' + localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.post(url, params, { headers: headers })
-    .map((res: any)=>{
-      swal("MatchTypeRelation registrado", " " + matchTypeRelation.name, "success");
+    .map((res: any) => {
+      swal('MatchTypeRelation registrado', ' ' + matchTypeRelation.name, 'success');
       return res.matchTypeRelation;
     });
   }
@@ -48,37 +49,37 @@ export class MatchTypeRelationService {
 
   createManyMatchTypeRelations(matchTypeRelationes: any) {
     console.log(matchTypeRelationes);
-    let params = JSON.stringify(matchTypeRelationes);
-    let url = URL_SERVICES + '/match-type-relation/several'+ '?token=' + localStorage.getItem('token');    
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const params = JSON.stringify(matchTypeRelationes);
+    const url = URL_SERVICES + '/match-type-relation/several' + '?token=' + localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.post(url, params, { headers: headers })
-    .map((res: any)=>{
+    .map((res: any) => {
       // swal("MatchTypeRelation registrado", " " + matchTypeRelation.name, "success");
       return res;
     });
   }
 
-  searchMatchTypeRelation(term: string){
-    let url = URL_SERVICES + '/search/collection/match-type-relation/' + term;
+  searchMatchTypeRelation(term: string) {
+    const url = URL_SERVICES + '/search/collection/match-type-relation/' + term;
     return this._http.get(url).map(
-      (response: any)=>{        
+      (response: any) => {
         console.log(response);
         return response.matchTypeRelation;
       }
-    )
+    );
   }
 
-  updateMatchTypeRelation(matchTypeRelation: any){
-    let params = JSON.stringify(matchTypeRelation);
-    let url = URL_SERVICES + '/match-type-relation/' + matchTypeRelation._id;  
-    //revisar token
-    url += '?token=' + localStorage.getItem('token'); 
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this._http.put(url, matchTypeRelation, { headers: headers });    
+  updateMatchTypeRelation(matchTypeRelation: any) {
+    const params = JSON.stringify(matchTypeRelation);
+    let url = URL_SERVICES + '/match-type-relation/' + matchTypeRelation._id;
+    // revisar token
+    url += '?token=' + localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.put(url, matchTypeRelation, { headers: headers });
   }
 
-  getMatchTypeRelationsByTable(tableId: string){    
-    let url = URL_SERVICES + '/match-type-relation/' + tableId;    
+  getMatchTypeRelationsByTable(tableId: string) {
+    const url = URL_SERVICES + '/match-type-relation/' + tableId;
     return this._http.get(url);
   }
 

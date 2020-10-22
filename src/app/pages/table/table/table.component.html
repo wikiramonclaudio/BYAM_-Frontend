@@ -101,12 +101,29 @@
                     [(ngModel)]="matchByTable.choice" (onChange)="toggleOption(matchByTable, 1, $event.value._id)">
                   </p-dropdown>
                 </div>
-                <div *ngIf="matchByTable.tiebreak">
+                <div *ngIf="matchByTable.tiebreak && matchByTable.match.sport != 'Tennis' ">
                   <form ngNativeValidate class="form-horizontal form-material">
-                    <h5><span class="badge badge-info pl-2 pr-2 mt-2" style="white-space: pre-wrap;">
+                    <h5>
+                      <span class="badge badge-info pl-2 pr-2 mt-2" style="white-space: pre-wrap;">
                         Pronóstico desempate (Num goles partido). Cuando haya más de un ganador se
                         revisará este pronóstico para desempatar.
-                      </span></h5>
+                      </span>
+                    </h5>
+                    <span style="font-size: 14px;">Num total goles partido (Desempates)</span>
+                    <div class="form-group d-flex">
+                      <input class="form-control text-center" type="number" required placeholder="0"
+                        [(ngModel)]="goalsTotal" name="subject">
+                    </div>
+                  </form>
+                </div>
+                <div *ngIf="matchByTable.tiebreak && matchByTable.match.sport == 'Tennis' ">
+                  <form ngNativeValidate class="form-horizontal form-material">
+                    <h5>
+                      <span class="badge badge-info pl-2 pr-2 mt-2" style="white-space: pre-wrap;">
+                        Pronóstico desempate (Num sets partido). Cuando haya más de un ganador se
+                        revisará este pronóstico para desempatar.
+                      </span>
+                    </h5>
                     <span style="font-size: 14px;">Num total goles partido (Desempates)</span>
                     <div class="form-group d-flex">
                       <input class="form-control text-center" type="number" required placeholder="0"

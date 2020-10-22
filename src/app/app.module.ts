@@ -28,6 +28,7 @@ import { HttpClient } from '@angular/common/http';
 import { TranslationComponent } from './translation/translation.component';
 import { MinichatComponent } from './components/minichat/minichat.component';
 import { PipesModule } from './pipes/pipes.module';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 // import { PcComponent } from './components/pc/pc/pc.component';
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -47,6 +48,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    NgMultiSelectDropDownModule.forRoot(),
     BrowserAnimationsModule,
     APP_ROUTES,
     FormsModule,

@@ -37,7 +37,10 @@
           </span>
         </div> -->
         <br>
-        <p-pickList [source]="matches" [target]="selectedMatches" [responsive]="true"
+        <div class="createTableListContent">
+          <p-listbox [options]="matches" [(ngModel)]="selectedMatches" [multiple]="true" [checkbox]="true" class="w-100"></p-listbox>
+        </div>
+        <!-- <p-pickList [source]="matches" [target]="selectedMatches" [responsive]="true"
           sourceHeader="Partidos disponibles" targetHeader="Partidos añadidos" filterBy="localteam, awayteam"
           (onTargetSelect)="setTieBreak($event)" (onMoveToTarget)="saveMatch($event,'','')"
           (onMoveToSource)="removeSelectedMatchTypeRelation($event)">
@@ -53,7 +56,7 @@
               </a>
             </div>
           </ng-template>
-        </p-pickList>
+        </p-pickList> -->
         <div class="d-flex justify-content-center">
           <button class="btn bg-theme text-white ml-2 mt-4 " (click)="createTable()" [disabled]="selectedMatches.length<3"
             type="submit">

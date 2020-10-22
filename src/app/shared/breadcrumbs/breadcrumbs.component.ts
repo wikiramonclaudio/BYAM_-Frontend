@@ -20,24 +20,29 @@ export class BreadcrumbsComponent implements OnInit {
     private meta: Meta,
     public translationService: TranslationService
   ) {
+
+  }
+
+  ngOnInit() {
+    this.translate = this.translationService.getTranslateService();
     this.getRouteData()
       .subscribe(
         data => {
-          this.sectionTitle = data.title;
+          if (data && data.title) {
+            this.sectionTitle = this.translate.instant(data.title);
+          } else {
+            this.sectionTitle = data.title;
+          }
           this.title.setTitle(`BYAM - ${this.sectionTitle}`);
 
           const metaTag: MetaDefinition = {
             name: 'description',
             content: ' La sección es ---> ' + this.sectionTitle
           };
-
+          this.title.setTitle(`BYAM - ${this.sectionTitle}`);
           this.meta.updateTag(metaTag);
         }
       );
-  }
-
-  ngOnInit() {
-    this.translate = this.translationService.getTranslateService();
   }
 
   getRouteData() {

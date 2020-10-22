@@ -44,7 +44,7 @@ import {PickListModule} from 'primeng/picklist';
 import {DropdownModule} from 'primeng/dropdown';
 import {InputTextModule} from 'primeng/inputtext';
 import {CalendarModule} from 'primeng/calendar';
-
+import {ListboxModule} from 'primeng/listbox';
 // JQWIDGETS
 import { jqxKanbanModule } from 'jqwidgets-ng/jqxkanban';
 import { jqxSplitterModule } from 'jqwidgets-ng/jqxsplitter';
@@ -54,6 +54,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
 }
 
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 registerLocaleData(localeEs);
 
 @NgModule({
@@ -95,12 +96,14 @@ registerLocaleData(localeEs);
             }
           }),
         PickListModule,
+        ListboxModule,
         DropdownModule,
         InputTextModule,
         jqxKanbanModule,
         jqxSplitterModule,
         MaterialModule,
-        CalendarModule
+        CalendarModule,
+        NgMultiSelectDropDownModule .forRoot()
     ]
 })
 

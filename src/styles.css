@@ -191,3 +191,23 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   border-radius: 25px;
   box-shadow: 6px 6px 10px #cdc7c7;
 }
+
+
+/* Create table list prime */
+body .createTableListContent .ui-inputtext {
+  width: 100%;
+}
+
+.createTableListContent .ui-listbox .ui-listbox-list .ui-listbox-item.ui-state-highlight {
+  background-color: #6ec483;
+}
+.createTableListContent .ui-listbox .ui-listbox-list .ui-listbox-item:focus {
+  box-shadow: none;
+}
+
+.createTableListContent .ui-listbox {
+  padding: 0;
+  min-width: 12em;
+  background: #ffffff;
+  border: 1px solid #eae0e0;
+}

@@ -122,7 +122,7 @@ export class TableComponent implements OnInit, OnDestroy {
         }
       );
     } else {
-      swal('Rellena todos los pronósticos', 'Rellena todos los pronósticos incliyendo el número total de goles para unirte', 'error');
+      swal('Rellena todos los pronósticos', 'Rellena todos los pronósticos, incluyendo el campo de desempate (Nº Goles/Sets)', 'error');
     }
   }
 
@@ -221,6 +221,7 @@ export class TableComponent implements OnInit, OnDestroy {
   getFullMatchesByTable(tableId: string) {
     this.matchTypeRelationService.getMatchTypeRelationsByTable(tableId).subscribe(
       (res: any) => {
+        console.log('response table', res);
         this.matchTypeRelations = res.matchTypeRelation;
         this.tiebreakMatch = this.matchTypeRelations.find((el) => {
           return el.tiebreak == true;

@@ -42,7 +42,6 @@ export class CreateMatchComponent implements OnInit {
     if (this.match.localteam != this.match.awayteam) {
       this.matchService.createMatch(this.match).subscribe(
         res => {
-          // console.log('Creado nuevo partido', res);
           this.match.localteam = '';
           this.match.awayteam = '';
           this.match.when = '';
@@ -58,9 +57,9 @@ export class CreateMatchComponent implements OnInit {
     this.leagueService.getLeagues().subscribe(
       (res: any) => {
         this.leagues = res.leagues;
-        if (res.length > 0) {
+        if (res.leagues.length > 0) {
           this.league = res.leagues[0];
-          this.clubs = this.league.clubs;
+          this.clubs = this.league.clubs.sort((a, b) => a.name.localeCompare(b.name));
         }
         this.match.localteam = '';
         this.match.awayteam = '';
@@ -115,7 +114,7 @@ export class CreateMatchComponent implements OnInit {
   changeLeague(league: any) {
     this.match.sport = JSON.parse(league).sport;
     this.sport = JSON.parse(league).sport;
-    this.clubs = JSON.parse(this.league).clubs;
+    this.clubs = JSON.parse(this.league).clubs.sort((a, b) => a.name.localeCompare(b.name));
     this.match.tournament = this.league.name;
   }
 
