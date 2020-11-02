@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { URL_SERVICES } from 'src/app/config/config';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/map';
 import swal from 'sweetalert';
@@ -18,10 +18,11 @@ export class TableService {
     public uploadService: UploadFileService
   ) { }
 
-  getTables(filters: any, from: any): Observable<any> {
-    const params = JSON.stringify(filters);
-    const url = URL_SERVICES + '/table?from=' + from;
-    return this._http.get(url);
+  getTables(filters: any = { betamount: 0 }, from: any): Observable<any> {
+    // const params = JSON.stringify(filters);
+    const params = new HttpParams().set('filters', JSON.stringify(filters));
+    const url = URL_SERVICES + '/table?from=' + from + '&betamount=' + filters.betamount;
+    return this._http.get(url, { params: params });
   }
 
   getArchivedTables(filters: any): Observable<any> {

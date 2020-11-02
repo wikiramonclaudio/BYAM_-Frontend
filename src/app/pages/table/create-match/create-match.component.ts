@@ -44,7 +44,7 @@ export class CreateMatchComponent implements OnInit {
         res => {
           this.match.localteam = '';
           this.match.awayteam = '';
-          this.match.when = '';
+          // this.match.when = '';
         }
       );
     } else {

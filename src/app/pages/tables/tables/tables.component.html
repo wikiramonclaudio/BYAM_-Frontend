@@ -12,14 +12,30 @@
         <a href="javascript:void(0)" class="ml-2 btn animated fadeIn bg-theme text-white" (click)="getTables()">
           {{ translate.instant('main.all') }}
         </a>
-        <div class="d-flex justify-content-center animated fadeIn align-items-baseline search-table-box ml-3">
+        <br>
+        <mat-form-field class="ml-2 mt-2">
+          <mat-label>Por apuesta</mat-label>
+          <mat-select disableRipple [(ngModel)]="betamount" name="betamount" (ngModelChange)="getTables(betamount)">
+            <mat-option value="">{{translate.instant('main.all')}}</mat-option>
+            <mat-option value="1">1€</mat-option>
+            <mat-option value="2">2€</mat-option>
+            <mat-option value="5">5€</mat-option>
+            <mat-option value="10">10€</mat-option>
+            <mat-option value="15">15€</mat-option>
+            <mat-option value="20">20€</mat-option>
+            <mat-option value="30">30€</mat-option>
+            <mat-option value="50">50€</mat-option>
+            <mat-option value="100">100€</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- <div class="d-flex justify-content-center animated fadeIn align-items-baseline search-table-box ml-3">
           <i class="fa fa-search ml-2 mr-2 text-muted"></i>
           <span class="ui-float-label">
             <input id="float-input" type="text" size="30" name="filterSearch" (keyup)="filterTables()"
               [(ngModel)]="searchFilter" pInputText>
             <label for="float-input">{{translate.instant('chat.search_here')}}</label>
           </span>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

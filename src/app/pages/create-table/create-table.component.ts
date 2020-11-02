@@ -126,17 +126,13 @@ export class CreateTableComponent implements OnInit {
   // Save matches by table
   saveMatchesTypeRelation(tableId: string) {
     const arrayFechas = [];
-
-    console.log(this.selectedMatches);
     this.matchesWithBetType = [];
     this.selectedMatches.forEach((item: any, index, array) => {
-      console.log(item);
       const newMatchTypeRelation = {
         match: item._id,
         bettype: this.betTypes[0]._id,
         matchdate: item.when
       };
-
       this.matchesWithBetType.push(newMatchTypeRelation);
     });
     this.tiebreakMatch = this.matchesWithBetType[0].match;

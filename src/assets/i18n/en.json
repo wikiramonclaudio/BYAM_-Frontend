@@ -81,5 +81,6 @@
     "dashboard.see_whole_ranking" : "See full ranking",
     "dashboard.overview" : "Overview",
     "dashboard.wins" : "Wins",
-    "dashboard.money" : "Money"
+    "dashboard.money" : "Money",
+    "tables.by_bet_amount" : "By bet amount"
 }

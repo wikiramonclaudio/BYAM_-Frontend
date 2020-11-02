@@ -14,12 +14,26 @@
                 <span class="text-danger" style="font-size:13px;"
                   *ngIf="name.errors?.required">{{translate.instant('main.mandatory_field')}}</span>
               </div>
-              <div class="col-lg-3 col-xs-12 col-md-4 mt-2">
-                <input class="form-control" type="number" required
+              <div class="col-lg-3 col-xs-12 col-md-4 mt-3">
+                <mat-form-field class="">
+                  <mat-label>{{translate.instant('main.bet_amount')}}</mat-label>
+                  <mat-select disableRipple [(ngModel)]="table.betamount" #betamount="ngModel" name="betamount">
+                    <mat-option value="1">1€</mat-option>
+                    <mat-option value="2">2€</mat-option>
+                    <mat-option value="5">5€</mat-option>
+                    <mat-option value="10">10€</mat-option>
+                    <mat-option value="15">15€</mat-option>
+                    <mat-option value="20">20€</mat-option>
+                    <mat-option value="30">30€</mat-option>
+                    <mat-option value="50">50€</mat-option>
+                    <mat-option value="100">100€</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <!-- <input class="form-control" type="number" required
                   placeholder="{{translate.instant('main.bet_amount')}}" [(ngModel)]="table.betamount" name="betamount"
                   #betamount="ngModel">
                 <span class="text-danger" style="font-size:13px;"
-                  *ngIf="betamount.errors?.required">{{translate.instant('main.mandatory_field')}}</span>
+                  *ngIf="betamount.errors?.required">{{translate.instant('main.mandatory_field')}}</span> -->
               </div>
               <div class="col-lg-3 col-xs-12 col-md-4 mt-3" [hidden]="true">
                 <div class="checkbox checkbox-primary p-t-0">

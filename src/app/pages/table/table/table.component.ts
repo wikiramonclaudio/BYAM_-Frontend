@@ -112,7 +112,7 @@ export class TableComponent implements OnInit, OnDestroy {
                 element.table = this.table._id;
               });
               this.addForecastTobet();
-              swal('Te has registrado en la mesa', ' ', 'success');
+              swal('Te has registrado en la mesa', { icon: 'success', timer: 1000} );
             }
           );
         },

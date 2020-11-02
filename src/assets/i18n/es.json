@@ -81,6 +81,7 @@
     "dashboard.see_whole_ranking" : "Ver ranking completo",
     "dashboard.overview" : "Resumen",
     "dashboard.wins" : "Victorias",
-    "dashboard.money" : "Saldo"
+    "dashboard.money" : "Saldo",
+    "tables.by_bet_amount" : "Por apuesta"
 
 }
