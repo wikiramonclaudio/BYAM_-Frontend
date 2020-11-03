@@ -200,6 +200,7 @@ body .createTableListContent .ui-inputtext {
 
 .createTableListContent .ui-listbox .ui-listbox-list .ui-listbox-item.ui-state-highlight {
   background-color: #6ec483;
+  border-bottom: 1px solid #e1e1e1;
 }
 .createTableListContent .ui-listbox .ui-listbox-list .ui-listbox-item:focus {
   box-shadow: none;
@@ -210,4 +211,8 @@ body .createTableListContent .ui-inputtext {
   min-width: 12em;
   background: #ffffff;
   border: 1px solid #eae0e0;
+}
+
+.ui-listbox-item{
+  display:flex!important;
 }

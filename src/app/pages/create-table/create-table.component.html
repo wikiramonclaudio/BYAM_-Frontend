@@ -1,7 +1,7 @@
 <div class="row animated fadeIn">
   <div class="col-lg-12">
     <div class="card">
-      <div class="card-body pt-0 animated fadeInDown" >
+      <div class="card-body pt-0 animated fadeInDown">
         <div class="animated rubberBand" style="position:fixed; right: 5px; z-index: 999; top:50px;"
           *ngIf="betTypesLoaded">
         </div>
@@ -10,7 +10,7 @@
             <div class="row">
               <div class="col-lg-3 col-xs-12 col-md-4 mt-2">
                 <input class="form-control" type="text" required placeholder="{{translate.instant('main.game_name')}}"
-                  [(ngModel)]="table.name" name="name" #name="ngModel">
+                  [(ngModel)]="table.name" name="name" #name="ngModel" autocomplete="off">
                 <span class="text-danger" style="font-size:13px;"
                   *ngIf="name.errors?.required">{{translate.instant('main.mandatory_field')}}</span>
               </div>
@@ -52,7 +52,17 @@
         </div> -->
         <br>
         <div class="createTableListContent">
-          <p-listbox [options]="matches" [(ngModel)]="selectedMatches" [multiple]="true" [checkbox]="true" class="w-100"></p-listbox>
+          <p-listbox [options]="matches" [(ngModel)]="selectedMatches" [multiple]="true" [checkbox]="true"
+            class="w-100" [filter]="true" >
+            <ng-template let-match let-i="index" pTemplate="item">
+              <div class="d-flex justify-content-center align-items-start flex-column w-100 ml-2">
+                <!-- <img src="assets/showcase/images/demo/car/{{car.label}}.png"
+                  style="display:inline-block;margin:5px 0 0 5px" width="48"> -->
+                <span class="font-italic">{{match.value.when | date:  'd MMM, y, h:mm a' }}</span>
+                <span style="float:right;margin:8px 10px 0 0; font-weight: bold;">{{match.label}}</span>
+              </div>
+            </ng-template>
+          </p-listbox>
         </div>
         <!-- <p-pickList [source]="matches" [target]="selectedMatches" [responsive]="true"
           sourceHeader="Partidos disponibles" targetHeader="Partidos añadidos" filterBy="localteam, awayteam"
@@ -72,8 +82,8 @@
           </ng-template>
         </p-pickList> -->
         <div class="d-flex justify-content-center">
-          <button class="btn bg-theme text-white ml-2 mt-4 " (click)="createTable()" [disabled]="selectedMatches.length<3"
-            type="submit">
+          <button class="btn bg-theme text-white ml-2 mt-4 " (click)="createTable()"
+            [disabled]="selectedMatches.length<3" type="submit">
             {{translate.instant('table.create_game')}}
           </button>
         </div>
