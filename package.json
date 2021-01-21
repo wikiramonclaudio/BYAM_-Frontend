@@ -51,7 +51,7 @@
     "rxjs": "^6.5.4",
     "rxjs-compat": "^6.5.4",
     "smart-webcomponents-angular": "^7.4.0",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.4.0",
     "socket.io-client": "^2.3.0",
     "sweetalert": "^2.1.2",
     "tns-core-modules": "~5.2.0",
